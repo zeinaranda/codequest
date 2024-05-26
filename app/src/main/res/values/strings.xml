@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">testcodequest</string>
+    <string name="background">background</string>
+    <string name="avatar_image">avatar image</string>
+    <string name="coin_image">coin image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
