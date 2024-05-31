@@ -21,8 +21,10 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun moveToMainActivity() {
-
+        Handler(Looper.getMainLooper()).postDelayed({
                 startActivity(Intent(this, MainActivity::class.java))
-        Constant.SPLASH_TIME
+                finish()
+
+        }, Constant.SPLASH_TIME)
     }
 }
