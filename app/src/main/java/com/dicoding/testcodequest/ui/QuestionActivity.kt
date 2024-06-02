@@ -8,9 +8,11 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.data.response.BossDone
@@ -31,8 +33,6 @@ class QuestionActivity : AppCompatActivity() {
     private lateinit var preference: AuthPreference
     private var userId: Int? = null
 
-
-
     private val handler = Handler(Looper.getMainLooper())
     private var call: Call<List<Question>>? = null
 
@@ -51,7 +51,6 @@ class QuestionActivity : AppCompatActivity() {
         userId = preference.getId()
         Log.d("QuestionActivity", "User ID from Preference: $userId") // Cek userId dari preference
 
-
         questionText = findViewById(R.id.questionText)
         timerText = findViewById(R.id.timerText)
         option1 = findViewById(R.id.option1)
@@ -63,6 +62,9 @@ class QuestionActivity : AppCompatActivity() {
         option2.setOnClickListener { checkAnswer(option2) }
         option3.setOnClickListener { checkAnswer(option3) }
         option4.setOnClickListener { checkAnswer(option4) }
+
+        // Load GIF 1 on start
+        loadGif("url_gif_1")
 
         fetchQuestions()
         startStageTimer()
@@ -96,6 +98,9 @@ class QuestionActivity : AppCompatActivity() {
             option3.text = question.choicesThree
             option4.text = question.choicesFour
             resetButtonStyles()
+
+            // Load GIF 1 for new question
+            loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_makima_waifu2x_photo_noise3_scale.gif")
         } else {
             Toast.makeText(this, "Quiz completed!", Toast.LENGTH_SHORT).show()
             finishQuiz()
@@ -107,8 +112,11 @@ class QuestionActivity : AppCompatActivity() {
         if (selectedOption.text == correctAnswer) {
             selectedOption.background = ContextCompat.getDrawable(this, R.drawable.option_button_correct)
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
-            points += 40
+            points += 400
             coins += 80
+
+            // Load GIF 2 for correct answer
+            loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_makima bom.gif")
         } else {
             selectedOption.background = ContextCompat.getDrawable(this, R.drawable.option_button_wrong)
             Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT).show()
@@ -148,8 +156,24 @@ class QuestionActivity : AppCompatActivity() {
     private fun finishQuiz() {
         updateBossDone()
         Toast.makeText(this, "Quiz Finished!", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this, ShopActivity::class.java))
-        finish()
+
+        // Load GIF 3 if points >= 640
+        if (points >= 640) {
+            loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_makima die.gif")
+        } else {
+            loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_makima_waifu2x_photo_noise3_scale.gif")
+        }
+
+
+        // Start ShopActivity after delay
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent = Intent(this, ResultActivity::class.java).apply {
+                putExtra("points", points)
+                putExtra("coins", coins)
+            }
+            startActivity(intent)
+            finish()
+        }, 1500)// Jeda 1,5 detik sebelum berpindah ke ShopActivity
     }
 
     private fun updateBossDone() {
@@ -189,5 +213,13 @@ class QuestionActivity : AppCompatActivity() {
         stageTimer?.cancel() // Pastikan timer dibatalkan saat Activity dihancurkan
         handler.removeCallbacksAndMessages(null) // Batalkan semua callback dan pesan tertunda
         call?.cancel() // Batalkan Retrofit call jika belum selesai
+    }
+
+    private fun loadGif(url: String) {
+        val gifView: ImageView = findViewById(R.id.gifView)
+        Glide.with(this)
+            .asGif()
+            .load(url)
+            .into(gifView)
     }
 }
