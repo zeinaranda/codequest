@@ -112,7 +112,7 @@ class QuestionActivity : AppCompatActivity() {
         if (selectedOption.text == correctAnswer) {
             selectedOption.background = ContextCompat.getDrawable(this, R.drawable.option_button_correct)
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
-            points += 400
+            points += 1000
             coins += 80
 
             // Load GIF 2 for correct answer
