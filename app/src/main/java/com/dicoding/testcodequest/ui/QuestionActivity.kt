@@ -17,6 +17,7 @@ import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.data.response.BossDone
 import com.dicoding.testcodequest.data.response.Question
+import com.dicoding.testcodequest.data.response.User
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
 import com.dicoding.testcodequest.data.retrofit.ApiService
 import retrofit2.Call
@@ -32,6 +33,8 @@ class QuestionActivity : AppCompatActivity() {
     private lateinit var option4: Button
     private lateinit var preference: AuthPreference
     private var userId: Int? = null
+    private var currentPoints: Int = 0
+    private var currentCoins: Int = 0
 
     private val handler = Handler(Looper.getMainLooper())
     private var call: Call<List<Question>>? = null
@@ -153,7 +156,11 @@ class QuestionActivity : AppCompatActivity() {
         }.start()
     }
 
+
+
     private fun finishQuiz() {
+        updateUserPointsAndCoins()
+
         updateBossDone()
         Toast.makeText(this, "Quiz Finished!", Toast.LENGTH_SHORT).show()
 
@@ -163,7 +170,6 @@ class QuestionActivity : AppCompatActivity() {
         } else {
             loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_makima_waifu2x_photo_noise3_scale.gif")
         }
-
 
         // Start ShopActivity after delay
         Handler(Looper.getMainLooper()).postDelayed({
@@ -207,6 +213,42 @@ class QuestionActivity : AppCompatActivity() {
             })
         }
     }
+    private fun updateUserPointsAndCoins() {
+        userId?.let { id ->
+            // Mengambil poin dan koin yang ada di preference sebagai nilai saat ini
+            currentPoints = preference.getPoints()
+            currentCoins = preference.getCoins()
+            Log.d("QuestionActivity", "User ID from Preference: $userId, $currentCoins, $currentPoints") // Cek userId dari preference
+
+            // Menambahkan poin dan koin yang diperoleh selama kuis ke nilai saat ini
+            val newPoints = currentPoints + points
+            val newCoins = currentCoins + coins
+
+            val updatedUser = User(
+                userId = id,
+                point = newPoints,
+                koin = newCoins,
+            )
+
+            ApiConfig.getApiService().updateUserPoints(id, updatedUser).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@QuestionActivity, "Points and coins updated successfully", Toast.LENGTH_SHORT).show()
+                        // Update preferences dengan nilai terbaru
+                        preference.setPoints(newPoints)
+                        preference.setCoins(newCoins)
+                    } else {
+                        Toast.makeText(this@QuestionActivity, "Failed to update points and coins", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Toast.makeText(this@QuestionActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

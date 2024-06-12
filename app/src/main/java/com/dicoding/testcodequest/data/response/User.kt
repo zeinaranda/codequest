@@ -11,9 +11,18 @@ data class User(
     var nim: String? = null,
 
     @field:SerializedName("userId")
-    var userId: Int? = null,
+    var userId: Int,
 
     @field:SerializedName("token")
     var token: String? = null,
+
+    @field:SerializedName("point")
+    var point: Int,
+
+    @field:SerializedName("koin")
+    var koin: Int,
+
+    @field:SerializedName("ownedAvatars")
+    val ownedAvatars: List<Int>? = null
 
 )

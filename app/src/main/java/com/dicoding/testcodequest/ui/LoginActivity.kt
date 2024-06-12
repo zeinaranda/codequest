@@ -6,14 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
-import com.dicoding.testcodequest.ui.LoginViewModelFactory
 import com.dicoding.testcodequest.databinding.ActivityLoginBinding
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.testcodequest.data.response.User
-import com.dicoding.testcodequest.viewmodel.ShopViewModel
-import com.dicoding.testcodequest.viewmodel.ShopViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
 
@@ -65,7 +61,10 @@ class LoginActivity : AppCompatActivity() {
                         nama = loginResult.nama,
                         nim = loginResult.nim,
                         userId = loginResult.userId,
-                        token = loginResult.token
+                        token = loginResult.token,
+                        point = loginResult.point, // Inisialisasi nilai points
+                        koin = loginResult.koin,
+                        ownedAvatars = loginResult.ownedAvatars// Inisialisasi nilai coins
                     )
                     preferences.setUser(user)
                     preferences.setStatusLogin(true)
@@ -73,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Login Berhasil", Toast.LENGTH_SHORT).show()
 
                     // Navigate to QuestionActivity
-                    val intent = Intent(this@LoginActivity, QuestionActivity::class.java)
+                    val intent = Intent(this@LoginActivity, ProfileActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

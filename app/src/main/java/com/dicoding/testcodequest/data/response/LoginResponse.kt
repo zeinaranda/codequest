@@ -5,4 +5,8 @@ data class LoginResponse(
     val nim: String,
     val nama: String,
     val userId: Int,
+    var point: Int,
+    var koin: Int,
+    val ownedAvatars: List<Int>
+
 )

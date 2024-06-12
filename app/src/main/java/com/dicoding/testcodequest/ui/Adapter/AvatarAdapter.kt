@@ -23,27 +23,29 @@ class AvatarAdapter(private val listAvatar: ArrayList<Avatar>) : RecyclerView.Ad
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) : ViewHolder {
         val view =
             ShopRowBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
-        return ViewHolder(view)
+        return ViewHolder(view, onItemClickCallback)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         listAvatar[position].let { viewHolder.bind(it) }
 
-//        viewHolder.itemView.setOnClickListener {
-//            onItemClickCallback.onItemClicked(listStory[viewHolder.adapterPosition])
-//        }
+        viewHolder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(listAvatar[viewHolder.adapterPosition])
+        }
     }
 
     override fun getItemCount(): Int {
         return listAvatar.size
     }
-    class ViewHolder( private var binding: ShopRowBinding) :
+
+    class ViewHolder(private var binding: ShopRowBinding, private val onItemClickCallback: OnItemClickCallback) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(listAvatar: Avatar) {
-            binding.tvPrice.text = listAvatar.priceAvatar.toString()
-            binding.imageAvatar.setImageUrl(listAvatar.imageAvatar)
-
-
+        fun bind(avatar: Avatar) {
+            binding.tvPrice.text = avatar.priceAvatar.toString()
+            binding.imageAvatar.setImageUrl(avatar.imageAvatar)
+            itemView.setOnClickListener {
+                onItemClickCallback.onItemClicked(avatar)
+            }
         }
     }
 
