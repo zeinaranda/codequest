@@ -1,8 +1,6 @@
 package com.dicoding.testcodequest.data.retrofit
 import com.dicoding.testcodequest.data.response.*
-import okhttp3.Response
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.http.*
 
 interface ApiService {
@@ -36,12 +34,28 @@ interface ApiService {
     @GET("avatar/avatars")
         fun getAvatar(): Call<List<Avatar>>
 
+    @GET("user/{userId}")
+    fun getUserById(
+        @Path("userId") userId: Int
+    ): Call<User>
+
+//    @FormUrlEncoded
+//    @PUT("user/{userId}")
+//    fun updateUserKoin(
+//        @Path("userId") userId: Int,
+//        @Field("koin") koin: Int
+//    ): Call<User>
+
+    @PUT("/user/{id}")
+    fun updateUserKoin(@Path("id") id: Int, @Body user: User): Call<Void>
+
+
     @FormUrlEncoded
-    @POST("user/addOwnedAvatar")
+    @POST("user/addOwnedAvatar/{userId}")
     fun addOwnedAvatar(
-        @Field("userId") userId: Int,
+        @Path("userId") userId: Int,
         @Field("avatarId") avatarId: Int
-    ): Call<ShopResponse>
+    ): Call<BuyResponse>
 
 //    @GET("users/{userId}")
 //    fun getUser(@Path("userId") userId: Int): Call<User>

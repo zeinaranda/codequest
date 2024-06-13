@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Login Berhasil", Toast.LENGTH_SHORT).show()
 
                     // Navigate to QuestionActivity
-                    val intent = Intent(this@LoginActivity, ProfileActivity::class.java)
+                    val intent = Intent(this@LoginActivity, ShopActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

@@ -42,7 +42,7 @@ class AvatarAdapter(private val listAvatar: ArrayList<Avatar>) : RecyclerView.Ad
         RecyclerView.ViewHolder(binding.root) {
         fun bind(avatar: Avatar) {
             binding.tvPrice.text = avatar.priceAvatar.toString()
-            binding.imageAvatar.setImageUrl(avatar.imageAvatar)
+            avatar.imageAvatar?.let { binding.imageAvatar.setImageUrl(it) }
             itemView.setOnClickListener {
                 onItemClickCallback.onItemClicked(avatar)
             }

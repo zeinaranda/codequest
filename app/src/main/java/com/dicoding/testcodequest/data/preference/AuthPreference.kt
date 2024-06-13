@@ -12,7 +12,7 @@ class AuthPreference(context: Context) {
         editor.putString(NIM, value.nim)
         editor.putInt(ID, value.userId ?: 0)
         editor.putString(TOKEN, value.token)
-        editor.putInt(POINT, value.point)
+        value.point?.let { editor.putInt(POINT, it) }
         editor.putInt(KOIN, value.koin)
         editor.apply()
     }

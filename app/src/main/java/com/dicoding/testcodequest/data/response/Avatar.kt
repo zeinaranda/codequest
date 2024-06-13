@@ -8,14 +8,14 @@ data class Avatar(
     val avatarId: Int,
 
     @field:SerializedName("namaAvatar")
-    val namaAvatar: String,
+    val namaAvatar: String? = null,
 
     @field:SerializedName("priceAvatar")
-    val priceAvatar: Int,
+    val priceAvatar: Int? = null,
 
     @field:SerializedName("imageAvatar")
-    val imageAvatar: String,
+    val imageAvatar: String? = null,
 
     @field:SerializedName("obtainMethod")
-    val obtainMethod: String
+    val obtainMethod: String? = null
 )

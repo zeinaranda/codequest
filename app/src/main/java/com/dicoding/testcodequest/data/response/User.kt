@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class User(
 
+    val error: Int? = null,
+    val message: String? = null,
+
+
     @field:SerializedName("nama")
     var nama: String? = null,
 
@@ -17,7 +21,7 @@ data class User(
     var token: String? = null,
 
     @field:SerializedName("point")
-    var point: Int,
+    var point: Int?=null,
 
     @field:SerializedName("koin")
     var koin: Int,
