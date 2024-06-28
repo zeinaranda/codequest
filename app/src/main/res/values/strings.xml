@@ -13,5 +13,21 @@
     <string name="nama">Nama Lengkap</string>
     <string name="et_name_error_message">Nama tidak boleh kosong</string>
 
+    <string name="materi4">Ini adalah materi dengan id 1.</string>
+    <string name="materi2">Ini adalah materi dengan id 2.</string>
+    <string name="materi3">Ini adalah materi dengan id 3.</string>
+
+    <string name="materi1">
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus diam, euismod ac nisl a, mollis gravida dolor. Integer lobortis pellentesque elit non vehicula. Ut ut turpis ligula. Donec non pulvinar eros, nec faucibus ante. Vestibulum scelerisque laoreet ornare. Praesent pellentesque leo in quam vestibulum, sed porttitor orci laoreet. Etiam cursus turpis nec eros facilisis vestibulum. Donec fermentum tempus felis a bibendum. Donec aliquam varius augue vitae pulvinar. Etiam eget nisl suscipit, feugiat elit eu, tincidunt nulla.
+
+Nunc bibendum efficitur quam, a sollicitudin lacus auctor sit amet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam magna ipsum, consequat eu ultrices eget, semper et nisi. Nunc facilisis porta tempus. Aenean finibus leo quis est tincidunt tempus. Donec dictum varius velit, sed elementum urna posuere vitae. Cras lacinia, felis at bibendum semper, erat lacus dapibus arcu, ut ultricies velit quam vitae quam. Donec nec nulla vitae quam euismod pharetra id non dui. Quisque sapien quam, tincidunt non scelerisque ac, consequat ac nulla.
+
+Proin cursus metus lorem, id pretium orci dictum sit amet. Donec finibus, lacus ut gravida semper, nunc augue lacinia lacus, a ullamcorper orci sem id diam. Donec interdum vehicula scelerisque. Donec eget augue vitae diam pretium dictum. Vivamus rhoncus risus arcu, sagittis ornare libero tristique a. Donec nec mollis sem, vel vestibulum metus. Donec faucibus scelerisque arcu ut imperdiet. Nulla ante neque, mattis id dui ac, consequat faucibus odio. Phasellus accumsan aliquet nisl at consectetur. Donec et mi gravida, dapibus quam ac, luctus nisi. Integer placerat augue maximus diam pharetra placerat. Vivamus vehicula sagittis libero quis fringilla. Nam commodo, elit ac ornare iaculis, risus risus euismod ex, quis aliquam est sapien nec velit. Aenean ante velit, sagittis tempor eros ac, suscipit accumsan erat. Integer et sodales tellus, in congue velit. Suspendisse tristique, massa quis iaculis lobortis, est tellus tincidunt nisi, sit amet rhoncus eros velit nec nisi.
+
+Morbi pharetra volutpat risus, vitae dapibus orci gravida ac. Sed tristique, justo quis dignissim egestas, orci ligula blandit elit, et mattis odio sapien ac risus. Nunc fringilla aliquet quam id faucibus. Sed sollicitudin nisi vehicula, gravida elit sed, sagittis metus. Aenean diam nisl, gravida vel ligula in, dapibus dictum magna. Nunc placerat laoreet accumsan. Sed aliquam odio purus, congue placerat est tempor eu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi consequat fringilla nunc sed pharetra. Donec ligula metus, porttitor non vulputate a, facilisis id dolor. Duis ut mauris et felis consequat rhoncus ac eget felis. Morbi scelerisque consequat vehicula. Vivamus at nulla vitae neque sollicitudin interdum. Integer sagittis tempus nunc vitae viverra.
+
+Vestibulum a elit est. Vestibulum laoreet semper accumsan. Cras vitae justo a nulla consectetur consequat hendrerit quis justo. Mauris cursus vitae ipsum ut fringilla. Pellentesque bibendum libero a velit interdum semper vitae viverra urna. Nunc luctus imperdiet massa, rutrum laoreet nisl dignissim et. Nulla nec scelerisque elit, quis eleifend augue. Aliquam tincidunt quis est et consectetur. Donec a volutpat arcu. Vestibulum sit amet ligula nec arcu posuere congue quis ut odio. Phasellus commodo libero dapibus sapien placerat, in tempus erat accumsan. Quisque non auctor metus, eget commodo mauris. </string>
+
 
 </resources>

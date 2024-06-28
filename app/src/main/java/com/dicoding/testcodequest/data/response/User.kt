@@ -20,6 +20,9 @@ data class User(
     @field:SerializedName("token")
     var token: String? = null,
 
+    @field:SerializedName("profileAvatar")
+    var profileAvatar: String? = null,
+
     @field:SerializedName("point")
     var point: Int?=null,
 

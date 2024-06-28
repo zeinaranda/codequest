@@ -10,6 +10,8 @@ import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.databinding.ActivityLoginBinding
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.testcodequest.data.response.User
+import com.dicoding.testcodequest.viewmodel.LoginViewModel
+import com.dicoding.testcodequest.viewmodel.LoginViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
 
@@ -23,7 +25,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         preferences = AuthPreference(this)
-        viewModel = ViewModelProvider(this, LoginViewModelFactory.getInstance(this)).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(this, LoginViewModelFactory.getInstance(this)).get(
+            LoginViewModel::class.java)
 
         initAction()
 
@@ -72,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Login Berhasil", Toast.LENGTH_SHORT).show()
 
                     // Navigate to QuestionActivity
-                    val intent = Intent(this@LoginActivity, ShopActivity::class.java)
+                    val intent = Intent(this@LoginActivity, ProfileActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

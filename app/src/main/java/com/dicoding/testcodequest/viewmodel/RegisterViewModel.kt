@@ -1,4 +1,4 @@
-package com.dicoding.testcodequest.ui
+package com.dicoding.testcodequest.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.dicoding.testcodequest.data.UserRepository

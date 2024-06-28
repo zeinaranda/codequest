@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.databinding.ActivityRegisterBinding
+import com.dicoding.testcodequest.viewmodel.RegisterViewModel
+import com.dicoding.testcodequest.viewmodel.RegisterViewModelFactory
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding

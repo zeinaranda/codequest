@@ -19,14 +19,34 @@ interface ApiService {
         @Field("password") password: String
     ): AuthResponse
 
+    @POST("/userstage/user/{userId}/stage/{stageId}/progress")
+    fun updateUserStageProgress(
+        @Path("userId") userId: Int,
+        @Path("stageId") stageId: Int,
+        @Body progressPoint: ProgressPoint
+    ): Call<Void>
+
     @PUT("/user/{id}")
     fun updateUserPoints(@Path("id") id: Int, @Body user: User): Call<Void>
 
     @GET("question/{boss_id}")
     fun getQuestions(@Path("boss_id") bossId: Int): Call<List<Question>>
 
+    @GET("question/{knowledge_id}")
+    fun getQuestionsByKnowledge(@Path("knowledge_id") knowledgeId: Int): Call<List<Question>>
+
+    @GET("storytelling/code/{codeScene}")
+    fun getStorytelling(@Path("codeScene") codeScene: String): Call<List<Storytelling>>
+
+
     @POST("bossdone")
     fun updateBossDone(@Body bossDone: BossDone): Call<Void>
+
+    @POST("knowledgedone")
+    fun updateKnowledgeDone(@Body knowledgeDone: KnowledgeDone): Call<Void>
+
+    @GET("user/top-users")
+    fun getTopUsers(): Call<List<User>>
 
     @GET("user/{userId}")
     fun getOwnedAvatars(@Path("userId") userId: Int): Call<OwnedAvatarsResponse>

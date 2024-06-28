@@ -1,4 +1,4 @@
-package com.dicoding.testcodequest.ui
+package com.dicoding.testcodequest.ui.StageSatu
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,10 +16,11 @@ import com.bumptech.glide.Glide
 import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.data.response.BossDone
+import com.dicoding.testcodequest.data.response.ProgressPoint
 import com.dicoding.testcodequest.data.response.Question
 import com.dicoding.testcodequest.data.response.User
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
-import com.dicoding.testcodequest.data.retrofit.ApiService
+import com.dicoding.testcodequest.ui.ResultActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -117,6 +118,8 @@ class QuestionActivity : AppCompatActivity() {
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
             points += 1000
             coins += 80
+
+            userId?.let { updateProgress(it, 1, points) }
 
             // Load GIF 2 for correct answer
             loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_makima bom.gif")
@@ -248,6 +251,25 @@ class QuestionActivity : AppCompatActivity() {
             })
         }
     }
+
+    private fun updateProgress(userId: Int, stageId: Int, progressPoint: Int) {
+        val progress = ProgressPoint(progressPoint)
+        val call = ApiConfig.getApiService().updateUserStageProgress(userId, stageId, progress)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("QuestionActivity", "Progress updated successfully")
+                } else {
+                    Log.e("QuestionActivity", "Failed to update progress")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("QuestionActivity", "Error: ${t.message}", t)
+            }
+        })
+    }
+
 
 
     override fun onDestroy() {

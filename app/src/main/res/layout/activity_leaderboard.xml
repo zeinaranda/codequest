@@ -1,0 +1,263 @@
+<!-- activity_leaderboard.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.LeaderboardActivity">
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/screen"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Container untuk Top 3 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top3Container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Layout untuk Peringkat 1 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/firstPlaceContainer"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/bg_top_tiga"
+            app:layout_constraintEnd_toStartOf="@+id/thirdPlaceContainer"
+            app:layout_constraintStart_toEndOf="@+id/secondPlaceContainer"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/firstPlaceAvatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="30dp"
+                android:contentDescription="avatar"
+                app:layout_constraintBottom_toBottomOf="@+id/firstPlaceImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/firstPlaceImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/medal_satu"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!-- Layout untuk Peringkat 2 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/secondPlaceContainer"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/bg_top_tiga"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/secondPlaceAvatar"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginBottom="30dp"
+                android:contentDescription="avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/secondPlaceImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/medal_dua"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!-- Layout untuk Peringkat 3 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/thirdPlaceContainer"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/bg_top_tiga"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/thirdPlaceAvatar"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginBottom="30dp"
+                android:contentDescription="avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/thirdPlaceImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/medal_tiga"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/firstPlaceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="92dp"
+            android:minWidth="60dp"
+            android:textSize="11sp"
+            android:text="nama"
+            android:gravity="center"
+            android:fontFamily="@font/irish_grover"
+            android:textColor="@color/primary"
+            android:paddingBottom="1dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:background="@drawable/bg_top_tiga"
+            app:layout_constraintEnd_toEndOf="@+id/firstPlaceContainer"
+            app:layout_constraintStart_toStartOf="@+id/firstPlaceContainer"
+            app:layout_constraintTop_toBottomOf="@+id/firstPlaceContainer" />
+
+        <TextView
+            android:id="@+id/firstPlacePoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="92dp"
+            android:minWidth="60dp"
+            android:drawableStart="@drawable/ic_poin"
+            android:layout_marginTop="2dp"
+            android:paddingStart="4dp"
+            android:background="@drawable/bg_top_tiga"
+            android:fontFamily="@font/irish_grover"
+            android:text="point"
+            android:textColor="@color/primary"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/firstPlaceName"
+            app:layout_constraintStart_toStartOf="@+id/firstPlaceName"
+            app:layout_constraintTop_toBottomOf="@+id/firstPlaceName" />
+
+        <TextView
+            android:id="@+id/secondPlaceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="92dp"
+            android:minWidth="60dp"
+            android:textSize="11sp"
+            android:text="nama"
+            android:gravity="center"
+            android:fontFamily="@font/irish_grover"
+            android:textColor="@color/primary"
+            android:paddingBottom="1dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:background="@drawable/bg_top_tiga"
+            app:layout_constraintEnd_toEndOf="@+id/secondPlaceContainer"
+            app:layout_constraintStart_toStartOf="@+id/secondPlaceContainer"
+            app:layout_constraintTop_toBottomOf="@+id/secondPlaceContainer" />
+
+        <TextView
+            android:id="@+id/secondPlacePoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="92dp"
+            android:minWidth="60dp"
+            android:drawableStart="@drawable/ic_poin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_top_tiga"
+            android:fontFamily="@font/irish_grover"
+            android:gravity="center"
+            android:text="point"
+            android:textColor="@color/primary"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/secondPlaceName"
+            app:layout_constraintStart_toStartOf="@+id/secondPlaceName"
+            app:layout_constraintTop_toBottomOf="@+id/secondPlaceName" />
+
+        <TextView
+            android:id="@+id/thirdPlaceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="92dp"
+            android:minWidth="60dp"
+            android:textSize="11sp"
+            android:text="nama"
+            android:gravity="center"
+            android:fontFamily="@font/irish_grover"
+            android:textColor="@color/primary"
+            android:paddingBottom="1dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:background="@drawable/bg_top_tiga"
+            app:layout_constraintEnd_toEndOf="@+id/thirdPlaceContainer"
+            app:layout_constraintStart_toStartOf="@+id/thirdPlaceContainer"
+            app:layout_constraintTop_toBottomOf="@+id/thirdPlaceContainer" />
+
+        <TextView
+            android:id="@+id/thirdPlacePoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="92dp"
+            android:minWidth="60dp"
+            android:drawableStart="@drawable/ic_poin"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_top_tiga"
+            android:fontFamily="@font/irish_grover"
+            android:gravity="center"
+            android:text="point"
+            android:textColor="@color/primary"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/thirdPlaceName"
+            app:layout_constraintStart_toStartOf="@+id/thirdPlaceName"
+            app:layout_constraintTop_toBottomOf="@+id/thirdPlaceName" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- RecyclerView untuk posisi 4 sampai 10 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewOthers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top3Container"
+        tools:listitem="@layout/leaderboard_row" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemIconTint="@null"
+        app:itemTextColor="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
