@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".ui.LeaderboardActivity">
 
+
+
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
@@ -18,6 +20,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/userCoin"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_price"
+        android:drawableStart="@drawable/ic_koin"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/irish_grover"
+        android:textColor="@color/primary"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/userPoint"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_price"
+        android:drawableStart="@drawable/ic_poin_24"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/irish_grover"
+        android:textColor="@color/primary"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!-- Container untuk Top 3 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top3Container"
@@ -27,7 +67,7 @@
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/userCoin">
 
         <!-- Layout untuk Peringkat 1 -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -128,17 +168,17 @@
             android:id="@+id/firstPlaceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_top_tiga"
+            android:fontFamily="@font/irish_grover"
+            android:gravity="center"
             android:maxWidth="92dp"
             android:minWidth="60dp"
-            android:textSize="11sp"
-            android:text="nama"
-            android:gravity="center"
-            android:fontFamily="@font/irish_grover"
-            android:textColor="@color/primary"
-            android:paddingBottom="1dp"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:background="@drawable/bg_top_tiga"
+            android:paddingBottom="1dp"
+            android:text="nama"
+            android:textColor="@color/primary"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/firstPlaceContainer"
             app:layout_constraintStart_toStartOf="@+id/firstPlaceContainer"
             app:layout_constraintTop_toBottomOf="@+id/firstPlaceContainer" />
@@ -147,13 +187,13 @@
             android:id="@+id/firstPlacePoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_top_tiga"
+            android:drawableStart="@drawable/ic_poin"
+            android:fontFamily="@font/irish_grover"
             android:maxWidth="92dp"
             android:minWidth="60dp"
-            android:drawableStart="@drawable/ic_poin"
-            android:layout_marginTop="2dp"
             android:paddingStart="4dp"
-            android:background="@drawable/bg_top_tiga"
-            android:fontFamily="@font/irish_grover"
             android:text="point"
             android:textColor="@color/primary"
             android:textSize="11sp"
@@ -165,17 +205,17 @@
             android:id="@+id/secondPlaceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_top_tiga"
+            android:fontFamily="@font/irish_grover"
+            android:gravity="center"
             android:maxWidth="92dp"
             android:minWidth="60dp"
-            android:textSize="11sp"
-            android:text="nama"
-            android:gravity="center"
-            android:fontFamily="@font/irish_grover"
-            android:textColor="@color/primary"
-            android:paddingBottom="1dp"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:background="@drawable/bg_top_tiga"
+            android:paddingBottom="1dp"
+            android:text="nama"
+            android:textColor="@color/primary"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/secondPlaceContainer"
             app:layout_constraintStart_toStartOf="@+id/secondPlaceContainer"
             app:layout_constraintTop_toBottomOf="@+id/secondPlaceContainer" />
@@ -184,13 +224,13 @@
             android:id="@+id/secondPlacePoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="92dp"
-            android:minWidth="60dp"
-            android:drawableStart="@drawable/ic_poin"
             android:layout_marginTop="2dp"
             android:background="@drawable/bg_top_tiga"
+            android:drawableStart="@drawable/ic_poin"
             android:fontFamily="@font/irish_grover"
             android:gravity="center"
+            android:maxWidth="92dp"
+            android:minWidth="60dp"
             android:text="point"
             android:textColor="@color/primary"
             android:textSize="11sp"
@@ -202,17 +242,17 @@
             android:id="@+id/thirdPlaceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_top_tiga"
+            android:fontFamily="@font/irish_grover"
+            android:gravity="center"
             android:maxWidth="92dp"
             android:minWidth="60dp"
-            android:textSize="11sp"
-            android:text="nama"
-            android:gravity="center"
-            android:fontFamily="@font/irish_grover"
-            android:textColor="@color/primary"
-            android:paddingBottom="1dp"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:background="@drawable/bg_top_tiga"
+            android:paddingBottom="1dp"
+            android:text="nama"
+            android:textColor="@color/primary"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/thirdPlaceContainer"
             app:layout_constraintStart_toStartOf="@+id/thirdPlaceContainer"
             app:layout_constraintTop_toBottomOf="@+id/thirdPlaceContainer" />
@@ -221,13 +261,13 @@
             android:id="@+id/thirdPlacePoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="92dp"
-            android:minWidth="60dp"
-            android:drawableStart="@drawable/ic_poin"
             android:layout_marginTop="2dp"
             android:background="@drawable/bg_top_tiga"
+            android:drawableStart="@drawable/ic_poin"
             android:fontFamily="@font/irish_grover"
             android:gravity="center"
+            android:maxWidth="92dp"
+            android:minWidth="60dp"
             android:text="point"
             android:textColor="@color/primary"
             android:textSize="11sp"
@@ -236,25 +276,50 @@
             app:layout_constraintTop_toBottomOf="@+id/thirdPlaceName" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-    <!-- RecyclerView untuk posisi 4 sampai 10 -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewOthers"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:layout_height="0dp"
+        android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top3Container"
-        tools:listitem="@layout/leaderboard_row" />
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintTop_toBottomOf="@+id/top3Container">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <!-- RecyclerView untuk posisi 4 sampai 10 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewOthers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:paddingBottom="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/leaderboard_row" />
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:itemIconTint="@null"
-        app:itemTextColor="@null"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_price"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

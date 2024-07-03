@@ -51,6 +51,12 @@ class QuestionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
 
+        val btn_back : ImageView= findViewById(R.id.btn_back)
+        btn_back.setOnClickListener {
+            startActivity(Intent(this, StageSatuActivity::class.java))
+            finish()
+        }
+
         preference = AuthPreference(this)
         userId = preference.getId()
         Log.d("QuestionActivity", "User ID from Preference: $userId") // Cek userId dari preference
@@ -163,7 +169,6 @@ class QuestionActivity : AppCompatActivity() {
 
     private fun finishQuiz() {
         updateUserPointsAndCoins()
-
         updateBossDone()
         Toast.makeText(this, "Quiz Finished!", Toast.LENGTH_SHORT).show()
 

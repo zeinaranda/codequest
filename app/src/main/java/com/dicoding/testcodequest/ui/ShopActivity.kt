@@ -1,30 +1,35 @@
 package com.dicoding.testcodequest.ui
 
 import AvatarAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.data.preference.ShopPreference
 import com.dicoding.testcodequest.data.response.Avatar
-import com.dicoding.testcodequest.data.response.BuyResponse
-import com.dicoding.testcodequest.data.response.ShopResponse
 import com.dicoding.testcodequest.data.response.User
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
 import com.dicoding.testcodequest.databinding.ActivityShopBinding
+import com.dicoding.testcodequest.ui.StageSatu.StageSatuActivity
 import com.dicoding.testcodequest.viewmodel.ShopViewModel
 import com.dicoding.testcodequest.viewmodel.ShopViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ShopActivity : AppCompatActivity() {
 
+    private var userPoint: Int? = null
+    private var userKoin: Int? = null
     private lateinit var binding: ActivityShopBinding
     private lateinit var rvShop: RecyclerView
     private lateinit var viewModel: ShopViewModel
@@ -45,6 +50,16 @@ class ShopActivity : AppCompatActivity() {
         rvShop.setHasFixedSize(true)
 
         authPreference = AuthPreference(this)
+
+        userPoint = authPreference.getPoints()
+        userKoin = authPreference.getCoins()
+
+        val pointsText = findViewById<TextView>(R.id.userPoint)
+        pointsText.text = userPoint.toString()
+
+        val coinsText = findViewById<TextView>(R.id.userCoin)
+        coinsText.text = userKoin.toString()
+
         userId = authPreference.getId() // Ambil userId dari preferences
 
         preferences = ShopPreference(this)
@@ -75,6 +90,42 @@ class ShopActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this, { isLoading ->
             showLoading(isLoading)
         })
+
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.itemIconTintList = null
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menu1 -> {
+                    val i = Intent(this, LeaderboardActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu2 -> {
+                    // Stay in the current activity
+                    true
+                }
+                R.id.menu3 -> {
+                    val i = Intent(this, StageSatuActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu4 -> {
+                    val i = Intent(this, ShopActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu5 -> {
+                    val i = Intent(this, ProfileActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun showPurchaseDialog(avatar: Avatar) {
@@ -102,8 +153,8 @@ class ShopActivity : AppCompatActivity() {
                             if (it.ownedAvatars?.contains(avatar.avatarId) == true) {
                                 Toast.makeText(this@ShopActivity, "Avatar ini sudah Anda miliki", Toast.LENGTH_SHORT).show()
                             } else {
-                                if (it.koin >= requiredCoins) {
-                                    updateUserKoinAndAddAvatar(userId, it.koin, avatar.avatarId)
+                                if (it.koin!! >= requiredCoins) {
+                                    updateUserKoinAndAddAvatar(userId, it.koin!!, avatar.avatarId)
                                 } else {
                                     Toast.makeText(this@ShopActivity, "Koin tidak cukup untuk membeli avatar", Toast.LENGTH_SHORT).show()
                                 }

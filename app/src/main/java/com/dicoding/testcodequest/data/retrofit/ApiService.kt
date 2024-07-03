@@ -19,6 +19,13 @@ interface ApiService {
         @Field("password") password: String
     ): AuthResponse
 
+
+    @PUT("user/updateFirstLoginStatus")
+    fun updateFirstLoginStatus(
+        @Body requestBody: UpdateFirstLoginRequest // Ganti dengan objek request yang sesuai
+    ): Call<Void>
+
+
     @POST("/userstage/user/{userId}/stage/{stageId}/progress")
     fun updateUserStageProgress(
         @Path("userId") userId: Int,
@@ -26,8 +33,20 @@ interface ApiService {
         @Body progressPoint: ProgressPoint
     ): Call<Void>
 
+    @GET("/userstage/user/{userId}/stage/{stageId}/completion")
+    fun checkStageCompletion(
+        @Path("userId") userId: Int,
+        @Path("stageId") stageId: Int
+    ): Call<StageCompletionResponse>
+
     @PUT("/user/{id}")
     fun updateUserPoints(@Path("id") id: Int, @Body user: User): Call<Void>
+
+    @PUT("user/{userId}/profile/image")
+    fun updateUserProfileImage(
+        @Path("userId") userId: Int,
+        @Body requestBody: Map<String, String>
+    ): Call<Void>
 
     @GET("question/{boss_id}")
     fun getQuestions(@Path("boss_id") bossId: Int): Call<List<Question>>

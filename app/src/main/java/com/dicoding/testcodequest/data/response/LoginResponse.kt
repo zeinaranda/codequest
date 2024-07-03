@@ -7,6 +7,8 @@ data class LoginResponse(
     val userId: Int,
     var point: Int,
     var koin: Int,
-    val ownedAvatars: List<Int>
+    var profileAvatar: String,
+    val ownedAvatars: List<Int>,
+    val firstLogin: Boolean
 
 )

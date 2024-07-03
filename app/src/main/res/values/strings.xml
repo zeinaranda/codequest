@@ -13,9 +13,6 @@
     <string name="nama">Nama Lengkap</string>
     <string name="et_name_error_message">Nama tidak boleh kosong</string>
 
-    <string name="materi4">Ini adalah materi dengan id 1.</string>
-    <string name="materi2">Ini adalah materi dengan id 2.</string>
-    <string name="materi3">Ini adalah materi dengan id 3.</string>
 
     <string name="materi1">
 
@@ -28,6 +25,412 @@ Proin cursus metus lorem, id pretium orci dictum sit amet. Donec finibus, lacus 
 Morbi pharetra volutpat risus, vitae dapibus orci gravida ac. Sed tristique, justo quis dignissim egestas, orci ligula blandit elit, et mattis odio sapien ac risus. Nunc fringilla aliquet quam id faucibus. Sed sollicitudin nisi vehicula, gravida elit sed, sagittis metus. Aenean diam nisl, gravida vel ligula in, dapibus dictum magna. Nunc placerat laoreet accumsan. Sed aliquam odio purus, congue placerat est tempor eu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi consequat fringilla nunc sed pharetra. Donec ligula metus, porttitor non vulputate a, facilisis id dolor. Duis ut mauris et felis consequat rhoncus ac eget felis. Morbi scelerisque consequat vehicula. Vivamus at nulla vitae neque sollicitudin interdum. Integer sagittis tempus nunc vitae viverra.
 
 Vestibulum a elit est. Vestibulum laoreet semper accumsan. Cras vitae justo a nulla consectetur consequat hendrerit quis justo. Mauris cursus vitae ipsum ut fringilla. Pellentesque bibendum libero a velit interdum semper vitae viverra urna. Nunc luctus imperdiet massa, rutrum laoreet nisl dignissim et. Nulla nec scelerisque elit, quis eleifend augue. Aliquam tincidunt quis est et consectetur. Donec a volutpat arcu. Vestibulum sit amet ligula nec arcu posuere congue quis ut odio. Phasellus commodo libero dapibus sapien placerat, in tempus erat accumsan. Quisque non auctor metus, eget commodo mauris. </string>
+
+
+
+    <string name="materi2">Ini adalah materi dengan id 3.</string>
+
+
+    <string name="materi3">Singular and Plural Nouns\n\n
+        Singular Nouns\n
+        Singular nouns adalah kata benda yang mengacu pada satu orang, hewan, tempat, benda, atau konsep.\n
+        Contoh:\n
+        Person: a student, a teacher\n
+        Animal: a cat, a dog\n
+        Place: a city, a country\n
+        Thing: a book, a car\n\n
+
+        Plural Nouns\n
+        Plural nouns adalah kata benda yang mengacu pada lebih dari satu orang, hewan, tempat, benda, atau konsep.\n
+        Contoh:\n
+        Persons: students, teachers\n
+        Animals: cats, dogs\n
+        Places: cities, countries\n
+        Things: books, cars\n\n
+
+        Ciri-ciri Singular and Plural Nouns\n\n
+        Ciri-ciri Singular Nouns:\n
+        1. Tidak Ditambahkan Akhiran -s atau -es: Singular nouns umumnya tidak memiliki akhiran tambahan.\n
+           Contoh: a book, a dog\n
+        2. Penggunaan Article "a" atau "an": Singular nouns sering diikuti oleh artikel "a" atau "an".\n
+           Contoh: a cat, an apple\n\n
+
+        Ciri-ciri Plural Nouns:\n
+        1. Ditambahkan Akhiran -s atau -es: Kebanyakan plural nouns dibentuk dengan menambahkan akhiran -s atau -es.\n
+           Contoh: books, buses\n
+        2. Perubahan Kata Dasar: Beberapa kata benda berubah bentuk saat menjadi plural.\n
+           Contoh: child (singular) -> children (plural), man (singular) -> men (plural)\n
+        3. Tidak Menggunakan Article "a" atau "an": Plural nouns tidak menggunakan artikel ini.\n
+           Contoh: cats, apples\n\n</string>
+
+
+    <string name="materi4">Penggunaan Article "a" dan "an" untuk Singular Nouns\n\n
+        Article "a" dan "an" digunakan untuk menunjukkan satu unit dari sesuatu dan ditempatkan sebelum kata benda tunggal (singular noun). Pemilihan antara "a" dan "an" tergantung pada bunyi awal dari kata benda yang mengikutinya.\n\n
+
+        Penggunaan "a":\n
+        - Digunakan sebelum kata benda yang dimulai dengan konsonan atau bunyi konsonan.\n
+        Contoh:\n
+        a book\n
+        a car\n
+        a university (meskipun dimulai dengan huruf vokal u bunyinya adalah /juː/ yang merupakan bunyi konsonan)\n\n
+
+        Penggunaan "an":\n
+        - Digunakan sebelum kata benda yang dimulai dengan vokal atau bunyi vokal.\n
+        Contoh:\n
+        an apple\n
+        an hour (meskipun dimulai dengan huruf konsonan h, bunyinya adalah /ˈaʊər/ yang merupakan bunyi vokal)\n
+        an honest person (bunyi awalnya adalah vokal /ˈɒnɪst/)\n\n
+
+        Contoh Penggunaan dalam Kalimat:\n
+        1. Singular: I saw a cat in the garden.\n
+        2. Singular: She bought an umbrella.\n
+        3. Plural: I saw cats in the garden.\n
+        4. Plural: She bought umbrellas.\n
+    </string>
+
+
+<string name="materi5">
+    Materi Pembelajaran: Part of Speech - Pronoun\n\n
+        A. Pengertian Pronoun\n
+        Pronoun atau kata ganti adalah kata yang digunakan untuk menggantikan kata benda (noun) dalam kalimat. Pronoun digunakan agar kalimat tidak menjadi berulang-ulang dan membosankan.\n\n
+        B. Ciri-ciri Pronoun\n
+        1. Menggantikan kata benda: Pronoun menggantikan kata benda yang telah disebutkan sebelumnya.\n
+        Contoh: John is a student. He is very diligent.\n
+        2. Berfungsi sama seperti kata benda dalam kalimat: Pronoun bisa menjadi subjek, objek, atau menunjukkan kepemilikan.\n
+        Contoh:\n
+        - Subjek: She is my friend.\n
+        - Objek: I saw her yesterday.\n
+        - Kepemilikan: That is her book.\n
+        3. Berubah bentuk sesuai dengan posisi dalam kalimat: Pronoun memiliki bentuk yang berbeda tergantung pada posisinya dalam kalimat.\n
+        Contoh:\n
+        - Subjek: I, you, he, she, it, we, they\n
+        - Objek: me, you, him, her, it, us, them\n
+        - Kepemilikan: my, your, his, her, its, our, their\n
+        4. Sering digunakan dalam percakapan dan tulisan: Pronoun umum digunakan untuk menghindari pengulangan kata benda yang sama.\n\n
+</string>
+
+
+    <string name="materi6">
+    C. Ragam Pronoun\n
+        Pronoun memiliki beberapa jenis atau ragam, di antaranya:\n
+        1. Personal Pronouns: Kata ganti orang yang digunakan untuk menggantikan orang atau benda tertentu.\n
+        - Subjek: I, you, he, she, it, we, they\n
+        Contoh: She is a doctor.\n
+        - Objek: me, you, him, her, it, us, them\n
+        Contoh: The teacher called me.\n
+        - Kepemilikan (Possessive Pronouns): mine, yours, his, hers, its, ours, theirs\n
+        Contoh: The book is mine.\n
+        2. Reflexive Pronouns: Kata ganti yang menunjukkan bahwa subjek melakukan aksi terhadap dirinya sendiri.\n
+        Contoh: myself, yourself, himself, herself, itself, ourselves, yourselves, themselves\n
+        Contoh: She made herself a sandwich.\n
+        3. Demonstrative Pronouns: Kata ganti yang menunjukkan benda atau orang tertentu.\n
+        Contoh: this, that, these, those\n
+        Contoh: This is my pen.\n
+        4. Interrogative Pronouns: Kata ganti yang digunakan untuk menanyakan sesuatu.\n
+        Contoh: who, whom, whose, which, what\n
+        Contoh: Who is at the door?\n
+        5. Relative Pronouns: Kata ganti yang menghubungkan klausa atau kalimat.\n
+        Contoh: who, whom, whose, which, that\n
+        Contoh: The man who called me is my uncle.\n
+        6. Indefinite Pronouns: Kata ganti yang merujuk pada orang atau benda secara umum dan tidak spesifik.\n
+        Contoh: anyone, everyone, someone, nobody, each, few, many, several\n
+        Contoh: Everyone is invited to the party.\n\n
+        E. Contoh Penggunaan Pronoun dalam Kalimat\n
+        1. Personal Pronouns:\n
+        - Subjek: We are going to the park.\n
+        - Objek: Please give it to me.\n
+        - Kepemilikan: Their house is big.\n
+        2. Reflexive Pronouns:\n
+        - She prepared herself for the meeting.\n
+        - They bought themselves new shoes.\n
+        3. Demonstrative Pronouns:\n
+        - This is delicious.\n
+        - Those are my friends.\n
+        4. Interrogative Pronouns:\n
+        - What is your name?\n
+        - Which color do you prefer?\n
+        5. Relative Pronouns:\n
+        - The book that I borrowed is interesting.\n
+        - The girl who won the contest is my friend.\n
+        6. Indefinite Pronouns:\n
+        - Someone left their bag here.\n
+        - Many have tried, but few have succeeded.\n\n
+        Dengan memahami ciri-ciri dan ragam pronoun, mahasiswa diharapkan dapat mengidentifikasi dan menggunakan pronoun dengan tepat dalam kalimat.
+</string>
+
+    <string name="materi7">
+              Parts of Speech - Adjective dan Possessive Adjective\n\n
+    A. Adjective (Kata Sifat)\n
+    Adjective adalah jenis kata yang digunakan untuk memberikan informasi tambahan atau memodifikasi kata benda (noun) atau pronoun dalam kalimat. Adjective membantu menjelaskan sifat, kualitas, atau kondisi dari kata benda atau pronoun yang dijelaskan.\n\n
+    Ciri-ciri Adjective:\n
+    1. Menggambarkan sifat atau karakteristik dari kata benda atau pronoun.\n
+    Contoh: beautiful girl, tall building, delicious food\n
+    2. Bisa berubah bentuk untuk menyesuaikan dengan jumlah (singular/plural) atau jenis (tunggal/jamak) dari kata benda yang dijelaskan.\n
+    Contoh: three small dogs, interesting books\n
+    3. Dapat ditempatkan sebelum atau sesudah kata benda atau pronoun yang dijelaskan.\n
+    Contoh: a red car, the house is big, my new phone\n\n
+    B. Possessive Adjective (Kata Sifat Kepemilikan)\n
+    Possessive adjective adalah kata yang menunjukkan kepemilikan atau hubungan kepemilikan terhadap sesuatu. Mereka selalu ditempatkan sebelum kata benda yang dijelaskan dan menunjukkan siapa yang memiliki atau terkait dengan kata benda tersebut.\n\n
+    Ciri-ciri Possessive Adjective:\n
+    1. Menunjukkan kepemilikan atau hubungan kepemilikan terhadap kata benda.\n
+    Contoh: my, your, his, her, its, our, their\n
+    2. Selalu ditempatkan sebelum kata benda yang dijelaskan.\n
+    Contoh: my book, your car, their house\n
+    3. Tidak dapat berdiri sendiri sebagai kata ganti tanpa kata benda yang dijelaskan.\n
+    Contoh yang salah: "This is my.", yang benar: "This is my book."\n\n
+    </string>
+
+    <string name="materi8">
+    C. Ragam Adjective\n
+    1. Descriptive Adjective\n
+    Menunjukkan sifat atau karakteristik.\n
+    Contoh: blue sky, hot coffee\n
+    2. Quantitative Adjective\n
+    Menunjukkan jumlah atau kuantitas.\n
+    Contoh: some milk, many students\n
+    3. Demonstrative Adjective\n
+    Menunjukkan kata benda tertentu.\n
+    Contoh: this book, those cars\n\n
+    D. Contoh Penggunaan dalam Kalimat\n
+    1. Descriptive Adjective: She has a beautiful dress.\n
+    2. Quantitative Adjective: He has many friends.\n
+    3. Demonstrative Adjective: That car is expensive.\n
+    4. Possessive Adjective: Their house is big.\n\n
+    E. Perbedaan Antara Adjective dan Possessive Adjective\n
+    1. Adjective menggambarkan atau mengubah kata benda menjadi lebih spesifik atau deskriptif, sementara possessive adjective menunjukkan kepemilikan atau hubungan kepemilikan terhadap kata benda.\n
+    Contoh Adjective: beautiful flowers (menggambarkan sifat bunga)\n
+    Contoh Possessive Adjective: my car (menunjukkan mobil yang dimiliki)\n
+    2. Adjective dapat berdiri sendiri sebelum kata benda atau pronoun, sementara possessive adjective selalu harus diikuti oleh kata benda.\n
+    Contoh Adjective: a red apple\n
+    Contoh Possessive Adjective: her book\n\n
+    Dengan memahami ciri-ciri dan perbedaan antara adjective dan possessive adjective, mahasiswa diharapkan dapat menggunakan keduanya dengan tepat dalam kalimat untuk memberikan informasi lebih jelas tentang kata benda atau pronoun yang digunakan.
+</string>
+
+    <string name="materi9">
+Prepositions of Time and Place (in, on, at)\n\n
+
+    A. Prepositions of Time (Preposisi Waktu)\n
+    1. **In**\n
+    - Digunakan untuk bulan, tahun, abad, dan periode waktu panjang.\n
+    Contoh:\n
+    - In January (Pada bulan Januari)\n
+    - In 2024 (Pada tahun 2024)\n
+    - In the 21st century (Pada abad ke-21)\n
+    - In the morning/afternoon/evening (Pada pagi/siang/sore)\n\n
+    2. **On**\n
+    - Digunakan untuk hari dan tanggal tertentu.\n
+    Contoh:\n
+    - On Monday (Pada hari Senin)\n
+    - On January 1st (Pada tanggal 1 Januari)\n
+    - On my birthday (Pada hari ulang tahunku)\n\n
+    3. **At**\n
+    - Digunakan untuk waktu spesifik.\n
+    Contoh:\n
+    - At 5 o`clock (Pada jam 5)\n
+    - At noon (Pada tengah hari)\n
+    - At midnight (Pada tengah malam)\n
+    - At the weekend (Pada akhir pekan)\n\n
+
+        Contoh Penggunaan Prepositions of Time\n
+    1. I have a meeting in the afternoon.\n
+    2. She was born on July 4th.\n
+    3. The train arrives at 7 PM.\n\n
+    </string>
+
+    <string name="materi10">
+Prepositions of Place (Preposisi Tempat)\n
+    1. **In**\n
+    - Digunakan untuk ruang tertutup atau wilayah dengan batasan jelas.\n
+    Contoh:\n
+    - In the room (Di dalam ruangan)\n
+    - In New York (Di New York)\n
+    - In the garden (Di dalam taman)\n\n
+    2. **On**\n
+    - Digunakan untuk permukaan.\n
+    Contoh:\n
+    - On the table (Di atas meja)\n
+    - On the wall (Di dinding)\n
+    - On the floor (Di lantai)\n\n
+    3. **At**\n
+    - Digunakan untuk lokasi spesifik atau titik tertentu.\n
+    Contoh:\n
+    - At the door (Di pintu)\n
+    - At the bus stop (Di halte bus)\n
+    - At the airport (Di bandara)\n\n
+
+        Contoh Penggunaan Prepositions of Place\n
+    1. The keys are in the drawer.\n
+    2. There is a painting on the wall.\n
+    3. I will meet you at the entrance.\n\n
+    </string>
+
+    <string name="materi11">
+Gerunds and Infinitives\n\n
+
+    A. Gerunds (Kata Kerja Bentuk -ing)\n
+    1. **Definisi**\n
+    - Gerund adalah kata kerja yang ditambahkan akhiran -ing dan berfungsi sebagai kata benda dalam kalimat.\n\n
+
+    2. **Penggunaan Gerunds**\n
+    - **Subjek Kalimat**: Running is good for health.\n
+    - **Pelengkap Subjek**: Her hobby is swimming.\n
+    - **Objek Kata Kerja**: I enjoy reading.\n
+    - **Objek Preposisi**: They are good at cooking.\n\n
+
+    3. **Contoh Gerunds dalam Kalimat**\n
+    - **Sebagai Subjek**: Swimming is fun.\n
+    - **Sebagai Pelengkap Subjek**: His favorite activity is reading.\n
+    - **Sebagai Objek Kata Kerja**: She dislikes driving at night.\n
+    - **Sebagai Objek Preposisi**: He is interested in learning languages.\n\n
+
+    B. Infinitives (Kata Kerja Bentuk Dasar)\n
+    1. **Definisi**\n
+    - Infinitive adalah bentuk dasar dari kata kerja yang biasanya didahului oleh kata "to".\n\n
+
+    2. **Penggunaan Infinitives**\n
+    - **Subjek Kalimat**: To travel around the world is my dream.\n
+    - **Pelengkap Subjek**: His goal is to become a doctor.\n
+    - **Objek Kata Kerja**: They want to learn Spanish.\n
+    - **Tujuan atau Maksud**: He went to the store to buy milk.\n\n
+
+    3. **Contoh Infinitives dalam Kalimat**\n
+    - **Sebagai Subjek**: To cook is his passion.\n
+    - **Sebagai Pelengkap Subjek**: Her wish is to visit Paris.\n
+    - **Sebagai Objek Kata Kerja**: They decided to leave early.\n
+    - **Untuk Tujuan atau Maksud**: She studies hard to get good grades.\n\n
+    </string>
+
+    <string name="materi12">
+Perbedaan antara Gerunds dan Infinitives\n
+    - **Kata kerja tertentu diikuti oleh gerund**: enjoy, mind, suggest, consider\n
+    Contoh: She enjoys swimming.\n
+    - **Kata kerja tertentu diikuti oleh infinitive**: want, decide, hope, plan\n
+    Contoh: They plan to travel next year.\n
+    - **Beberapa kata kerja bisa diikuti oleh keduanya dengan sedikit perubahan makna**: remember, forget, try\n
+    Contoh: I remember meeting her. / I remember to meet her.\n\n
+
+    D. Mengidentifikasi Kata Kerja yang Diikuti oleh Gerunds dan Infinitives\n
+    1. **Kata Kerja yang Diikuti oleh Gerunds**\n
+    - Beberapa kata kerja biasanya diikuti oleh gerunds. Kata kerja ini meliputi: enjoy, avoid, consider, suggest, admit, mind, finish, practice, dan lain-lain.\n
+    Contoh: He enjoys swimming. (enjoy + gerund)\n\n
+
+    2. **Kata Kerja yang Diikuti oleh Infinitives**\n
+    - Beberapa kata kerja biasanya diikuti oleh infinitives. Kata kerja ini meliputi: want, need, decide, plan, hope, learn, promise, dan lain-lain.\n
+    Contoh: She wants to travel. (want + infinitive)\n\n
+
+    3. **Kata Kerja yang Bisa Diikuti oleh Keduanya**\n
+    - Beberapa kata kerja bisa diikuti oleh gerunds atau infinitives dengan perubahan makna yang berbeda. Kata kerja ini meliputi: remember, forget, try, stop, dan lain-lain.\n
+    Contoh:
+    - I remember meeting her. (remember + gerund: mengingat pertemuan yang telah terjadi)\n
+    - I remember to meet her. (remember + infinitive: mengingat untuk melakukan pertemuan di masa depan)\n\n
+
+    Dengan memahami gerunds dan infinitives, mahasiswa diharapkan dapat menggunakan kedua bentuk ini dengan tepat dalam kalimat untuk menyampaikan makna yang benar serta mampu membedakan kata kerja yang diikuti oleh gerunds dan infinitives.
+
+    </string>
+
+    <string name="materi13">
+  Materi Pembelajaran: Definite and Indefinite Articles (the, a / an)\n\n
+
+    A. Definite Article: The\n
+    1. **Definisi**\n
+    - "The" adalah definite article yang digunakan untuk merujuk pada benda yang spesifik atau sudah dikenal oleh pembicara dan pendengar.\n\n
+
+    2. **Penggunaan "The"**\n
+    - **Sebelum Kata Benda Spesifik**: The book on the table is mine.\n
+    - **Sebelum Kata Benda yang Unik**: The sun rises in the east.\n
+    - **Sebelum Kata Benda yang Sudah Dikenal**: I met the teacher you were talking about.\n
+    - **Sebelum Kata Benda yang Diikuti oleh Klausa atau Frase yang Menentukan**: The car that I bought last year is very fast.\n\n
+
+    3. **Contoh "The" dalam Kalimat**\n
+    - The cat is sleeping on the couch.\n
+    - She went to the store that opened recently.\n
+    - The movie we watched last night was amazing.\n\n
+
+    B. Indefinite Articles: A / An\n
+    1. **Definisi**\n
+    - "A" dan "An" adalah indefinite articles yang digunakan untuk merujuk pada benda yang tidak spesifik atau belum dikenal oleh pembicara dan pendengar.\n
+    - "A" digunakan sebelum kata benda yang dimulai dengan bunyi konsonan.\n
+    - "An" digunakan sebelum kata benda yang dimulai dengan bunyi vokal.\n\n
+
+    2. **Penggunaan "A" dan "An"**\n
+    - **Sebelum Kata Benda Tidak Spesifik**: I need a pen.\n
+    - **Sebelum Kata Benda yang Disebutkan Pertama Kali**: She saw an elephant at the zoo.\n
+    - **Sebelum Kata Benda yang Mewakili Kategori atau Kelas**: A dog is a loyal pet.\n\n
+
+    3. **Contoh "A" dan "An" dalam Kalimat**\n
+    - I want to buy a new phone.\n
+    - She is an engineer.\n
+    - He found a wallet on the street.\n\n
+
+    C. Perbedaan Antara "The" dan "A / An"\n
+    1. **Spesifisitas**\n
+    - "The" digunakan untuk benda yang spesifik atau sudah dikenal.\n
+    - "A" dan "An" digunakan untuk benda yang tidak spesifik atau belum dikenal.\n\n
+
+    2. **Penggunaan Pertama Kali**\n
+    - "A" dan "An" digunakan ketika menyebutkan benda pertama kali.\n
+    - "The" digunakan ketika menyebutkan benda yang sama untuk kedua kalinya atau lebih.\n\n
+
+    3. **Unik atau Tidak Unik**\n
+    - "The" digunakan untuk benda yang unik atau satu-satunya.\n
+    - "A" dan "An" digunakan untuk benda yang merupakan bagian dari kelompok atau kategori.\n\n
+
+    </string>
+
+    <string name="materi14">
+  Materi Pembelajaran: Expressions of Quantity (Some, Any)\n\n
+
+    A. Pengantar\n
+    Expressions of quantity digunakan untuk menunjukkan jumlah atau kuantitas dari suatu benda atau hal. Dalam bahasa Inggris, "some" dan "any" adalah dua kata yang sering digunakan untuk tujuan ini.\n\n
+
+    B. Penggunaan Some\n
+    1. **Definisi**\n
+    - Some digunakan untuk menyatakan jumlah yang tidak spesifik atau tidak pasti. Biasanya digunakan dalam kalimat positif dan menawarkan atau meminta sesuatu.\n\n
+
+    2. **Penggunaan dalam Kalimat Positif**\n
+    - Some digunakan ketika jumlah yang dimaksudkan tidak terlalu banyak atau ketika kita tidak perlu menyebutkan jumlah yang tepat.\n
+    Contoh: There are some apples in the basket.\n\n
+
+    3. **Penggunaan dalam Penawaran atau Permintaan**\n
+    - Some digunakan ketika kita menawarkan atau meminta sesuatu dengan sopan.\n
+    Contoh: Would you like some tea?\n
+    Contoh: Can I have some water, please?\n\n
+
+    4. **Contoh Kalimat Menggunakan Some**\n
+    - I bought some books yesterday.\n
+    - She needs some help with her homework.\n
+    - They have some friends in New York.\n\n
+
+    C. Penggunaan Any\n
+    1. **Definisi**\n
+    - Any digunakan untuk menyatakan jumlah yang tidak spesifik, biasanya dalam kalimat negatif dan pertanyaan.\n\n
+
+    2. **Penggunaan dalam Kalimat Negatif**\n
+    - Any digunakan ketika menunjukkan bahwa tidak ada jumlah dari benda atau hal tersebut.\n
+    Contoh: There aren`t any apples left.\n\n
+
+    3. **Penggunaan dalam Kalimat Pertanyaan**\n
+    - "Any" digunakan untuk menanyakan keberadaan atau jumlah dari benda atau hal tersebut.\n
+    Contoh: Do you have any questions?\n
+    Contoh: Is there any milk in the fridge?\n\n
+
+    4. **Contoh Kalimat Menggunakan Any**\n
+    - I don`t have any money.\n
+    - Did you buy any groceries?\n
+    - She doesn`t have any friends here.\n\n
+
+    D. Perbedaan Penggunaan Some dan Any\n
+    1. **Kalimat Positif vs. Kalimat Negatif**\n
+    - Some digunakan dalam kalimat positif, sedangkan Any digunakan dalam kalimat negatif.\n
+    Contoh: I have some pens. (Kalimat Positif)\n
+    Contoh: I don`t have any pens. (Kalimat Negatif)\n\n
+
+    2. **Pertanyaan dan Penawaran**\n
+    - Some sering digunakan dalam pertanyaan yang menawarkan atau meminta sesuatu, sementara "Any" digunakan dalam pertanyaan umum.\n
+    Contoh: Would you like some coffee? (Penawaran)\n
+    Contoh: Do you have any coffee? (Pertanyaan Umum)\n\n
+
+    </string>
 
 
 </resources>

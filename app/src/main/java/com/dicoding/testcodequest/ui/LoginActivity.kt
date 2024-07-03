@@ -1,17 +1,25 @@
 package com.dicoding.testcodequest.ui
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.databinding.ActivityLoginBinding
 import androidx.lifecycle.ViewModelProvider
+import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.response.User
+import com.dicoding.testcodequest.data.retrofit.ApiConfig
+import com.dicoding.testcodequest.ui.StageSatu.StageSatuActivity
 import com.dicoding.testcodequest.viewmodel.LoginViewModel
 import com.dicoding.testcodequest.viewmodel.LoginViewModelFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
@@ -67,15 +75,18 @@ class LoginActivity : AppCompatActivity() {
                         token = loginResult.token,
                         point = loginResult.point, // Inisialisasi nilai points
                         koin = loginResult.koin,
-                        ownedAvatars = loginResult.ownedAvatars// Inisialisasi nilai coins
+                        ownedAvatars = loginResult.ownedAvatars,// Inisialisasi nilai coins
+                        profileAvatar = loginResult.profileAvatar,
+                        firstLogin = loginResult.firstLogin
                     )
+
                     preferences.setUser(user)
                     preferences.setStatusLogin(true)
                     Log.d("LoginActivity", "Login successful for User ID: ${user.userId}")
+                    Log.d("LoginActivity", "User to be saved: ${user.nama}, ${user.nim}, ${user.userId}, ${user.profileAvatar}, ${user.firstLogin}")
                     Toast.makeText(applicationContext, "Login Berhasil", Toast.LENGTH_SHORT).show()
-
                     // Navigate to QuestionActivity
-                    val intent = Intent(this@LoginActivity, ProfileActivity::class.java)
+                    val intent = Intent(this@LoginActivity, StageSatuActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
@@ -87,4 +98,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

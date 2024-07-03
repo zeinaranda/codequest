@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.testcodequest.R
+import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.data.response.User
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
 import com.dicoding.testcodequest.ui.Adapter.LeaderboardAdapter
@@ -22,6 +23,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LeaderboardActivity : AppCompatActivity() {
+
+    private lateinit var preference: AuthPreference
+    private var userPoint: Int? = null
+    private var userKoin: Int? = null
 
     private lateinit var firstPlaceAvatar: ImageView
     private lateinit var firstPlaceName: TextView
@@ -39,6 +44,18 @@ class LeaderboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_leaderboard)
+
+        preference = AuthPreference(this)
+
+
+        userPoint = preference.getPoints()
+        userKoin = preference.getCoins()
+
+        val pointsText = findViewById<TextView>(R.id.userPoint)
+        pointsText.text = userPoint.toString()
+
+        val coinsText = findViewById<TextView>(R.id.userCoin)
+        coinsText.text = userKoin.toString()
 
         firstPlaceAvatar = findViewById(R.id.firstPlaceAvatar)
         firstPlaceName = findViewById(R.id.firstPlaceName)
@@ -62,13 +79,31 @@ class LeaderboardActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu1 -> {
-                    val i = Intent(this, StageSatuActivity::class.java)
+                    val i = Intent(this, LeaderboardActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu2 -> {
                     // Stay in the current activity
+                    true
+                }
+                R.id.menu3 -> {
+                    val i = Intent(this, StageSatuActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu4 -> {
+                    val i = Intent(this, ShopActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu5 -> {
+                    val i = Intent(this, ProfileActivity::class.java)
+                    startActivity(i)
+                    finish()
                     true
                 }
                 else -> false

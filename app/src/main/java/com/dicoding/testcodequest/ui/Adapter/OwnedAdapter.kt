@@ -14,10 +14,17 @@ import com.dicoding.testcodequest.data.GrayscaleTransformation
 import com.dicoding.testcodequest.data.response.Avatar
 
 
-class OwnedAdapter(private val avatars: List<Avatar>, private val ownedAvatars: List<Int>) :
-    RecyclerView.Adapter<OwnedAdapter.AvatarViewHolder>() {
+class OwnedAdapter(
+    private val avatars: List<Avatar>,
+    private val ownedAvatars: List<Int>,
+    private val itemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<OwnedAdapter.AvatarViewHolder>() {
 
-    class AvatarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    interface OnItemClickListener {
+        fun onItemClick(avatar: Avatar)
+    }
+
+    inner class AvatarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val avatarImageView: ImageView = itemView.findViewById(R.id.imageAvatar)
         val avatarNameTextView: TextView = itemView.findViewById(R.id.tv_namaAvatar)
     }
@@ -30,22 +37,36 @@ class OwnedAdapter(private val avatars: List<Avatar>, private val ownedAvatars: 
     override fun onBindViewHolder(holder: AvatarViewHolder, position: Int) {
         val avatar = avatars[position]
 
-        // Set avatar name
-        holder.avatarNameTextView.text = avatar.namaAvatar
-
-        // Set avatar image with different coloring based on ownership
-        val imageUrl = avatar.imageAvatar
-        if (ownedAvatars.contains(avatar.avatarId)) {
-            // Load normal image
-            Glide.with(holder.itemView.context)
-                .load(imageUrl)
-                .into(holder.avatarImageView)
+        // Set nama avatar if not null, otherwise hide the TextView
+        if (!avatar.namaAvatar.isNullOrEmpty()) {
+            holder.avatarNameTextView.text = avatar.namaAvatar
+            holder.avatarNameTextView.visibility = View.VISIBLE
         } else {
-            // Load monochrome image
+            holder.avatarNameTextView.visibility = View.GONE
+        }
+
+        // Cek apakah avatar dimiliki
+        val isOwned = ownedAvatars.contains(avatar.avatarId)
+
+        // Load gambar avatar dan atur OnClickListener jika dimiliki
+        if (isOwned) {
             Glide.with(holder.itemView.context)
-                .load(imageUrl)
+                .load(avatar.imageAvatar)
+                .into(holder.avatarImageView)
+
+            // Set OnClickListener untuk avatar yang dimiliki
+            holder.itemView.setOnClickListener {
+                itemClickListener.onItemClick(avatar)
+            }
+        } else {
+            // Jika tidak dimiliki, tampilkan versi monokrom
+            Glide.with(holder.itemView.context)
+                .load(avatar.imageAvatar)
                 .apply(RequestOptions().transform(jp.wasabeef.glide.transformations.GrayscaleTransformation()))
                 .into(holder.avatarImageView)
+
+            // Jangan set OnClickListener untuk avatar yang tidak dimiliki
+            holder.itemView.setOnClickListener(null)
         }
     }
 

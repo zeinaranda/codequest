@@ -1,16 +1,26 @@
 package com.dicoding.testcodequest.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
 import com.dicoding.testcodequest.R
+import com.dicoding.testcodequest.ui.StageSatu.StageSatuActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ResultActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
+
+        val btn_back : ImageView = findViewById(R.id.btn_back)
+        btn_back.setOnClickListener {
+            startActivity(Intent(this, StageSatuActivity::class.java))
+            finish()
+        }
 
         // Get values from intent
         val points = intent.getIntExtra("points", 0)
@@ -45,5 +55,41 @@ class ResultActivity : AppCompatActivity() {
         }
 
         lottieAnimationView.playAnimation()
+
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.itemIconTintList = null
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menu1 -> {
+                    val i = Intent(this, LeaderboardActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu2 -> {
+                    // Stay in the current activity
+                    true
+                }
+                R.id.menu3 -> {
+                    val i = Intent(this, StageSatuActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu4 -> {
+                    val i = Intent(this, ShopActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu5 -> {
+                    val i = Intent(this, ProfileActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

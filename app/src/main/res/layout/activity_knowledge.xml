@@ -18,20 +18,34 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_price"
+        android:padding="8dp"
+        android:rotationY="180"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <TextView
         android:id="@+id/timerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingStart="8dp"
-        android:paddingBottom="4dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="4dp"
-        android:text="Time Left: 00:30"
+        android:layout_marginTop="16dp"
         android:background="@drawable/bg_price"
+        android:fontFamily="@font/poppins"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
+        android:text="Time Left: 00:30"
         android:textColor="@android:color/black"
         android:textSize="12sp"
-        android:fontFamily="@font/poppins"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -89,8 +103,9 @@
             android:id="@+id/questionText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
             android:padding="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="#F9F9F9"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

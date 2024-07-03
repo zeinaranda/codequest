@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -17,17 +18,21 @@ import com.dicoding.testcodequest.data.response.KnowledgeDone
 import com.dicoding.testcodequest.data.response.Question
 import com.dicoding.testcodequest.data.response.User
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
+import com.dicoding.testcodequest.ui.StageSatu.StageSatuActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class KnowledgeActivity : AppCompatActivity() {
+    private var userPoint: Int? = null
+    private var userKoin: Int? = null
     private lateinit var questionText: TextView
     private lateinit var timerText: TextView
     private lateinit var option1: Button
     private lateinit var option2: Button
     private lateinit var option3: Button
     private lateinit var option4: Button
+    private lateinit var btn_back: ImageView
     private lateinit var preference: AuthPreference
     private lateinit var answerFeedback: TextView
     private var userId: Int? = null
@@ -50,7 +55,23 @@ class KnowledgeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_knowledge)
 
+        btn_back = findViewById(R.id.btn_back)
+        btn_back.setOnClickListener {
+            startActivity(Intent(this, StageSatuActivity::class.java))
+            finish()
+        }
+
         preference = AuthPreference(this)
+
+        userPoint = preference.getPoints()
+        userKoin = preference.getCoins()
+
+        val pointsText = findViewById<TextView>(R.id.userPoint)
+        pointsText.text = userPoint.toString()
+
+        val coinsText = findViewById<TextView>(R.id.userCoin)
+        coinsText.text = userKoin.toString()
+
         userId = preference.getId()
         Log.d("QuestionActivity", "User ID from Preference: $userId") // Cek userId dari preference
 
