@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/primary"
     android:padding="24dp">
 
     <TextView
         android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Selamat!"
-        android:textSize="20sp"
+        android:text="Wah Kamu Beruntung!"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_gravity="center"/>
 
@@ -18,16 +23,153 @@
         android:id="@+id/dialog_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Anda mendapatkan 100 coin"
-        android:textSize="16sp"
+        android:text="Yeay! Kamu mendapatkan 1000 Coins dan 100 Points serta dan 3 Avatar sebagai hadiah login pertama kamu! Claim hadiah sekarang!"
+        android:textSize="12sp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:textColor="@color/white"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:id="@+id/ivPoint"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_reward"
+            android:padding="4dp"
+            android:src="@drawable/poin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pointsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="+ 100"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/ivPoint"
+            app:layout_constraintStart_toStartOf="@+id/ivPoint"
+            app:layout_constraintTop_toBottomOf="@+id/ivPoint" />
+
+        <ImageView
+            android:id="@+id/ivCoins"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/bg_reward"
+            android:padding="4dp"
+            android:src="@drawable/coin"
+            app:layout_constraintStart_toEndOf="@+id/ivPoint"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/coinsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pointsText"
+            android:fontFamily="@font/poppins"
+            android:text="+ 1000"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/ivCoins"
+            app:layout_constraintStart_toStartOf="@+id/ivCoins"
+            app:layout_constraintTop_toBottomOf="@+id/ivCoins" />
+
+        <ImageView
+            android:id="@+id/avatarImage1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/bg_reward"
+            android:padding="4dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/lion"
+            app:layout_constraintEnd_toStartOf="@+id/avatarImage2"
+            app:layout_constraintStart_toEndOf="@+id/ivCoins"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/avatarName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pointsText"
+            android:fontFamily="@font/poppins"
+            android:text="Mr. Lion"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/avatarImage1"
+            app:layout_constraintStart_toStartOf="@+id/avatarImage1"
+            app:layout_constraintTop_toBottomOf="@+id/avatarImage1" />
+
+        <ImageView
+            android:id="@+id/avatarImage2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/bg_reward"
+            android:padding="4dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/yuuta"
+            app:layout_constraintEnd_toStartOf="@+id/avatarImage3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/avatarName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pointsText"
+            android:fontFamily="@font/poppins"
+            android:text="Pengembara"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/avatarImage2"
+            app:layout_constraintStart_toStartOf="@+id/avatarImage2"
+            app:layout_constraintTop_toBottomOf="@+id/avatarImage2" />
+
+        <ImageView
+            android:id="@+id/avatarImage3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_reward"
+            android:padding="4dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/rika"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/avatarName3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pointsText"
+            android:fontFamily="@font/poppins"
+            android:text="Rika"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/avatarImage3"
+            app:layout_constraintStart_toStartOf="@+id/avatarImage3"
+            app:layout_constraintTop_toBottomOf="@+id/avatarImage3" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="Claim!"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/primary"
+        android:backgroundTint="@color/white"
         android:layout_gravity="center"
         android:layout_marginTop="24dp"/>
+
 </LinearLayout>

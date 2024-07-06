@@ -85,22 +85,18 @@ class LeaderboardActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    // Stay in the current activity
-                    true
-                }
-                R.id.menu3 -> {
                     val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu4 -> {
+                R.id.menu3 -> {
                     val i = Intent(this, ShopActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu5 -> {
+                R.id.menu4 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()

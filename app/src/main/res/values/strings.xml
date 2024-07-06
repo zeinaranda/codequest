@@ -27,7 +27,6 @@ Morbi pharetra volutpat risus, vitae dapibus orci gravida ac. Sed tristique, jus
 Vestibulum a elit est. Vestibulum laoreet semper accumsan. Cras vitae justo a nulla consectetur consequat hendrerit quis justo. Mauris cursus vitae ipsum ut fringilla. Pellentesque bibendum libero a velit interdum semper vitae viverra urna. Nunc luctus imperdiet massa, rutrum laoreet nisl dignissim et. Nulla nec scelerisque elit, quis eleifend augue. Aliquam tincidunt quis est et consectetur. Donec a volutpat arcu. Vestibulum sit amet ligula nec arcu posuere congue quis ut odio. Phasellus commodo libero dapibus sapien placerat, in tempus erat accumsan. Quisque non auctor metus, eget commodo mauris. </string>
 
 
-
     <string name="materi2">Ini adalah materi dengan id 3.</string>
 
 
@@ -89,7 +88,7 @@ Vestibulum a elit est. Vestibulum laoreet semper accumsan. Cras vitae justo a nu
     </string>
 
 
-<string name="materi5">
+    <string name="materi5">
     Materi Pembelajaran: Part of Speech - Pronoun\n\n
         A. Pengertian Pronoun\n
         Pronoun atau kata ganti adalah kata yang digunakan untuk menggantikan kata benda (noun) dalam kalimat. Pronoun digunakan agar kalimat tidak menjadi berulang-ulang dan membosankan.\n\n

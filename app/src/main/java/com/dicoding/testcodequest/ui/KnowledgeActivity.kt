@@ -66,11 +66,11 @@ class KnowledgeActivity : AppCompatActivity() {
         userPoint = preference.getPoints()
         userKoin = preference.getCoins()
 
-        val pointsText = findViewById<TextView>(R.id.userPoint)
-        pointsText.text = userPoint.toString()
-
-        val coinsText = findViewById<TextView>(R.id.userCoin)
-        coinsText.text = userKoin.toString()
+//        val pointsText = findViewById<TextView>(R.id.userPoint)
+//        pointsText.text = userPoint.toString()
+//
+//        val coinsText = findViewById<TextView>(R.id.userCoin)
+//        coinsText.text = userKoin.toString()
 
         userId = preference.getId()
         Log.d("QuestionActivity", "User ID from Preference: $userId") // Cek userId dari preference
@@ -143,7 +143,7 @@ class KnowledgeActivity : AppCompatActivity() {
         if (selectedOption.text == correctAnswer) {
             selectedOption.background = ContextCompat.getDrawable(this, R.drawable.option_button_correct)
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
-            points += 1000
+            points += 500
             coins += 80
 
             // Load GIF 2 for correct answer
@@ -241,34 +241,51 @@ class KnowledgeActivity : AppCompatActivity() {
 
     private fun updateUserPointsAndCoins() {
         userId?.let { id ->
-            // Mengambil poin dan koin yang ada di preference sebagai nilai saat ini
-            currentPoints = preference.getPoints()
-            currentCoins = preference.getCoins()
-            Log.d("QuestionActivity", "User ID from Preference: $userId, $currentCoins, $currentPoints") // Cek userId dari preference
-
-            // Menambahkan poin dan koin yang diperoleh selama kuis ke nilai saat ini
-            val newPoints = currentPoints + points
-            val newCoins = currentCoins + coins
-
-            val updatedUser = User(
-                userId = id,
-                point = newPoints,
-                koin = newCoins,
-            )
-
-            ApiConfig.getApiService().updateUserPoints(id, updatedUser).enqueue(object : Callback<Void> {
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+            // Fetch the current user data
+            ApiConfig.getApiService().getUserById(id).enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(this@KnowledgeActivity, "Points and coins updated successfully", Toast.LENGTH_SHORT).show()
-                        // Update preferences dengan nilai terbaru
-                        preference.setPoints(newPoints)
-                        preference.setCoins(newCoins)
+                        val user = response.body()
+                        if (user != null) {
+                            // Add points and coins to the current values
+                            val newPoints = user.point?.plus(points)
+                            val newCoins = user.koin?.plus(coins)
+
+                            val updatedUser = User(
+                                userId = id,
+                                point = newPoints,
+                                koin = newCoins,
+                                ownedAvatars = user.ownedAvatars // Preserve ownedAvatars
+                            )
+
+                            // Update the user data on the server
+                            ApiConfig.getApiService().updateUserPoints(id, updatedUser).enqueue(object : Callback<Void> {
+                                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                    if (response.isSuccessful) {
+                                        Toast.makeText(this@KnowledgeActivity, "Points and coins updated successfully", Toast.LENGTH_SHORT).show()
+                                        // Update preferences with new values
+                                        if (newPoints != null) {
+                                            preference.setPoints(newPoints)
+                                        }
+                                        if (newCoins != null) {
+                                            preference.setCoins(newCoins)
+                                        }
+                                    } else {
+                                        Toast.makeText(this@KnowledgeActivity, "Failed to update points and coins", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                                    Toast.makeText(this@KnowledgeActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                                }
+                            })
+                        }
                     } else {
-                        Toast.makeText(this@KnowledgeActivity, "Failed to update points and coins", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@KnowledgeActivity, "Failed to retrieve user data", Toast.LENGTH_SHORT).show()
                     }
                 }
 
-                override fun onFailure(call: Call<Void>, t: Throwable) {
+                override fun onFailure(call: Call<User>, t: Throwable) {
                     Toast.makeText(this@KnowledgeActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })

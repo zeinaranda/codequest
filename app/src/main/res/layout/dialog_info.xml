@@ -1,0 +1,26 @@
+<!-- res/layout/dialog_info.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kamu harus mendapatkan point minimal 640 untuk menuju stage berikutnya."
+        android:gravity="center"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="16sp"
+        android:paddingBottom="20dp"/>
+
+    <Button
+        android:id="@+id/dialog_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/poppins_medium"
+        android:backgroundTint="@color/primary"
+        android:text="OK"/>
+</LinearLayout>

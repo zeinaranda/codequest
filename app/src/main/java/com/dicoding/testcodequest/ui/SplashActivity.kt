@@ -10,7 +10,6 @@ import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.common.Constant
 import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.databinding.ActivitySplashBinding
-import com.dicoding.testcodequest.ui.StageSatu.QuestionActivity
 import com.dicoding.testcodequest.ui.StageSatu.StageSatuActivity
 
 class SplashActivity : AppCompatActivity() {

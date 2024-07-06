@@ -3,9 +3,11 @@ package com.dicoding.testcodequest.ui.StageDua
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.data.response.StageCompletionResponse
@@ -24,7 +26,7 @@ class StageDuaActivity : AppCompatActivity() {
     private lateinit var arrowButtonBack: ImageView
     private var userPoint: Int? = null
     private var userKoin: Int? = null
-
+    private var isStageCompleted: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,11 +77,11 @@ class StageDuaActivity : AppCompatActivity() {
         }
 
         arrowButton.setOnClickListener {
-            if (arrowButton.isEnabled) {
+            if (isStageCompleted) {
                 val intent = Intent(this, StageTigaActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "You need to score 640 points in Stage 2 to proceed", Toast.LENGTH_SHORT).show()
+                showInfoDialog()
             }
         }
 
@@ -94,22 +96,18 @@ class StageDuaActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    // Stay in the current activity
-                    true
-                }
-                R.id.menu3 -> {
                     val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu4 -> {
+                R.id.menu3 -> {
                     val i = Intent(this, ShopActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu5 -> {
+                R.id.menu4 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()
@@ -121,16 +119,15 @@ class StageDuaActivity : AppCompatActivity() {
     }
 
     private fun checkStageCompletion() {
-        val userId = preference.getId() // Ambil userId dari preferensi
-        val stageId = 2 // ID Stage 1
+        val userId = preference.getId()
+        val stageId = 2
 
         if (userId != null) {
             ApiConfig.getApiService().checkStageCompletion(userId, stageId).enqueue(object :
                 Callback<StageCompletionResponse> {
                 override fun onResponse(call: Call<StageCompletionResponse>, response: Response<StageCompletionResponse>) {
                     if (response.isSuccessful) {
-                        val isCompleted = response.body()?.stageCompleted ?: false
-                        arrowButton.isEnabled = isCompleted
+                        isStageCompleted = response.body()?.stageCompleted ?: false
                     } else {
                         Toast.makeText(this@StageDuaActivity, "Failed to check stage completion", Toast.LENGTH_SHORT).show()
                     }
@@ -141,5 +138,19 @@ class StageDuaActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    private fun showInfoDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_info, null)
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialogView.findViewById<Button>(R.id.dialog_button).setOnClickListener {
+            dialogBuilder.dismiss()
+        }
+
+        dialogBuilder.show()
     }
 }

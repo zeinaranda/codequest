@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.data.response.StageCompletionResponse
@@ -25,6 +26,8 @@ class StageSatuActivity : AppCompatActivity() {
     private lateinit var arrowButton: ImageView
     private var userPoint: Int? = null
     private var userKoin: Int? = null
+    private var isStageCompleted: Boolean = false
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,11 +72,11 @@ class StageSatuActivity : AppCompatActivity() {
         checkStageCompletion()
 
         arrowButton.setOnClickListener {
-            if (arrowButton.isEnabled) {
+            if (isStageCompleted) {
                 val intent = Intent(this, StageDuaActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "You need to score 640 points in Stage 1 to proceed", Toast.LENGTH_SHORT).show()
+                showInfoDialog()
             }
         }
 
@@ -88,22 +91,18 @@ class StageSatuActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    // Stay in the current activity
-                    true
-                }
-                R.id.menu3 -> {
                     val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu4 -> {
+                R.id.menu3 -> {
                     val i = Intent(this, ShopActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu5 -> {
+                R.id.menu4 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()
@@ -134,6 +133,12 @@ class StageSatuActivity : AppCompatActivity() {
 
                 // Update firstLogin to false after clicking OK
                 updateFirstLoginStatus()
+
+                // Navigate to StorytellingActivity with putExtra("codeScene", "prolog")
+                val intent = Intent(this, StorytellingActivity::class.java).apply {
+                    putExtra("codeScene", "prolog")
+                }
+                startActivity(intent)
             }
 
             dialog.show()
@@ -174,8 +179,8 @@ class StageSatuActivity : AppCompatActivity() {
                 Callback<StageCompletionResponse> {
                 override fun onResponse(call: Call<StageCompletionResponse>, response: Response<StageCompletionResponse>) {
                     if (response.isSuccessful) {
-                        val isCompleted = response.body()?.stageCompleted ?: false
-                        arrowButton.isEnabled = isCompleted
+                        isStageCompleted = response.body()?.stageCompleted ?: false
+
                     } else {
                         Toast.makeText(this@StageSatuActivity, "Failed to check stage completion", Toast.LENGTH_SHORT).show()
                     }
@@ -186,5 +191,19 @@ class StageSatuActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    private fun showInfoDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_info, null)
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialogView.findViewById<Button>(R.id.dialog_button).setOnClickListener {
+            dialogBuilder.dismiss()
+        }
+
+        dialogBuilder.show()
     }
 }

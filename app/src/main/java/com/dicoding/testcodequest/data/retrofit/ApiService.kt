@@ -51,7 +51,7 @@ interface ApiService {
     @GET("question/{boss_id}")
     fun getQuestions(@Path("boss_id") bossId: Int): Call<List<Question>>
 
-    @GET("question/{knowledge_id}")
+    @GET("question/knowledge/{knowledge_id}")
     fun getQuestionsByKnowledge(@Path("knowledge_id") knowledgeId: Int): Call<List<Question>>
 
     @GET("storytelling/code/{codeScene}")

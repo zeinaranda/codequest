@@ -3,6 +3,7 @@ package com.dicoding.testcodequest.ui
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,8 +17,14 @@ import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.response.Storytelling
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
 import com.dicoding.testcodequest.data.retrofit.ApiService
-import com.dicoding.testcodequest.ui.StageSatu.QuestionActivity
+import com.dicoding.testcodequest.ui.StageDua.BossDuaActivity
+import com.dicoding.testcodequest.ui.StageEmpat.BossEmpatActivity
+import com.dicoding.testcodequest.ui.StageEnam.BossEnamActivity
+import com.dicoding.testcodequest.ui.StageLima.BossLimaActivity
+import com.dicoding.testcodequest.ui.StageSatu.BossSatuActivity
 import com.dicoding.testcodequest.ui.StageSatu.StageSatuActivity
+import com.dicoding.testcodequest.ui.StageTiga.BossTigaActivity
+import com.dicoding.testcodequest.ui.StageTujuh.BossTujuhActivity
 import org.jetbrains.annotations.Nullable
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,10 +43,18 @@ class StorytellingActivity : AppCompatActivity() {
     private var currentStoryIndex: Int = 0
     private var materiId: Int = 0
     private var codeScene: String? = null
+    private var avatarImage: String? = null
+    private var avatarName: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_storytelling)
+
+        // Get values from intent
+        val points = intent.getIntExtra("points", 0)
+        val coins = intent.getIntExtra("coins", 0)
+
 
         val btnBack: ImageView = findViewById(R.id.btn_back)
         btnBack.setOnClickListener {
@@ -57,6 +72,9 @@ class StorytellingActivity : AppCompatActivity() {
         // Get codeScene and materi_id from intent
         codeScene = intent.getStringExtra("codeScene") ?: "default_scene"
         materiId = intent.getIntExtra("materi_id", 0)
+        val avatarImage = intent.getStringExtra("avatarImage") ?: "default_image"
+        val avatarName = intent.getStringExtra("avatarName") ?: "default_name"
+
 
         // Fetch storytelling content
         fetchStorytellingContent(codeScene)
@@ -67,10 +85,20 @@ class StorytellingActivity : AppCompatActivity() {
                 if (currentStoryIndex < it.size) {
                     displayStory(currentStoryIndex)
                 } else {
-                    if (shouldNavigateToQuestionActivity(codeScene)) {
-                        navigateToQuestionActivity()
-                    } else {
-                        navigateToCourseActivity()
+                    when {
+                        (shouldNavigateToQuestionActivity(codeScene)) -> {
+                            navigateToQuestionActivity()}
+
+                        shouldNavigateToResultActivity(codeScene) -> {
+                            navigateToResultActivity(points, coins, avatarImage, avatarName)
+                        }
+
+                        shouldNavigateToStageSatuActivity(codeScene) -> {
+                            navigateToStageSatuActivity()
+                        }
+                        else -> {
+                            navigateToCourseActivity()
+                        }
                     }
                 }
             }
@@ -144,6 +172,20 @@ class StorytellingActivity : AppCompatActivity() {
         return codeScene in listOf("b1", "b2", "b3", "b4", "b5", "b6", "b7")
     }
 
+    private fun shouldNavigateToResultActivity(codeScene: String?): Boolean {
+        return codeScene in listOf("b11", "b22", "b33", "b44", "b55", "b66", "b77")
+    }
+
+    private fun shouldNavigateToStageSatuActivity(codeScene: String?): Boolean {
+        return codeScene == "prolog"
+    }
+
+    private fun navigateToStageSatuActivity() {
+        val intent = Intent(this, StageSatuActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun navigateToCourseActivity() {
         val intent = Intent(this, CourseActivity::class.java)
         intent.putExtra("materi_id", materiId)
@@ -152,7 +194,36 @@ class StorytellingActivity : AppCompatActivity() {
     }
 
     private fun navigateToQuestionActivity() {
-        val intent = Intent(this, QuestionActivity::class.java)
+        val intent = when (codeScene) {
+            "b1" -> Intent(this, BossSatuActivity::class.java)
+
+            "b2" -> Intent(this, BossDuaActivity::class.java)
+
+            "b3" -> Intent(this, BossTigaActivity::class.java)
+
+            "b4" -> Intent(this, BossEmpatActivity::class.java)
+
+            "b5" -> Intent(this, BossLimaActivity::class.java)
+
+            "b6" -> Intent(this, BossEnamActivity::class.java)
+
+            "b7" -> Intent(this, BossTujuhActivity::class.java)
+
+
+            else -> Intent(this, StageSatuActivity::class.java)
+        }
+        startActivity(intent)
+        finish()
+    }
+
+    private fun navigateToResultActivity(points: Int, coins: Int, avatarImage: String, avatarName: String) {
+        val intent = Intent(this, ResultBossActivity::class.java)
+        intent.putExtra("points", points)
+        intent.putExtra("coins", coins)
+        intent.putExtra("codeScene", codeScene)
+        intent.putExtra("avatarImage", avatarImage)
+        intent.putExtra("avatarName", avatarName)
+        Log.d("ResultActivity", "User to be Intent: ${avatarImage}, ${avatarName}, ${codeScene}")
         startActivity(intent)
         finish()
     }

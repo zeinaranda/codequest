@@ -31,27 +31,27 @@ class ResultActivity : AppCompatActivity() {
 //        resultText.text = if (points >= 640) "Selamat " else "Coba Lagi"
         resultText.text =
         when {
+            points in 0..639 -> "Yah nilaimu masih kurang. Tapi jangan menyerah, coba lagi ya"
             points in 640..720 -> "Selamat Anda mendapatkan medali perunggu di Tes ini."
             points in 721..850 -> "Selamat Anda mendapatkan medali perak di Tes ini"
-            points in 851..1000 -> "Selamat Anda mendapatkan medali emas di Tes ini"
-            else -> "Jangan menyerah, coba lagi ya"
+            else -> "Selamat Anda mendapatkan medali emas di Tes ini"
         }
 
         val pointsText = findViewById<TextView>(R.id.pointsText)
-        pointsText.text = "Points: $points"
+        pointsText.text = "+ $points"
 
         val coinsText = findViewById<TextView>(R.id.coinsText)
-        coinsText.text = "Coins: $coins"
+        coinsText.text = "+ $coins"
 
         // Find LottieAnimationView
         val lottieAnimationView = findViewById<LottieAnimationView>(R.id.lottieAnimationView)
 
         // Set appropriate animation based on points
         when {
+            points in 0..639 -> lottieAnimationView.setAnimation(R.raw.sad)
             points in 640..720 -> lottieAnimationView.setAnimation(R.raw.perunggu_medal)
             points in 721..850 -> lottieAnimationView.setAnimation(R.raw.perak_medal)
-            points in 851..1000 -> lottieAnimationView.setAnimation(R.raw.gold_medal)
-            else -> lottieAnimationView.setAnimation(R.raw.applause)
+            else -> lottieAnimationView.setAnimation(R.raw.gold_medal)
         }
 
         lottieAnimationView.playAnimation()
@@ -67,22 +67,18 @@ class ResultActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    // Stay in the current activity
-                    true
-                }
-                R.id.menu3 -> {
                     val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu4 -> {
+                R.id.menu3 -> {
                     val i = Intent(this, ShopActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu5 -> {
+                R.id.menu4 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()

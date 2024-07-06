@@ -47,6 +47,16 @@ class CourseActivity : AppCompatActivity() {
             2 -> getString(R.string.materi2)
             3 -> getString(R.string.materi3)
             4 -> getString(R.string.materi4)
+            5 -> getString(R.string.materi5)
+            6 -> getString(R.string.materi6)
+            7 -> getString(R.string.materi7)
+            8 -> getString(R.string.materi8)
+            9 -> getString(R.string.materi9)
+            10 -> getString(R.string.materi10)
+            11 -> getString(R.string.materi11)
+            12 -> getString(R.string.materi12)
+            13 -> getString(R.string.materi13)
+            14 -> getString(R.string.materi14)
             else -> "Materi tidak ditemukan."
         }
 
@@ -69,22 +79,18 @@ class CourseActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    // Stay in the current activity
-                    true
-                }
-                R.id.menu3 -> {
                     val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu4 -> {
+                R.id.menu3 -> {
                     val i = Intent(this, ShopActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu5 -> {
+                R.id.menu4 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()

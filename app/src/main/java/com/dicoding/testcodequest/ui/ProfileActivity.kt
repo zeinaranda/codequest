@@ -87,23 +87,27 @@ class ProfileActivity : AppCompatActivity(), OwnedAdapter.OnItemClickListener {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu1 -> {
-                    startActivity(Intent(this, LeaderboardActivity::class.java))
+                    val i = Intent(this, LeaderboardActivity::class.java)
+                    startActivity(i)
                     finish()
                     true
                 }
-                R.id.menu2 -> true // Stay in the current activity
+                R.id.menu2 -> {
+                    val i = Intent(this, StageSatuActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
                 R.id.menu3 -> {
-                    startActivity(Intent(this, StageSatuActivity::class.java))
+                    val i = Intent(this, ShopActivity::class.java)
+                    startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu4 -> {
-                    startActivity(Intent(this, ShopActivity::class.java))
+                    val i = Intent(this, ProfileActivity::class.java)
+                    startActivity(i)
                     finish()
-                    true
-                }
-                R.id.menu5 -> {
-                    // Already in ProfileActivity, do nothing
                     true
                 }
                 else -> false

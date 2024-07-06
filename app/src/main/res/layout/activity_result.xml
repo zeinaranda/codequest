@@ -59,30 +59,66 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
     <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Kamu Mendapatkan :"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultText" />
+
+    <ImageView
+        android:id="@+id/ivPoint"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_reward"
+        android:padding="4dp"
+        android:src="@drawable/poin"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCoins"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toTopOf="@+id/ivCoins" />
+
+    <TextView
         android:id="@+id/pointsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/resultText"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Points: 0"
+        android:layout_marginTop="4dp"
+        android:text="+ 0"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resultText" />
+        app:layout_constraintEnd_toEndOf="@+id/ivPoint"
+        app:layout_constraintStart_toStartOf="@+id/ivPoint"
+        app:layout_constraintTop_toBottomOf="@+id/ivPoint" />
+
+    <ImageView
+        android:id="@+id/ivCoins"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_reward"
+        android:padding="4dp"
+        android:src="@drawable/coin"
+        app:layout_constraintEnd_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <TextView
         android:id="@+id/coinsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/pointsText"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Coins: 0"
+        android:layout_marginTop="4dp"
+        android:text="+ 0"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pointsText" />
+        app:layout_constraintEnd_toEndOf="@+id/ivCoins"
+        app:layout_constraintStart_toStartOf="@+id/ivCoins"
+        app:layout_constraintTop_toBottomOf="@+id/ivCoins" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
