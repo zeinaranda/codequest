@@ -82,9 +82,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="420dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +93,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -121,7 +122,7 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/option_button_normal"
         android:minWidth="120dp"
-        android:minHeight="30dp"
+        android:minHeight="40dp"
         android:paddingStart="16dp"
         android:paddingTop="1dp"
         android:paddingEnd="16dp"

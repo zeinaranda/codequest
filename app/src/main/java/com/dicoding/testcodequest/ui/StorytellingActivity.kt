@@ -18,13 +18,19 @@ import com.dicoding.testcodequest.data.response.Storytelling
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
 import com.dicoding.testcodequest.data.retrofit.ApiService
 import com.dicoding.testcodequest.ui.StageDua.BossDuaActivity
+import com.dicoding.testcodequest.ui.StageDua.StageDuaActivity
 import com.dicoding.testcodequest.ui.StageEmpat.BossEmpatActivity
+import com.dicoding.testcodequest.ui.StageEmpat.StageEmpatActivity
 import com.dicoding.testcodequest.ui.StageEnam.BossEnamActivity
+import com.dicoding.testcodequest.ui.StageEnam.StageEnamActivity
 import com.dicoding.testcodequest.ui.StageLima.BossLimaActivity
+import com.dicoding.testcodequest.ui.StageLima.StageLimaActivity
 import com.dicoding.testcodequest.ui.StageSatu.BossSatuActivity
 import com.dicoding.testcodequest.ui.StageSatu.StageSatuActivity
 import com.dicoding.testcodequest.ui.StageTiga.BossTigaActivity
+import com.dicoding.testcodequest.ui.StageTiga.StageTigaActivity
 import com.dicoding.testcodequest.ui.StageTujuh.BossTujuhActivity
+import com.dicoding.testcodequest.ui.StageTujuh.StageTujuhActivity
 import org.jetbrains.annotations.Nullable
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,7 +64,33 @@ class StorytellingActivity : AppCompatActivity() {
 
         val btnBack: ImageView = findViewById(R.id.btn_back)
         btnBack.setOnClickListener {
-            startActivity(Intent(this, StageSatuActivity::class.java))
+            when (codeScene) {
+                "1", "b1", "b11", "prolog" -> {
+                    startActivity(Intent(this, StageSatuActivity::class.java))
+                }
+                "2", "b2", "b22" -> {
+                    startActivity(Intent(this, StageDuaActivity::class.java))
+                }
+                "3", "b3", "b33" -> {
+                    startActivity(Intent(this, StageTigaActivity::class.java))
+                }
+                "4", "b4", "b44" -> {
+                    startActivity(Intent(this, StageEmpatActivity::class.java))
+                }
+                "5", "b5", "b55" -> {
+                    startActivity(Intent(this, StageLimaActivity::class.java))
+                }
+                "6", "b6", "b66" -> {
+                    startActivity(Intent(this, StageEnamActivity::class.java))
+                }
+                "7", "b7", "b77", "epilog" -> {
+                    startActivity(Intent(this, StageTujuhActivity::class.java))
+                }
+                else -> {
+                    // Default case
+                    startActivity(Intent(this, StageSatuActivity::class.java))
+                }
+            }
             finish()
         }
 
@@ -96,6 +128,10 @@ class StorytellingActivity : AppCompatActivity() {
                         shouldNavigateToStageSatuActivity(codeScene) -> {
                             navigateToStageSatuActivity()
                         }
+
+                        shouldNavigateToEpilog(codeScene) -> {
+                            navigateToEpilog(points, coins, avatarImage, avatarName)
+                        }
                         else -> {
                             navigateToCourseActivity()
                         }
@@ -105,10 +141,24 @@ class StorytellingActivity : AppCompatActivity() {
         }
 
         tvSkip.setOnClickListener {
-            if (shouldNavigateToQuestionActivity(codeScene)) {
-                navigateToQuestionActivity()
-            } else {
-                navigateToCourseActivity()
+            when {
+                (shouldNavigateToQuestionActivity(codeScene)) -> {
+                    navigateToQuestionActivity()}
+
+                shouldNavigateToResultActivity(codeScene) -> {
+                    navigateToResultActivity(points, coins, avatarImage, avatarName)
+                }
+
+                shouldNavigateToStageSatuActivity(codeScene) -> {
+                    navigateToStageSatuActivity()
+                }
+
+                shouldNavigateToEpilog(codeScene) -> {
+                    navigateToEpilog(points, coins, avatarImage, avatarName)
+                }
+                else -> {
+                    navigateToCourseActivity()
+                }
             }
         }
     }
@@ -173,11 +223,15 @@ class StorytellingActivity : AppCompatActivity() {
     }
 
     private fun shouldNavigateToResultActivity(codeScene: String?): Boolean {
-        return codeScene in listOf("b11", "b22", "b33", "b44", "b55", "b66", "b77")
+        return codeScene in listOf("b11", "b22", "b33", "b44", "b55", "b66", "epilog")
     }
 
     private fun shouldNavigateToStageSatuActivity(codeScene: String?): Boolean {
         return codeScene == "prolog"
+    }
+
+    private fun shouldNavigateToEpilog(codeScene: String?): Boolean {
+        return codeScene == "b77"
     }
 
     private fun navigateToStageSatuActivity() {
@@ -212,6 +266,19 @@ class StorytellingActivity : AppCompatActivity() {
 
             else -> Intent(this, StageSatuActivity::class.java)
         }
+        startActivity(intent)
+        finish()
+    }
+
+    private fun navigateToEpilog(points: Int, coins: Int, avatarImage: String, avatarName: String) {
+        val intent = Intent(this, StorytellingActivity::class.java)
+        intent.putExtra("codeScene", "epilog")
+        intent.putExtra("points", points)
+        intent.putExtra("coins", coins)
+        intent.putExtra("avatarImage", avatarImage)
+        intent.putExtra("avatarName", avatarName)
+
+        Log.d("ResultActivity", "User to be Intent:${codeScene}")
         startActivity(intent)
         finish()
     }

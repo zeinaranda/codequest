@@ -102,4 +102,31 @@ interface ApiService {
 
     @GET("avatar/method/{obtainMethod}")
     fun getAvatarbyMethod(@Path("obtainMethod") obtainMethod: String): Call<List<Avatar>>
+
+    @GET("friend/{userId}")
+    fun getFriends(@Path("userId") userId: Int): Call<ArrayList<Friend>>
+
+    @POST("/friend")
+    fun addFriend(@Body friendRequest: FriendRequest): Call<Friend>
+
+    @GET("forum/posts")
+    fun getAllPosts(): Call<List<Post>>
+
+    @GET("forum/posts/{userId}")
+    fun getPostsByUserId(@Path("userId") userId: Int): Call<List<Post>>
+
+    @DELETE("forum/posts/{postId}")
+    fun deletePost(@Path("postId") postId: Int): Call<Void>
+
+    @GET("forum/posts/{postId}/comments")
+    fun getCommentsByPostId(@Path("postId") postId: Int): Call<List<Comment>>
+
+    // Tambahkan fungsi untuk membuat posting baru
+    @POST("forum/posts")
+    fun createPost(@Body post: Post): Call<Post>
+
+    // Tambahkan fungsi untuk membuat komentar baru
+    @POST("forum/posts/{postId}/comments")
+    fun createComment(@Path("postId") postId: Int, @Body comment: Comment): Call<Comment>
+
 }

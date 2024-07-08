@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
@@ -37,7 +39,7 @@ class LeaderboardActivity : AppCompatActivity() {
     private lateinit var thirdPlaceAvatar: ImageView
     private lateinit var thirdPlaceName: TextView
     private lateinit var thirdPlacePoints: TextView
-
+    private lateinit var progressBar: LottieAnimationView
     private lateinit var recyclerViewOthers: RecyclerView
     private lateinit var othersAdapter: LeaderboardAdapter
 
@@ -47,6 +49,11 @@ class LeaderboardActivity : AppCompatActivity() {
 
         preference = AuthPreference(this)
 
+        // Inisialisasi progressBar
+        progressBar = findViewById(R.id.progressBar)
+
+        // Atur visibilitas progressBar menjadi visible sebelum memulai fetching data
+        progressBar.visibility = View.VISIBLE
 
         userPoint = preference.getPoints()
         userKoin = preference.getCoins()
@@ -85,18 +92,24 @@ class LeaderboardActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    val i = Intent(this, StageSatuActivity::class.java)
+                    val i = Intent(this, FriendActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu3 -> {
-                    val i = Intent(this, ShopActivity::class.java)
+                    val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu4 -> {
+                    val i = Intent(this, ShopActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu5 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()
@@ -137,10 +150,13 @@ class LeaderboardActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this@LeaderboardActivity, "Failed to fetch data", Toast.LENGTH_SHORT).show()
                 }
+                progressBar.visibility = View.GONE
+
             }
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 Toast.makeText(this@LeaderboardActivity, t.message, Toast.LENGTH_SHORT).show()
+                progressBar.visibility = View.GONE
             }
         })
     }

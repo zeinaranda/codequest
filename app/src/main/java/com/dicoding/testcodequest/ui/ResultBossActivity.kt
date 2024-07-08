@@ -3,6 +3,7 @@ package com.dicoding.testcodequest.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
@@ -60,7 +61,12 @@ class ResultBossActivity : AppCompatActivity() {
 
         // Set appropriate animation based on points
         when {
-            points in 0..639 -> lottieAnimationView.setAnimation(R.raw.sad)
+            points in 0..639 -> {
+                lottieAnimationView.setAnimation(R.raw.sad)
+                // Hide avatarImage and avatarName
+                ivAvatarImage.visibility = View.GONE
+                avatarNameText.visibility = View.GONE
+            }
             points in 640..720 -> lottieAnimationView.setAnimation(R.raw.perunggu_medal)
             points in 721..850 -> lottieAnimationView.setAnimation(R.raw.perak_medal)
             else -> lottieAnimationView.setAnimation(R.raw.gold_medal)
@@ -79,18 +85,24 @@ class ResultBossActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    val i = Intent(this, StageSatuActivity::class.java)
+                    val i = Intent(this, FriendActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu3 -> {
-                    val i = Intent(this, ShopActivity::class.java)
+                    val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu4 -> {
+                    val i = Intent(this, ShopActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu5 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()

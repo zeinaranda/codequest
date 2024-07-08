@@ -197,7 +197,7 @@ class BossSatuActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
                 finish()
-            }, 1500)
+            }, 2000)
         } else {
             loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_makima stand.gif")
             Handler(Looper.getMainLooper()).postDelayed({

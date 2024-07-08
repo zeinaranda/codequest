@@ -18,7 +18,13 @@ import com.dicoding.testcodequest.data.response.KnowledgeDone
 import com.dicoding.testcodequest.data.response.Question
 import com.dicoding.testcodequest.data.response.User
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
+import com.dicoding.testcodequest.ui.StageDua.StageDuaActivity
+import com.dicoding.testcodequest.ui.StageEmpat.StageEmpatActivity
+import com.dicoding.testcodequest.ui.StageEnam.StageEnamActivity
+import com.dicoding.testcodequest.ui.StageLima.StageLimaActivity
 import com.dicoding.testcodequest.ui.StageSatu.StageSatuActivity
+import com.dicoding.testcodequest.ui.StageTiga.StageTigaActivity
+import com.dicoding.testcodequest.ui.StageTujuh.StageTujuhActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,12 +61,22 @@ class KnowledgeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_knowledge)
 
-        btn_back = findViewById(R.id.btn_back)
+        val btn_back : ImageView= findViewById(R.id.btn_back)
         btn_back.setOnClickListener {
-            startActivity(Intent(this, StageSatuActivity::class.java))
+            val intent = when (knowledgeId) {
+                1, 2 -> Intent(this, StageSatuActivity::class.java)
+                3, 4 -> Intent(this, StageDuaActivity::class.java)
+                5, 6 -> Intent(this, StageTigaActivity::class.java)
+                7, 8 -> Intent(this, StageEmpatActivity::class.java)
+                9, 10 -> Intent(this, StageLimaActivity::class.java)
+                11, 12 -> Intent(this, StageEnamActivity::class.java)
+                13, 14 -> Intent(this, StageTujuhActivity::class.java)
+                // Tambahkan case untuk materi_id lain jika diperlukan
+                else -> Intent(this, StageSatuActivity::class.java) // Default fallback jika materi_id tidak sesuai
+            }
+            startActivity(intent)
             finish()
         }
-
         preference = AuthPreference(this)
 
         userPoint = preference.getPoints()

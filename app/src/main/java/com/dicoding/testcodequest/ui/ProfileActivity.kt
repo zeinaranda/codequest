@@ -4,12 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.testcodequest.R
@@ -28,6 +30,7 @@ import retrofit2.Response
 class ProfileActivity : AppCompatActivity(), OwnedAdapter.OnItemClickListener {
     private var userPoint: Int? = null
     private var userKoin: Int? = null
+    private lateinit var progressBar: LottieAnimationView
     private lateinit var avatarAdapter: OwnedAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var preference: AuthPreference
@@ -43,10 +46,17 @@ class ProfileActivity : AppCompatActivity(), OwnedAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        // Inisialisasi progressBar
+        progressBar = findViewById(R.id.progressBar)
+
+        // Atur visibilitas progressBar menjadi visible sebelum memulai fetching data
+        progressBar.visibility = View.VISIBLE
+
+
         btn_logout = findViewById(R.id.btn_logout)
         btn_logout.setOnClickListener {
-            getLogout()
-            this.finish()
+           showLogoutConfirmationDialog()
         }
 
         ivProfile = findViewById(R.id.ivProfile)
@@ -93,18 +103,24 @@ class ProfileActivity : AppCompatActivity(), OwnedAdapter.OnItemClickListener {
                     true
                 }
                 R.id.menu2 -> {
-                    val i = Intent(this, StageSatuActivity::class.java)
+                    val i = Intent(this, FriendActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu3 -> {
-                    val i = Intent(this, ShopActivity::class.java)
+                    val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu4 -> {
+                    val i = Intent(this, ShopActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu5 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()
@@ -140,6 +156,7 @@ class ProfileActivity : AppCompatActivity(), OwnedAdapter.OnItemClickListener {
                             } else {
                                 Log.e("ProfileActivity", "Failed to get avatars")
                             }
+                            progressBar.visibility = View.GONE
                         }
 
                         override fun onFailure(call: Call<List<Avatar>>, t: Throwable) {
@@ -153,6 +170,7 @@ class ProfileActivity : AppCompatActivity(), OwnedAdapter.OnItemClickListener {
 
             override fun onFailure(call: Call<OwnedAvatarsResponse>, t: Throwable) {
                 Log.e("ProfileActivity", "Failed to get owned avatars", t)
+                progressBar.visibility = View.GONE
             }
         })
     }
@@ -217,5 +235,19 @@ class ProfileActivity : AppCompatActivity(), OwnedAdapter.OnItemClickListener {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Konfirmasi Logout")
+            .setMessage("Apakah Anda yakin ingin logout?")
+            .setPositiveButton("Ya") { _, _ ->
+                getLogout()
+                this.finish()
+            }
+            .setNegativeButton("Tidak") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }

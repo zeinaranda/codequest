@@ -56,7 +56,7 @@ class BossDuaActivity : AppCompatActivity() {
 
         val btn_back : ImageView = findViewById(R.id.btn_back)
         btn_back.setOnClickListener {
-            startActivity(Intent(this, StageSatuActivity::class.java))
+            startActivity(Intent(this, StageDuaActivity::class.java))
             finish()
         }
 
@@ -198,7 +198,7 @@ class BossDuaActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
                 finish()
-            }, 1500)
+            }, 2000)
         } else {
             loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_nezuko stand.gif")
             Handler(Looper.getMainLooper()).postDelayed({

@@ -8,7 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
+import com.dicoding.testcodequest.ui.StageDua.StageDuaActivity
+import com.dicoding.testcodequest.ui.StageEmpat.StageEmpatActivity
+import com.dicoding.testcodequest.ui.StageEnam.StageEnamActivity
+import com.dicoding.testcodequest.ui.StageLima.StageLimaActivity
 import com.dicoding.testcodequest.ui.StageSatu.StageSatuActivity
+import com.dicoding.testcodequest.ui.StageTiga.StageTigaActivity
+import com.dicoding.testcodequest.ui.StageTujuh.StageTujuhActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CourseActivity : AppCompatActivity() {
@@ -30,17 +36,28 @@ class CourseActivity : AppCompatActivity() {
 
         val coinsText = findViewById<TextView>(R.id.userCoin)
         coinsText.text = userKoin.toString()
+        val materiId = intent.getIntExtra("materi_id", 0)
 
         val btn_back : ImageView= findViewById(R.id.btn_back)
         btn_back.setOnClickListener {
-            startActivity(Intent(this, StageSatuActivity::class.java))
+            val intent = when (materiId) {
+                1, 2 -> Intent(this, StageSatuActivity::class.java)
+                3, 4 -> Intent(this, StageDuaActivity::class.java)
+                5, 6 -> Intent(this, StageTigaActivity::class.java)
+                7, 8 -> Intent(this, StageEmpatActivity::class.java)
+                9, 10 -> Intent(this, StageLimaActivity::class.java)
+                11, 12 -> Intent(this, StageEnamActivity::class.java)
+                13, 14 -> Intent(this, StageTujuhActivity::class.java)
+                // Tambahkan case untuk materi_id lain jika diperlukan
+                else -> Intent(this, StageSatuActivity::class.java) // Default fallback jika materi_id tidak sesuai
+            }
+            startActivity(intent)
             finish()
         }
 
         val textViewMateri: TextView = findViewById(R.id.textViewMateri)
         val buttonKnowledgeCheck: Button = findViewById(R.id.buttonKnowledgeCheck)
 
-        val materiId = intent.getIntExtra("materi_id", 0)
 
         val materiText = when (materiId) {
             1 -> getString(R.string.materi1)

@@ -102,18 +102,24 @@ class ShopActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    val i = Intent(this, StageSatuActivity::class.java)
+                    val i = Intent(this, FriendActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu3 -> {
-                    val i = Intent(this, ShopActivity::class.java)
+                    val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu4 -> {
+                    val i = Intent(this, ShopActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu5 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()

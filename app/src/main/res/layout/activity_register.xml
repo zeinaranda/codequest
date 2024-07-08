@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
     android:nestedScrollingEnabled="true"
     tools:context=".ui.LoginActivity">
 
@@ -57,6 +58,7 @@
             android:layout_marginTop="25dp"
             android:background="@drawable/bg_price"
             android:fontFamily="@font/poppins"
+            android:textColor="#808080"
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:paddingEnd="10dp"
@@ -71,6 +73,7 @@
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="25dp"
             android:background="@drawable/bg_price"
+            android:textColor="#808080"
             android:fontFamily="@font/poppins"
             android:paddingStart="10dp"
             android:paddingTop="10dp"
@@ -89,6 +92,7 @@
             android:layout_marginTop="25dp"
             android:background="@drawable/bg_price"
             android:fontFamily="@font/poppins"
+            android:textColor="#808080"
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:paddingEnd="10dp"

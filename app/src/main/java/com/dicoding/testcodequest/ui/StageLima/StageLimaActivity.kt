@@ -3,11 +3,13 @@ package com.dicoding.testcodequest.ui.StageLima
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.airbnb.lottie.LottieAnimationView
 import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.data.response.StageCompletionResponse
@@ -29,12 +31,18 @@ class StageLimaActivity : AppCompatActivity() {
     private var userPoint: Int? = null
     private var userKoin: Int? = null
     private var isStageCompleted: Boolean = false
-
+    private lateinit var progressBar: LottieAnimationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stage_lima)
+
+        // Inisialisasi progressBar
+        progressBar = findViewById(R.id.progressBar)
+
+        // Atur visibilitas progressBar menjadi visible sebelum memulai fetching data
+        progressBar.visibility = View.VISIBLE
 
         preference = AuthPreference(this)
 
@@ -78,12 +86,14 @@ class StageLimaActivity : AppCompatActivity() {
         arrowButtonBack.setOnClickListener {
             val intent = Intent(this, StageEmpatActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
 
         arrowButton.setOnClickListener {
             if (isStageCompleted) {
                 val intent = Intent(this, StageEnamActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left) // Tambahkan animasi slide ke kiri
             } else {
                 showInfoDialog()
             }
@@ -100,18 +110,24 @@ class StageLimaActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    val i = Intent(this, StageSatuActivity::class.java)
+                    val i = Intent(this, FriendActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu3 -> {
-                    val i = Intent(this, ShopActivity::class.java)
+                    val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu4 -> {
+                    val i = Intent(this, ShopActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu5 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()
@@ -136,10 +152,12 @@ class StageLimaActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(this@StageLimaActivity, "Failed to check stage completion", Toast.LENGTH_SHORT).show()
                     }
+                    progressBar.visibility = View.GONE
                 }
 
                 override fun onFailure(call: Call<StageCompletionResponse>, t: Throwable) {
                     Toast.makeText(this@StageLimaActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                    progressBar.visibility = View.GONE
                 }
             })
         }
