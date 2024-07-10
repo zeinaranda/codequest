@@ -38,7 +38,7 @@ class ShopActivity : AppCompatActivity() {
     private lateinit var adapter: AvatarAdapter
     private val list = ArrayList<Avatar>()
     private var obtainMethod: String? = "shop"
-    private val requiredCoins = 800
+    private val requiredCoins = 1000
     private var userId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

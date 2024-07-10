@@ -167,10 +167,7 @@ class LeaderboardActivity : AppCompatActivity() {
         if (user.profileAvatar != null) {
             Glide.with(this)
                 .load(user.profileAvatar)
-                .placeholder(R.drawable.placeholder_image) // Gambar placeholder jika perlu
                 .into(avatar)
-        } else {
-            avatar.setImageResource(R.drawable.placeholder_image) // Gambar default jika URL null
         }
     }
 }

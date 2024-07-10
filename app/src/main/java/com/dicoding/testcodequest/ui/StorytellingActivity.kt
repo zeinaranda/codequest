@@ -44,7 +44,6 @@ class StorytellingActivity : AppCompatActivity() {
     private lateinit var ivAvatarImage: ImageView
     private lateinit var ivBg: ImageView
     private lateinit var tvSkip: TextView
-
     private var storytellingList: List<Storytelling>? = null
     private var currentStoryIndex: Int = 0
     private var materiId: Int = 0

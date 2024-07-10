@@ -13,6 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import com.airbnb.lottie.LottieAnimationView
 import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
+import com.dicoding.testcodequest.data.response.BossDoneResponse
+import com.dicoding.testcodequest.data.response.KnowledgeDoneResponse
 import com.dicoding.testcodequest.data.response.StageCompletionResponse
 import com.dicoding.testcodequest.data.response.UpdateFirstLoginRequest
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
@@ -30,6 +32,10 @@ class StageSatuActivity : AppCompatActivity() {
     private var userKoin: Int? = null
     private var isStageCompleted: Boolean = false
     private lateinit var progressBar: LottieAnimationView
+    private lateinit var courseSatu: ImageView
+    private lateinit var courseDua: ImageView
+    private lateinit var bossSatu: ImageView
+    private var userId: Int? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +50,7 @@ class StageSatuActivity : AppCompatActivity() {
 
 
         preference = AuthPreference(this)
+        userId = preference.getId()
         userPoint = preference.getPoints()
         userKoin = preference.getCoins()
 
@@ -55,9 +62,12 @@ class StageSatuActivity : AppCompatActivity() {
 
         arrowButton = findViewById(R.id.arrowButton)
 
-        val courseSatu: ImageView = findViewById(R.id.courseSatu)
-        val courseDua: ImageView = findViewById(R.id.courseDua)
-        val bossSatu: ImageView = findViewById(R.id.bossSatu)
+        courseSatu = findViewById(R.id.courseSatu)
+        courseDua = findViewById(R.id.courseDua)
+        bossSatu = findViewById(R.id.bossSatu)
+
+        userId?.let { checkKnowledgeCompletion(it) }
+        userId?.let { checkBossCompletion(it) }
 
         courseSatu.setOnClickListener {
             val intent = Intent(this, StorytellingActivity::class.java)
@@ -223,5 +233,50 @@ class StageSatuActivity : AppCompatActivity() {
         }
 
         dialogBuilder.show()
+    }
+
+    private fun checkKnowledgeCompletion(userId: Int) {
+        val api = ApiConfig.getApiService()
+        val call = api.checkKnowledgeCompletion(userId)
+
+        call.enqueue(object : Callback<KnowledgeDoneResponse> {
+            override fun onResponse(call: Call<KnowledgeDoneResponse>, response: Response<KnowledgeDoneResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { knowledgeDoneResponse ->
+                        if (knowledgeDoneResponse.knowledge1Completed) {
+                            courseSatu.setImageResource(R.drawable.btn_stage_satu_upd)
+                        }
+                        if (knowledgeDoneResponse.knowledge2Completed) {
+                            courseDua.setImageResource(R.drawable.btn_stage_dua_upd)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<KnowledgeDoneResponse>, t: Throwable) {
+                // Handle failure
+            }
+        })
+    }
+
+    private fun checkBossCompletion(userId: Int) {
+        val api = ApiConfig.getApiService()
+        val call = api.checkBossCompletion(userId)
+
+        call.enqueue(object : Callback<BossDoneResponse> {
+            override fun onResponse(call: Call<BossDoneResponse>, response: Response<BossDoneResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { bossDoneResponse ->
+                        if (bossDoneResponse.boss1Completed) {
+                            bossSatu.setImageResource(R.drawable.btn_stage_boss_upd)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<BossDoneResponse>, t: Throwable) {
+                // Handle failure
+            }
+        })
     }
 }

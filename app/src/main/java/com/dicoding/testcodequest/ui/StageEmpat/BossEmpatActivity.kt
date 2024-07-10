@@ -129,10 +129,8 @@ class BossEmpatActivity : AppCompatActivity() {
         if (selectedOption.text == correctAnswer) {
             selectedOption.background = ContextCompat.getDrawable(this, R.drawable.option_button_correct)
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
-            points += 1000
-            coins += 80
-
-            userId?.let { updateProgress(it, 4, points) }
+            points += 80
+            coins += 100
 
             // Load GIF 2 for correct answer
             loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_nagi goal.gif")
@@ -157,7 +155,7 @@ class BossEmpatActivity : AppCompatActivity() {
     private fun startStageTimer() {
         stageTimer?.cancel() // Batalkan timer sebelumnya jika ada
 
-        stageTimer = object : CountDownTimer(600000, 1000) { // 10 menit untuk stage
+        stageTimer = object : CountDownTimer(3600000, 1000) { // 10 menit untuk stage
             override fun onTick(millisUntilFinished: Long) {
                 val minutes = millisUntilFinished / 60000
                 val seconds = (millisUntilFinished % 60000) / 1000
@@ -166,9 +164,13 @@ class BossEmpatActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 Toast.makeText(this@BossEmpatActivity, "Time's up!", Toast.LENGTH_SHORT).show()
-                // Tindakan yang ingin dilakukan saat waktu habis
-                finishQuiz()
+                if (points == 0) {
+                    navigateToResultActivity() // Langsung ke ResultActivity jika poin adalah 0
+                } else {
+                    finishQuiz() // Proses normal jika poin lebih dari 0
+                }
             }
+
         }.start()
     }
 
@@ -180,8 +182,8 @@ class BossEmpatActivity : AppCompatActivity() {
 
         var avatarImage = "https://mr4vffpk-3000.asse.devtunnels.ms/images/default_avatar.png"
         var avatarName = "Default Avatar"
-        // Load GIF 3 if points >= 640
-        if (points >= 640) {
+        // Load GIF 3
+        if (points >= 1120) {
             loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_nagi end.gif")
 
             avatarImage = "https://mr4vffpk-3000.asse.devtunnels.ms/images/image_nagi.png"
@@ -222,7 +224,7 @@ class BossEmpatActivity : AppCompatActivity() {
         val koin = coins
 
         // Menentukan nilai quizDone berdasarkan nilai points
-        val quizDone = if (points >= 640) {
+        val quizDone = if (points >= 1120) {
             true
         } else {
             false
@@ -234,6 +236,7 @@ class BossEmpatActivity : AppCompatActivity() {
             ApiConfig.getApiService().updateBossDone(bossDone).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
+                        updateProgress(userId, bossId, point)
                         Toast.makeText(this@BossEmpatActivity, "Data updated successfully", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this@BossEmpatActivity, "Failed to update data", Toast.LENGTH_SHORT).show()
@@ -258,9 +261,8 @@ class BossEmpatActivity : AppCompatActivity() {
                             val newPoints = user.point?.plus(points)
                             val newCoins = user.koin?.plus(coins)
 
-                            // Add avatarId 8 to ownedAvatars if not already present
                             val updatedAvatars = user.ownedAvatars?.toMutableList()?.apply {
-                                if (!contains(21)) {
+                                if (points >= 1120 && !contains(21)) {
                                     add(21)
                                 }
                             }
@@ -323,7 +325,15 @@ class BossEmpatActivity : AppCompatActivity() {
         })
     }
 
-
+    private fun navigateToResultActivity() {
+        val intent = Intent(this, ResultActivity::class.java).apply {
+            putExtra("points", points)
+            putExtra("coins", coins)
+            putExtra("codeScene", "b2")
+        }
+        startActivity(intent)
+        finish()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

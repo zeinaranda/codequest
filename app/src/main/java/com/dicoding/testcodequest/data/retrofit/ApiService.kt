@@ -129,4 +129,11 @@ interface ApiService {
     @POST("forum/posts/{postId}/comments")
     fun createComment(@Path("postId") postId: Int, @Body comment: Comment): Call<Comment>
 
+    @GET("knowledgedone/check/{userId}")
+    fun checkKnowledgeCompletion(@Path("userId") userId: Int): Call<KnowledgeDoneResponse>
+
+    @GET("bossdone/check/{userId}")
+    fun checkBossCompletion(@Path("userId") userId: Int): Call<BossDoneResponse>
+
+
 }

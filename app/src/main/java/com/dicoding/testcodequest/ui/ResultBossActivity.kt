@@ -9,10 +9,18 @@ import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.dicoding.testcodequest.R
+import com.dicoding.testcodequest.ui.StageDua.StageDuaActivity
+import com.dicoding.testcodequest.ui.StageEmpat.StageEmpatActivity
+import com.dicoding.testcodequest.ui.StageEnam.StageEnamActivity
+import com.dicoding.testcodequest.ui.StageLima.StageLimaActivity
 import com.dicoding.testcodequest.ui.StageSatu.StageSatuActivity
+import com.dicoding.testcodequest.ui.StageTiga.StageTigaActivity
+import com.dicoding.testcodequest.ui.StageTujuh.StageTujuhActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ResultBossActivity : AppCompatActivity() {
+    private var codeScene: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +28,14 @@ class ResultBossActivity : AppCompatActivity() {
 
         val btn_back : ImageView = findViewById(R.id.btn_back)
         btn_back.setOnClickListener {
-            startActivity(Intent(this, StageSatuActivity::class.java))
-            finish()
+            when {
+                (shouldNavigateToStageActivity(codeScene)) -> {
+                    navigateToStageActivity()
+                }
+
+                else -> Intent(this, StageSatuActivity::class.java) // Default fallback jika knowledgeId tidak sesuai
+            }
+
         }
 
         // Get values from intent
@@ -30,13 +44,16 @@ class ResultBossActivity : AppCompatActivity() {
         val avatarImage = intent.getStringExtra("avatarImage")
         val avatarName = intent.getStringExtra("avatarName")
 
+        codeScene = intent.getStringExtra("codeScene") ?: "default_scene"
+
+
         // Update UI with received values
         val resultText = findViewById<TextView>(R.id.resultText)
         resultText.text =
             when {
-                points in 0..639 -> "Yah nilaimu masih kurang. Tapi jangan menyerah, coba lagi ya"
-                points in 640..720 -> "Selamat Anda mendapatkan medali perunggu di Tes ini."
-                points in 721..850 -> "Selamat Anda mendapatkan medali perak di Tes ini"
+                points in 0..1119 -> "Yah nilaimu masih kurang. Tapi jangan menyerah, coba lagi ya"
+                points in 1120..1360 -> "Selamat Anda mendapatkan medali perunggu di Tes ini."
+                points in 1440..1680 -> "Selamat Anda mendapatkan medali perak di Tes ini"
                 else -> "Selamat Anda mendapatkan medali emas di Tes ini"
             }
 
@@ -61,14 +78,14 @@ class ResultBossActivity : AppCompatActivity() {
 
         // Set appropriate animation based on points
         when {
-            points in 0..639 -> {
+            points in 0..1119 -> {
                 lottieAnimationView.setAnimation(R.raw.sad)
                 // Hide avatarImage and avatarName
                 ivAvatarImage.visibility = View.GONE
                 avatarNameText.visibility = View.GONE
             }
-            points in 640..720 -> lottieAnimationView.setAnimation(R.raw.perunggu_medal)
-            points in 721..850 -> lottieAnimationView.setAnimation(R.raw.perak_medal)
+            points in 1120..1360 -> lottieAnimationView.setAnimation(R.raw.perunggu_medal)
+            points in 1440..1680 -> lottieAnimationView.setAnimation(R.raw.perak_medal)
             else -> lottieAnimationView.setAnimation(R.raw.gold_medal)
         }
 
@@ -112,4 +129,32 @@ class ResultBossActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun shouldNavigateToStageActivity(codeScene: String?): Boolean {
+        return codeScene in listOf("b11", "b22", "b33", "b44", "b55", "b66", "b77")
+    }
+
+    private fun navigateToStageActivity() {
+        val intent = when (codeScene) {
+            "b11" -> Intent(this, StageSatuActivity::class.java)
+
+            "b22" -> Intent(this, StageDuaActivity::class.java)
+
+            "b33" -> Intent(this, StageTigaActivity::class.java)
+
+            "b44" -> Intent(this, StageEmpatActivity::class.java)
+
+            "b55" -> Intent(this, StageLimaActivity::class.java)
+
+            "b66" -> Intent(this, StageEnamActivity::class.java)
+
+            "b77" -> Intent(this, StageTujuhActivity::class.java)
+
+
+            else -> Intent(this, StageSatuActivity::class.java)
+        }
+        startActivity(intent)
+        finish()
+    }
+
 }

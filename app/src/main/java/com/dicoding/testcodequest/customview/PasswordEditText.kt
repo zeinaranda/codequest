@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.dicoding.testcodequest.R
@@ -17,6 +18,9 @@ import com.dicoding.testcodequest.R
 class PasswordEditText : AppCompatEditText {
 
     private lateinit var passwordIconDrawable: Drawable
+    private lateinit var eyeIconOpen: Drawable
+    private lateinit var eyeIconClosed: Drawable
+    private var isPasswordVisible = false
 
     constructor(context: Context) : super(context) {
         init()
@@ -36,39 +40,56 @@ class PasswordEditText : AppCompatEditText {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        transformationMethod = PasswordTransformationMethod.getInstance()
+        transformationMethod = if (isPasswordVisible) null else PasswordTransformationMethod.getInstance()
     }
 
     private fun init() {
         passwordIconDrawable = ContextCompat.getDrawable(context, R.drawable.icons8_lock_2) as Drawable
+        eyeIconOpen = ContextCompat.getDrawable(context, R.drawable.ic_eye_open) as Drawable
+        eyeIconClosed = ContextCompat.getDrawable(context, R.drawable.ic_eye_close) as Drawable
 
-        inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         compoundDrawablePadding = 16
 
         setHint(R.string.password)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            setAutofillHints(AUTOFILL_HINT_PASSWORD)
+            setAutofillHints(View.AUTOFILL_HINT_PASSWORD)
         }
-        setDrawable(passwordIconDrawable)
+        setCompoundDrawablesRelativeWithIntrinsicBounds(passwordIconDrawable, null, eyeIconClosed, null)
+
+        setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP &&
+                event.rawX >= (right - compoundDrawables[2].bounds.width())
+            ) {
+                togglePasswordVisibility()
+                true
+            } else {
+                false
+            }
+        }
 
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!s.isNullOrEmpty() && s.length < 8)
-                    error = context.getString(R.string.et_password_error_message)
+//                if (!s.isNullOrEmpty() && s.length < 8) {
+//                    error = context.getString(R.string.et_password_error_message)
+//                } else {
+//                    error = null
+//                }
             }
         })
     }
 
-    private fun setDrawable(
-        start: Drawable? = null,
-        top: Drawable? = null,
-        end: Drawable? = null,
-        bottom: Drawable? = null
-    ) {
-        setCompoundDrawablesWithIntrinsicBounds(start, top, end, bottom)
+    private fun togglePasswordVisibility() {
+        isPasswordVisible = !isPasswordVisible
+        transformationMethod = if (isPasswordVisible) null else PasswordTransformationMethod.getInstance()
+        setCompoundDrawablesRelativeWithIntrinsicBounds(
+            passwordIconDrawable,
+            null,
+            if (isPasswordVisible) eyeIconOpen else eyeIconClosed,
+            null
+        )
     }
-
 }

@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/pointsText"
             android:fontFamily="@font/poppins"
-            android:text="+ 1000"
+            android:text="+ 1260"
             android:textColor="@color/white"
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/ivCoins"

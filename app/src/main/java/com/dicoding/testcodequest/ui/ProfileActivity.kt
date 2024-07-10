@@ -134,8 +134,6 @@ class ProfileActivity : AppCompatActivity(), OwnedAdapter.OnItemClickListener {
     private fun displayProfileAvatar(url: String) {
         Glide.with(this)
             .load(url)
-            .placeholder(R.drawable.placeholder_image) // Placeholder image while loading
-            .error(R.drawable.placeholder_image) // Placeholder image on error
             .apply(RequestOptions.circleCropTransform()) // Optional: Use circle crop transformation
             .into(ivProfile)
     }

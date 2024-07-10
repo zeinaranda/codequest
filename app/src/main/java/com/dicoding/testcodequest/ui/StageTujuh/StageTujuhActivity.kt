@@ -12,6 +12,8 @@ import androidx.appcompat.app.AlertDialog
 import com.airbnb.lottie.LottieAnimationView
 import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
+import com.dicoding.testcodequest.data.response.BossDoneResponse
+import com.dicoding.testcodequest.data.response.KnowledgeDoneResponse
 import com.dicoding.testcodequest.data.response.StageCompletionResponse
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
 import com.dicoding.testcodequest.ui.*
@@ -26,10 +28,14 @@ import retrofit2.Response
 class StageTujuhActivity : AppCompatActivity() {
     private lateinit var preference: AuthPreference
     private lateinit var arrowButtonBack: ImageView
+    private lateinit var courseSatu: ImageView
+    private lateinit var courseDua: ImageView
+    private lateinit var bossDua: ImageView
     private var userPoint: Int? = null
     private var userKoin: Int? = null
     private var isStageCompleted: Boolean = false
     private lateinit var progressBar: LottieAnimationView
+    private var userId: Int? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +49,7 @@ class StageTujuhActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
 
         preference = AuthPreference(this)
-
+        userId = preference.getId()
         userPoint = preference.getPoints()
         userKoin = preference.getCoins()
 
@@ -55,9 +61,12 @@ class StageTujuhActivity : AppCompatActivity() {
 
         arrowButtonBack = findViewById(R.id.arrowButtonBack)
 
-        val courseSatu: ImageView = findViewById(R.id.courseSatu)
-        val courseDua: ImageView = findViewById(R.id.courseDua)
-        val bossDua: ImageView = findViewById(R.id.bossDua)
+        courseSatu = findViewById(R.id.courseSatu)
+        courseDua = findViewById(R.id.courseDua)
+        bossDua = findViewById(R.id.bossDua)
+
+        userId?.let { checkKnowledgeCompletion(it) }
+        userId?.let { checkBossCompletion(it) }
 
         courseSatu.setOnClickListener {
             val intent = Intent(this, StorytellingActivity::class.java)
@@ -164,5 +173,50 @@ class StageTujuhActivity : AppCompatActivity() {
         }
 
         dialogBuilder.show()
+    }
+
+    private fun checkKnowledgeCompletion(userId: Int) {
+        val api = ApiConfig.getApiService()
+        val call = api.checkKnowledgeCompletion(userId)
+
+        call.enqueue(object : Callback<KnowledgeDoneResponse> {
+            override fun onResponse(call: Call<KnowledgeDoneResponse>, response: Response<KnowledgeDoneResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { knowledgeDoneResponse ->
+                        if (knowledgeDoneResponse.knowledge13Completed) {
+                            courseSatu.setImageResource(R.drawable.btn_stage_satu_upd)
+                        }
+                        if (knowledgeDoneResponse.knowledge14Completed) {
+                            courseDua.setImageResource(R.drawable.btn_stage_dua_upd)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<KnowledgeDoneResponse>, t: Throwable) {
+                // Handle failure
+            }
+        })
+    }
+
+    private fun checkBossCompletion(userId: Int) {
+        val api = ApiConfig.getApiService()
+        val call = api.checkBossCompletion(userId)
+
+        call.enqueue(object : Callback<BossDoneResponse> {
+            override fun onResponse(call: Call<BossDoneResponse>, response: Response<BossDoneResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { bossDoneResponse ->
+                        if (bossDoneResponse.boss7Completed) {
+                            bossDua.setImageResource(R.drawable.btn_stage_boss_upd)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<BossDoneResponse>, t: Throwable) {
+                // Handle failure
+            }
+        })
     }
 }

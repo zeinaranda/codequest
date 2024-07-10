@@ -71,8 +71,7 @@ class KnowledgeActivity : AppCompatActivity() {
                 9, 10 -> Intent(this, StageLimaActivity::class.java)
                 11, 12 -> Intent(this, StageEnamActivity::class.java)
                 13, 14 -> Intent(this, StageTujuhActivity::class.java)
-                // Tambahkan case untuk materi_id lain jika diperlukan
-                else -> Intent(this, StageSatuActivity::class.java) // Default fallback jika materi_id tidak sesuai
+                else -> Intent(this, StageSatuActivity::class.java)
             }
             startActivity(intent)
             finish()
@@ -159,7 +158,7 @@ class KnowledgeActivity : AppCompatActivity() {
         if (selectedOption.text == correctAnswer) {
             selectedOption.background = ContextCompat.getDrawable(this, R.drawable.option_button_correct)
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
-            points += 500
+            points += 40
             coins += 80
 
             // Load GIF 2 for correct answer
@@ -188,7 +187,7 @@ class KnowledgeActivity : AppCompatActivity() {
     private fun startStageTimer() {
         stageTimer?.cancel() // Batalkan timer sebelumnya jika ada
 
-        stageTimer = object : CountDownTimer(600000, 1000) { // 10 menit untuk stage
+        stageTimer = object : CountDownTimer(3600000, 1000) { // 10 menit untuk stage
             override fun onTick(millisUntilFinished: Long) {
                 val minutes = millisUntilFinished / 60000
                 val seconds = (millisUntilFinished % 60000) / 1000
@@ -197,9 +196,13 @@ class KnowledgeActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 Toast.makeText(this@KnowledgeActivity, "Time's up!", Toast.LENGTH_SHORT).show()
-                // Tindakan yang ingin dilakukan saat waktu habis
-                finishQuiz()
+                if (points == 0) {
+                    navigateToResultActivity() // Langsung ke ResultActivity jika poin adalah 0
+                } else {
+                    finishQuiz() // Proses normal jika poin lebih dari 0
+                }
             }
+
         }.start()
     }
 
@@ -209,8 +212,8 @@ class KnowledgeActivity : AppCompatActivity() {
         updateKnowledgeDone()
         Toast.makeText(this, "Quiz Finished!", Toast.LENGTH_SHORT).show()
 
-        // Load GIF 3 if points >= 640
-        if (points >= 640) {
+
+        if (points >= 160) {
             answerFeedback.text = "Awesome"
             answerFeedback.visibility = TextView.VISIBLE
         } else {
@@ -219,9 +222,10 @@ class KnowledgeActivity : AppCompatActivity() {
 
         // Start ShopActivity after delay
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, ResultActivity::class.java).apply {
+            val intent = Intent(this, ResultKnowledgeActivity::class.java).apply {
                 putExtra("points", points)
                 putExtra("coins", coins)
+                putExtra("knowledgeId", knowledgeId)
             }
             startActivity(intent)
             finish()
@@ -234,7 +238,7 @@ class KnowledgeActivity : AppCompatActivity() {
         val koin = coins
 
         // Menentukan nilai quizDone berdasarkan nilai points
-        val quizDone = points >= 640
+        val quizDone = points >= 40
 
         val knowledgeDone = userId?.let { KnowledgeDone(quizDone, point, koin, knowledgeId ?: 1, it) }
 
@@ -315,5 +319,13 @@ class KnowledgeActivity : AppCompatActivity() {
         call?.cancel() // Batalkan Retrofit call jika belum selesai
     }
 
-
+    private fun navigateToResultActivity() {
+        val intent = Intent(this, ResultKnowledgeActivity::class.java).apply {
+            putExtra("points", points)
+            putExtra("coins", coins)
+            putExtra("knowledgeId", knowledgeId)
+        }
+        startActivity(intent)
+        finish()
+    }
 }

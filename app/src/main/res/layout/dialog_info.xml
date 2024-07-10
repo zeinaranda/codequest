@@ -9,7 +9,7 @@
         android:id="@+id/dialog_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kamu harus mendapatkan point minimal 640 untuk menuju stage berikutnya."
+        android:text="Kamu harus mendapatkan point minimal 1120 di boss fight untuk menuju stage berikutnya."
         android:gravity="center"
         android:fontFamily="@font/poppins_medium"
         android:textSize="16sp"
