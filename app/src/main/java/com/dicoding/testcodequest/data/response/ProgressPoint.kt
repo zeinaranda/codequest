@@ -1,5 +1,6 @@
 package com.dicoding.testcodequest.data.response
 
 data class ProgressPoint(
-    val progressPoint: Int
+    val progressPoint: Int,
+    val test: String
 )

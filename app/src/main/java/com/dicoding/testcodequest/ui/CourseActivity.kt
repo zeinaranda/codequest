@@ -87,6 +87,8 @@ class CourseActivity : AppCompatActivity() {
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.itemIconTintList = null
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu1 -> {
@@ -96,18 +98,25 @@ class CourseActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    val i = Intent(this, StageSatuActivity::class.java)
+                    val i = Intent(this, FriendActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu3 -> {
-                    val i = Intent(this, ShopActivity::class.java)
+                    supportActionBar?.title = getString(R.string.menu_home)
+                    val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
                     true
                 }
                 R.id.menu4 -> {
+                    val i = Intent(this, ShopActivity::class.java)
+                    startActivity(i)
+                    finish()
+                    true
+                }
+                R.id.menu5 -> {
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
                     finish()
@@ -115,6 +124,7 @@ class CourseActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+
         }
     }
 }

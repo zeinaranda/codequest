@@ -110,6 +110,9 @@ class StageEnamActivity : AppCompatActivity() {
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.itemIconTintList = null
+
+        bottomNavigationView.selectedItemId = R.id.menu3
+
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu1 -> {
@@ -125,6 +128,7 @@ class StageEnamActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu3 -> {
+                    supportActionBar?.title = getString(R.string.menu_home)
                     val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
@@ -144,6 +148,7 @@ class StageEnamActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+
         }
     }
 

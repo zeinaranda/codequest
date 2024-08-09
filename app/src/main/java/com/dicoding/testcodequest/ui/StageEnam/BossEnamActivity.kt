@@ -307,7 +307,7 @@ class BossEnamActivity : AppCompatActivity() {
     }
 
     private fun updateProgress(userId: Int, stageId: Int, progressPoint: Int) {
-        val progress = ProgressPoint(progressPoint)
+        val progress = ProgressPoint(progressPoint, "Boss Fight")
         val call = ApiConfig.getApiService().updateUserStageProgress(userId, stageId, progress)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {

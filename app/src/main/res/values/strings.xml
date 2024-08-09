@@ -505,6 +505,11 @@ Perbedaan antara Gerunds dan Infinitives\n
     Contoh: Do you have any coffee? (Pertanyaan Umum)\n\n
 
     </string>
+    <string name="menu_home">Home</string>
+    <string name="menu_friend">Forum</string>
+    <string name="menu_rank">Rank</string>
+    <string name="menu_shop">Shop</string>
+    <string name="menu_profile">Profil</string>
 
 
 </resources>

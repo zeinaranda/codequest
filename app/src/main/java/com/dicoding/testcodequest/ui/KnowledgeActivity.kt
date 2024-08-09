@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.dicoding.testcodequest.R
 import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.data.response.KnowledgeDone
+import com.dicoding.testcodequest.data.response.ProgressPoint
 import com.dicoding.testcodequest.data.response.Question
 import com.dicoding.testcodequest.data.response.User
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
@@ -187,7 +188,7 @@ class KnowledgeActivity : AppCompatActivity() {
     private fun startStageTimer() {
         stageTimer?.cancel() // Batalkan timer sebelumnya jika ada
 
-        stageTimer = object : CountDownTimer(3600000, 1000) { // 10 menit untuk stage
+        stageTimer = object : CountDownTimer(300000, 1000) { // 10 menit untuk stage
             override fun onTick(millisUntilFinished: Long) {
                 val minutes = millisUntilFinished / 60000
                 val seconds = (millisUntilFinished % 60000) / 1000
@@ -246,6 +247,8 @@ class KnowledgeActivity : AppCompatActivity() {
             ApiConfig.getApiService().updateKnowledgeDone(knowledgeDone).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
+                        knowledgeId?.let { updateProgress(userId, it, point) }
+
                         Toast.makeText(this@KnowledgeActivity, "Data updated successfully", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this@KnowledgeActivity, "Failed to update data", Toast.LENGTH_SHORT).show()
@@ -311,6 +314,40 @@ class KnowledgeActivity : AppCompatActivity() {
             })
         }
     }
+
+    private fun updateProgress(userId: Int, knowledgeId: Int, progressPoint: Int) {
+        val stageId = when (knowledgeId) {
+            1, 2 -> 1
+            3, 4 -> 2
+            5, 6 -> 3
+            7, 8 -> 4
+            9, 10 -> 5
+            11, 12 -> 6
+            13, 14 -> 7
+            else -> 1 // Default ke stage 1 jika knowledgeId tidak sesuai
+        }
+        // Determine course based on knowledgeId
+        val course = if (knowledgeId % 2 == 0) "Course 2" else "Course 1"
+        Log.d("KnowledgeActivity", "Course: $course") // Log the course
+
+        val progress = ProgressPoint(progressPoint, course)
+        val call = ApiConfig.getApiService().updateUserStageProgress(userId, stageId, progress)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("KnowledgeActivity", "Progress updated successfully")
+                } else {
+                    Log.e("KnowledgeActivity", "Failed to update progress")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("KnowledgeActivity", "Error: ${t.message}", t)
+            }
+        })
+    }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

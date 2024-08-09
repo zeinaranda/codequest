@@ -102,7 +102,6 @@ class StageDuaActivity : AppCompatActivity() {
                 val intent = Intent(this, StageTigaActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left) // Tambahkan animasi slide ke kiri
-
             } else {
                 showInfoDialog()
             }
@@ -110,6 +109,9 @@ class StageDuaActivity : AppCompatActivity() {
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.itemIconTintList = null
+
+        bottomNavigationView.selectedItemId = R.id.menu3
+
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu1 -> {
@@ -125,6 +127,7 @@ class StageDuaActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu3 -> {
+                    supportActionBar?.title = getString(R.string.menu_home)
                     val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
@@ -144,6 +147,7 @@ class StageDuaActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+
         }
     }
 

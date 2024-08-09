@@ -190,6 +190,7 @@ class BossSatuActivity : AppCompatActivity() {
             avatarImage = "https://mr4vffpk-3000.asse.devtunnels.ms/images/image_makima.png"
             avatarName = "Avatar Makima"
 
+
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = Intent(this, StorytellingActivity::class.java).apply {
                     putExtra("points", points)
@@ -315,7 +316,7 @@ class BossSatuActivity : AppCompatActivity() {
     }
 
     private fun updateProgress(userId: Int, stageId: Int, progressPoint: Int) {
-        val progress = ProgressPoint(progressPoint)
+        val progress = ProgressPoint(progressPoint, "Boss Fight")
         val call = ApiConfig.getApiService().updateUserStageProgress(userId, stageId, progress)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {

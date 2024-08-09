@@ -95,11 +95,7 @@
             android:textSize="12sp"
             android:text="Berikan Komentar" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_comment_right" />
+
 
     </LinearLayout>
 

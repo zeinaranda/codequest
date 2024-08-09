@@ -21,6 +21,7 @@ import com.dicoding.testcodequest.data.retrofit.ApiConfig
 import com.dicoding.testcodequest.ui.*
 import com.dicoding.testcodequest.ui.StageDua.StageDuaActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -102,6 +103,9 @@ class StageSatuActivity : AppCompatActivity() {
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.itemIconTintList = null
+
+        bottomNavigationView.selectedItemId = R.id.menu3
+
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu1 -> {
@@ -117,6 +121,7 @@ class StageSatuActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu3 -> {
+                    supportActionBar?.title = getString(R.string.menu_home)
                     val i = Intent(this, StageSatuActivity::class.java)
                     startActivity(i)
                     finish()
@@ -136,6 +141,7 @@ class StageSatuActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+
         }
     checkFirstLogin()
     }

@@ -49,7 +49,7 @@ class NimEditText : AppCompatEditText {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.isNullOrEmpty())
-                    error = context.getString(R.string.et_name_error_message)
+                    error = context.getString(R.string.et_nim_error_message)
             }
         })
     }
