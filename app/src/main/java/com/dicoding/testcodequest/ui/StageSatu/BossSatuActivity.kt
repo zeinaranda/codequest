@@ -48,6 +48,8 @@ class BossSatuActivity : AppCompatActivity() {
 
     private var points = 0
     private var coins = 0
+    private var correctAnswersCount = 0
+    private var wrongAnswersCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,10 +73,16 @@ class BossSatuActivity : AppCompatActivity() {
         option3 = findViewById(R.id.option3)
         option4 = findViewById(R.id.option4)
 
-        option1.setOnClickListener { checkAnswer(option1) }
-        option2.setOnClickListener { checkAnswer(option2) }
-        option3.setOnClickListener { checkAnswer(option3) }
-        option4.setOnClickListener { checkAnswer(option4) }
+//        option1.setOnClickListener { checkAnswer(option1) }
+//        option2.setOnClickListener { checkAnswer(option2) }
+//        option3.setOnClickListener { checkAnswer(option3) }
+//        option4.setOnClickListener { checkAnswer(option4) }
+
+        option1.setOnClickListener { handleOptionClick(option1) }
+        option2.setOnClickListener { handleOptionClick(option2) }
+        option3.setOnClickListener { handleOptionClick(option3) }
+        option4.setOnClickListener { handleOptionClick(option4) }
+
 
         // Load GIF 1 on start
         loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_makima stand.gif")
@@ -82,6 +90,46 @@ class BossSatuActivity : AppCompatActivity() {
         fetchQuestions()
         startStageTimer()
     }
+
+
+    private fun handleOptionClick(selectedOption: Button) {
+        // Disable all buttons to prevent multiple clicks
+        disableButtons()
+
+        // Check the answer
+        checkAnswer(selectedOption)
+
+        // Re-enable buttons after showing feedback and before the next question
+        Handler(Looper.getMainLooper()).postDelayed({
+            resetButtonStyles()
+            enableButtons()
+
+            // Proceed to the next question if available
+            if (currentQuestionIndex < 24) {
+                currentQuestionIndex++
+                showQuestion()
+            } else {
+                finishQuiz()
+                disableButtons()
+            }
+        }, 1300) // Jeda 1,3 detik untuk umpan balik
+    }
+
+
+    private fun disableButtons() {
+        option1.isEnabled = false
+        option2.isEnabled = false
+        option3.isEnabled = false
+        option4.isEnabled = false
+    }
+
+    private fun enableButtons() {
+        option1.isEnabled = true
+        option2.isEnabled = true
+        option3.isEnabled = true
+        option4.isEnabled = true
+    }
+
 
     private fun fetchQuestions() {
         ApiConfig.getApiService().getQuestions(1).enqueue(object : Callback<List<Question>> {
@@ -103,7 +151,7 @@ class BossSatuActivity : AppCompatActivity() {
     }
 
     private fun showQuestion() {
-        if (currentQuestionIndex < questions.size) {
+        if (currentQuestionIndex < questions.size ) {
             val question = questions[currentQuestionIndex]
             questionText.text = question.content
             option1.text = question.choicesOne
@@ -130,19 +178,20 @@ class BossSatuActivity : AppCompatActivity() {
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
             points += 80
             coins += 100
-
+            correctAnswersCount++
 
             // Load GIF 2 for correct answer
             loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_makima boom.gif")
         } else {
             selectedOption.background = ContextCompat.getDrawable(this, R.drawable.option_button_wrong)
             Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT).show()
+            wrongAnswersCount++
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            currentQuestionIndex++
-            showQuestion()
-        }, 1300) // Jeda 1 detik untuk umpan balik
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            currentQuestionIndex++
+//            showQuestion()
+//        }, 1300) // Jeda 1 detik untuk umpan balik
     }
 
     private fun resetButtonStyles() {
@@ -198,6 +247,8 @@ class BossSatuActivity : AppCompatActivity() {
                     putExtra("codeScene", "b11")
                     putExtra("avatarImage", avatarImage)  // replace with actual URL or value
                     putExtra("avatarName", avatarName)
+                    putExtra("correctAnswers", correctAnswersCount)
+                    putExtra("wrongAnswers", wrongAnswersCount)
                 }
                 startActivity(intent)
                 finish()
@@ -208,6 +259,8 @@ class BossSatuActivity : AppCompatActivity() {
                 val intent = Intent(this, ResultActivity::class.java).apply {
                     putExtra("points", points)
                     putExtra("coins", coins)
+                    putExtra("correctAnswers", correctAnswersCount)  // Kirim jumlah jawaban benar
+                    putExtra("wrongAnswers", wrongAnswersCount)
                 }
                 startActivity(intent)
                 finish()
@@ -337,7 +390,9 @@ class BossSatuActivity : AppCompatActivity() {
         val intent = Intent(this, ResultActivity::class.java).apply {
             putExtra("points", points)
             putExtra("coins", coins)
-            putExtra("codeScene", "b2")
+            putExtra("codeScene", "b1")
+            putExtra("correctAnswers", correctAnswersCount)
+            putExtra("wrongAnswers", wrongAnswersCount)
         }
         startActivity(intent)
         finish()

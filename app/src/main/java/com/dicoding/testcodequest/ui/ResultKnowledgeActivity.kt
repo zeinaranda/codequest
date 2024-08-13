@@ -42,7 +42,12 @@ class ResultKnowledgeActivity : AppCompatActivity() {
         // Get values from intent
         val points = intent.getIntExtra("points", 0)
         val coins = intent.getIntExtra("coins", 0)
-        knowledgeId = intent.getIntExtra("knowledgeId", 1) // Default to 1 if not found
+        knowledgeId = intent.getIntExtra("knowledgeId", 1)
+        val correctAnswers = intent.getIntExtra("correctAnswers", 0)
+        val wrongAnswers = intent.getIntExtra("wrongAnswers", 0)
+
+        findViewById<TextView>(R.id.correctAnswers).text = "Correct Answers: $correctAnswers"
+        findViewById<TextView>(R.id.wrongAnswers).text = "Wrong Answers: $wrongAnswers"
 
 
         // Update UI with received values

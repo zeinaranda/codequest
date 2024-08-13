@@ -45,93 +45,148 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text="Result"
+        android:layout_marginTop="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
+        android:text="Result"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
-    <TextView
-        android:id="@+id/textView12"
+    <ImageView
+        android:id="@+id/imageView8"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="Kamu Mendapatkan :"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/answer_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultText" />
 
+    <TextView
+        android:id="@+id/totalsoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="-2dp"
+        android:fontFamily="@font/poppins"
+        android:text="Total Soal : 25"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/imageView8" />
+
+    <TextView
+        android:id="@+id/correctAnswers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/wrongAnswers"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintTop_toBottomOf="@+id/totalsoal"
+        tools:text="Jawaban Benar : 0" />
+
+    <TextView
+        android:id="@+id/wrongAnswers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="-3dp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        tools:text="Jawaban Salah : 0" />
+
     <ImageView
-        android:id="@+id/ivPoint"
+        android:id="@+id/ivCoins"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bg_reward"
         android:padding="4dp"
-        android:src="@drawable/poin"
+        android:src="@drawable/coin"
+        app:layout_constraintEnd_toEndOf="@+id/textView12"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <ImageView
+        android:id="@+id/avatarImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="28dp"
+        android:background="@drawable/bg_reward"
+        android:padding="4dp"
+        android:scaleType="fitStart"
         app:layout_constraintBottom_toBottomOf="@+id/ivCoins"
-        app:layout_constraintEnd_toStartOf="@+id/ivCoins"
-        app:layout_constraintTop_toTopOf="@+id/ivCoins" />
+        app:layout_constraintStart_toEndOf="@+id/ivCoins"
+        app:layout_constraintTop_toTopOf="@+id/ivCoins"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/pointsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/resultText"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:text="+ 0"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/ivPoint"
+        app:layout_constraintHorizontal_bias="0.414"
         app:layout_constraintStart_toStartOf="@+id/ivPoint"
         app:layout_constraintTop_toBottomOf="@+id/ivPoint" />
 
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Kamu Mendapatkan :"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wrongAnswers" />
+
     <ImageView
-        android:id="@+id/ivCoins"
+        android:id="@+id/ivPoint"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="28dp"
         android:background="@drawable/bg_reward"
         android:padding="4dp"
-        android:src="@drawable/coin"
-        app:layout_constraintEnd_toEndOf="@+id/textView12"
-        app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        android:src="@drawable/poin"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCoins"
+        app:layout_constraintEnd_toStartOf="@+id/ivCoins"
+        app:layout_constraintTop_toTopOf="@+id/ivCoins"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/coinsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/pointsText"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:text="+ 0"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/ivCoins"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="@+id/ivCoins"
         app:layout_constraintTop_toBottomOf="@+id/ivCoins" />
-
-    <ImageView
-        android:id="@+id/avatarImage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:background="@drawable/bg_reward"
-        android:padding="4dp"
-        android:scaleType="fitStart"
-        app:layout_constraintBottom_toBottomOf="@+id/ivCoins"
-        app:layout_constraintStart_toEndOf="@+id/ivCoins"
-        app:layout_constraintTop_toTopOf="@+id/ivCoins" />
 
     <TextView
         android:id="@+id/avatarName"

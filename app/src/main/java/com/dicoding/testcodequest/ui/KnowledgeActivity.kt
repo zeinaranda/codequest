@@ -55,6 +55,8 @@ class KnowledgeActivity : AppCompatActivity() {
 
     private var points = 0
     private var coins = 0
+    private var correctAnswersCount = 0
+    private var wrongAnswersCount = 0
 
     private var knowledgeId: Int? = null // Variable to store knowledgeId
 
@@ -99,10 +101,10 @@ class KnowledgeActivity : AppCompatActivity() {
         option4 = findViewById(R.id.option4)
         answerFeedback = findViewById(R.id.answerFeedback)
 
-        option1.setOnClickListener { checkAnswer(option1) }
-        option2.setOnClickListener { checkAnswer(option2) }
-        option3.setOnClickListener { checkAnswer(option3) }
-        option4.setOnClickListener { checkAnswer(option4) }
+        option1.setOnClickListener { handleOptionClick(option1) }
+        option2.setOnClickListener { handleOptionClick(option2) }
+        option3.setOnClickListener { handleOptionClick(option3) }
+        option4.setOnClickListener { handleOptionClick(option4) }
 
         // Load GIF 1 on start
         answerFeedback.text = "What's your Answer?"
@@ -113,6 +115,44 @@ class KnowledgeActivity : AppCompatActivity() {
 
         fetchQuestions()
         startStageTimer()
+    }
+
+    private fun handleOptionClick(selectedOption: Button) {
+        // Disable all buttons to prevent multiple clicks
+        disableButtons()
+
+        // Check the answer
+        checkAnswer(selectedOption)
+
+        // Re-enable buttons after showing feedback and before the next question
+        Handler(Looper.getMainLooper()).postDelayed({
+            resetButtonStyles()
+            enableButtons()
+
+            // Proceed to the next question if available
+            if (currentQuestionIndex < 3) {
+                currentQuestionIndex++
+                showQuestion()
+            } else {
+                finishQuiz()
+                disableButtons()
+            }
+        }, 1300) // Jeda 1,3 detik untuk umpan balik
+    }
+
+
+    private fun disableButtons() {
+        option1.isEnabled = false
+        option2.isEnabled = false
+        option3.isEnabled = false
+        option4.isEnabled = false
+    }
+
+    private fun enableButtons() {
+        option1.isEnabled = true
+        option2.isEnabled = true
+        option3.isEnabled = true
+        option4.isEnabled = true
     }
 
     private fun fetchQuestions() {
@@ -161,6 +201,7 @@ class KnowledgeActivity : AppCompatActivity() {
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
             points += 40
             coins += 80
+            correctAnswersCount++
 
             // Load GIF 2 for correct answer
             answerFeedback.text = "Good!"
@@ -170,12 +211,9 @@ class KnowledgeActivity : AppCompatActivity() {
             answerFeedback.text = ". . ."
             answerFeedback.visibility = TextView.VISIBLE
             Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT).show()
+            wrongAnswersCount++
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            currentQuestionIndex++
-            showQuestion()
-        }, 2000) // Jeda 2 detik untuk umpan balik
     }
 
     private fun resetButtonStyles() {
@@ -227,6 +265,8 @@ class KnowledgeActivity : AppCompatActivity() {
                 putExtra("points", points)
                 putExtra("coins", coins)
                 putExtra("knowledgeId", knowledgeId)
+                putExtra("correctAnswers", correctAnswersCount)
+                putExtra("wrongAnswers", wrongAnswersCount)
             }
             startActivity(intent)
             finish()
@@ -361,6 +401,8 @@ class KnowledgeActivity : AppCompatActivity() {
             putExtra("points", points)
             putExtra("coins", coins)
             putExtra("knowledgeId", knowledgeId)
+            putExtra("correctAnswers", correctAnswersCount)
+            putExtra("wrongAnswers", wrongAnswersCount)
         }
         startActivity(intent)
         finish()

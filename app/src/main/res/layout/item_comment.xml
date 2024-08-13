@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textUserName"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="SmallSp"
-        tools:text="@tools:sample/lorem/random" />
+        tools:text="@tools:sample/lorem" />
 
 
 

@@ -52,6 +52,7 @@ class StorytellingActivity : AppCompatActivity() {
     private var avatarName: String? = null
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_storytelling)
@@ -59,6 +60,8 @@ class StorytellingActivity : AppCompatActivity() {
         // Get values from intent
         val points = intent.getIntExtra("points", 0)
         val coins = intent.getIntExtra("coins", 0)
+        val correctAnswers = intent.getIntExtra("correctAnswers", 0)
+        val wrongAnswers = intent.getIntExtra("wrongAnswers", 0)
 
 
         val btnBack: ImageView = findViewById(R.id.btn_back)
@@ -107,6 +110,7 @@ class StorytellingActivity : AppCompatActivity() {
         val avatarName = intent.getStringExtra("avatarName") ?: "default_name"
 
 
+
         // Fetch storytelling content
         fetchStorytellingContent(codeScene)
 
@@ -121,7 +125,7 @@ class StorytellingActivity : AppCompatActivity() {
                             navigateToQuestionActivity()}
 
                         shouldNavigateToResultActivity(codeScene) -> {
-                            navigateToResultActivity(points, coins, avatarImage, avatarName)
+                            navigateToResultActivity(points, coins, avatarImage, avatarName, correctAnswers, wrongAnswers)
                         }
 
                         shouldNavigateToStageSatuActivity(codeScene) -> {
@@ -129,7 +133,7 @@ class StorytellingActivity : AppCompatActivity() {
                         }
 
                         shouldNavigateToEpilog(codeScene) -> {
-                            navigateToEpilog(points, coins, avatarImage, avatarName)
+                            navigateToEpilog(points, coins, avatarImage, avatarName, correctAnswers, wrongAnswers)
                         }
                         else -> {
                             navigateToCourseActivity()
@@ -145,7 +149,7 @@ class StorytellingActivity : AppCompatActivity() {
                     navigateToQuestionActivity()}
 
                 shouldNavigateToResultActivity(codeScene) -> {
-                    navigateToResultActivity(points, coins, avatarImage, avatarName)
+                    navigateToResultActivity(points, coins, avatarImage, avatarName, correctAnswers, wrongAnswers)
                 }
 
                 shouldNavigateToStageSatuActivity(codeScene) -> {
@@ -153,7 +157,7 @@ class StorytellingActivity : AppCompatActivity() {
                 }
 
                 shouldNavigateToEpilog(codeScene) -> {
-                    navigateToEpilog(points, coins, avatarImage, avatarName)
+                    navigateToEpilog(points, coins, avatarImage, avatarName, correctAnswers, wrongAnswers)
                 }
                 else -> {
                     navigateToCourseActivity()
@@ -269,26 +273,30 @@ class StorytellingActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun navigateToEpilog(points: Int, coins: Int, avatarImage: String, avatarName: String) {
+    private fun navigateToEpilog(points: Int, coins: Int, avatarImage: String, avatarName: String, correctAnswersCount: Int, wrongAnswersCount: Int) {
         val intent = Intent(this, StorytellingActivity::class.java)
         intent.putExtra("codeScene", "epilog")
         intent.putExtra("points", points)
         intent.putExtra("coins", coins)
         intent.putExtra("avatarImage", avatarImage)
         intent.putExtra("avatarName", avatarName)
+        intent.putExtra("correctAnswers", correctAnswersCount)
+        intent.putExtra("wrongAnswers", wrongAnswersCount)
 
         Log.d("ResultActivity", "User to be Intent:${codeScene}")
         startActivity(intent)
         finish()
     }
 
-    private fun navigateToResultActivity(points: Int, coins: Int, avatarImage: String, avatarName: String) {
+    private fun navigateToResultActivity(points: Int, coins: Int, avatarImage: String, avatarName: String, correctAnswersCount: Int, wrongAnswersCount: Int) {
         val intent = Intent(this, ResultBossActivity::class.java)
         intent.putExtra("points", points)
         intent.putExtra("coins", coins)
         intent.putExtra("codeScene", codeScene)
         intent.putExtra("avatarImage", avatarImage)
         intent.putExtra("avatarName", avatarName)
+        intent.putExtra("correctAnswers", correctAnswersCount)
+        intent.putExtra("wrongAnswers", wrongAnswersCount)
         Log.d("ResultActivity", "User to be Intent: ${avatarImage}, ${avatarName}, ${codeScene}")
         startActivity(intent)
         finish()

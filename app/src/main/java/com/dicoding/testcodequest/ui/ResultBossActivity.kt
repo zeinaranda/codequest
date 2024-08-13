@@ -43,7 +43,11 @@ class ResultBossActivity : AppCompatActivity() {
         val coins = intent.getIntExtra("coins", 0)
         val avatarImage = intent.getStringExtra("avatarImage")
         val avatarName = intent.getStringExtra("avatarName")
+        val correctAnswers = intent.getIntExtra("correctAnswers", 0)
+        val wrongAnswers = intent.getIntExtra("wrongAnswers", 0)
 
+        findViewById<TextView>(R.id.correctAnswers).text = "Correct Answers: $correctAnswers"
+        findViewById<TextView>(R.id.wrongAnswers).text = "Wrong Answers: $wrongAnswers"
         codeScene = intent.getStringExtra("codeScene") ?: "default_scene"
 
 
