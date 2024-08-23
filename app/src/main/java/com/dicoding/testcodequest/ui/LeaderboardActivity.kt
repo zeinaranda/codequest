@@ -3,6 +3,7 @@ package com.dicoding.testcodequest.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -33,12 +34,18 @@ class LeaderboardActivity : AppCompatActivity() {
     private lateinit var firstPlaceAvatar: ImageView
     private lateinit var firstPlaceName: TextView
     private lateinit var firstPlacePoints: TextView
+    private lateinit var firstPlaceArrowImage: ImageView
+    private lateinit var firstPlaceRankChange: TextView
     private lateinit var secondPlaceAvatar: ImageView
     private lateinit var secondPlaceName: TextView
     private lateinit var secondPlacePoints: TextView
+    private lateinit var secondPlaceArrowImage: ImageView
+    private lateinit var secondPlaceRankChange: TextView
     private lateinit var thirdPlaceAvatar: ImageView
     private lateinit var thirdPlaceName: TextView
     private lateinit var thirdPlacePoints: TextView
+    private lateinit var thirdPlaceArrowImage: ImageView
+    private lateinit var thirdPlaceRankChange: TextView
     private lateinit var progressBar: LottieAnimationView
     private lateinit var recyclerViewOthers: RecyclerView
     private lateinit var othersAdapter: LeaderboardAdapter
@@ -47,44 +54,41 @@ class LeaderboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_leaderboard)
 
-        // Inisialisasi AuthPreference untuk mengambil data pengguna dari shared preferences
+        // Initialize preferences
         preference = AuthPreference(this)
 
-        // Inisialisasi progressBar
+        // Initialize UI elements
         progressBar = findViewById(R.id.progressBar)
-
-        // Atur visibilitas progressBar menjadi visible sebelum memulai fetching data
-        progressBar.visibility = View.VISIBLE
-
-        // Mengambil data poin dan koin dari preferences
-        userPoint = preference.getPoints()
-        userKoin = preference.getCoins()
-
-        // Menampilkan poin dan koin pengguna di UI
-        val pointsText = findViewById<TextView>(R.id.userPoint)
-        pointsText.text = userPoint.toString()
-
-        val coinsText = findViewById<TextView>(R.id.userCoin)
-        coinsText.text = userKoin.toString()
-
-        // Inisialisasi elemen UI untuk leaderboard
-        firstPlaceAvatar = findViewById(R.id.firstPlaceAvatar)
-        firstPlaceName = findViewById(R.id.firstPlaceName)
-        firstPlacePoints = findViewById(R.id.firstPlacePoints)
-        secondPlaceAvatar = findViewById(R.id.secondPlaceAvatar)
-        secondPlaceName = findViewById(R.id.secondPlaceName)
-        secondPlacePoints = findViewById(R.id.secondPlacePoints)
-        thirdPlaceAvatar = findViewById(R.id.thirdPlaceAvatar)
-        thirdPlaceName = findViewById(R.id.thirdPlaceName)
-        thirdPlacePoints = findViewById(R.id.thirdPlacePoints)
-
-        // Inisialisasi RecyclerView untuk menampilkan daftar pengguna lainnya
         recyclerViewOthers = findViewById(R.id.recyclerViewOthers)
         recyclerViewOthers.layoutManager = LinearLayoutManager(this)
         othersAdapter = LeaderboardAdapter()
         recyclerViewOthers.adapter = othersAdapter
 
-        // Mengambil data pengguna top 10 user dari API
+        firstPlaceAvatar = findViewById(R.id.firstPlaceAvatar)
+        firstPlaceName = findViewById(R.id.firstPlaceName)
+        firstPlacePoints = findViewById(R.id.firstPlacePoints)
+        firstPlaceArrowImage = findViewById(R.id.firstPlaceArrowImage)
+        firstPlaceRankChange = findViewById(R.id.firstPlaceRankChange)
+
+        secondPlaceAvatar = findViewById(R.id.secondPlaceAvatar)
+        secondPlaceName = findViewById(R.id.secondPlaceName)
+        secondPlacePoints = findViewById(R.id.secondPlacePoints)
+        secondPlaceArrowImage = findViewById(R.id.secondPlaceArrowImage)
+        secondPlaceRankChange = findViewById(R.id.secondPlaceRankChange)
+
+        thirdPlaceAvatar = findViewById(R.id.thirdPlaceAvatar)
+        thirdPlaceName = findViewById(R.id.thirdPlaceName)
+        thirdPlacePoints = findViewById(R.id.thirdPlacePoints)
+        thirdPlaceArrowImage = findViewById(R.id.thirdPlaceArrowImage)
+        thirdPlaceRankChange = findViewById(R.id.thirdPlaceRankChange)
+
+        // Get points and coins from preferences
+        userPoint = preference.getPoints()
+        userKoin = preference.getCoins()
+        findViewById<TextView>(R.id.userPoint).text = userPoint.toString()
+        findViewById<TextView>(R.id.userCoin).text = userKoin.toString()
+
+        // Fetch top users
         fetchTopUsers()
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
@@ -95,92 +99,94 @@ class LeaderboardActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu1 -> {
-                    val i = Intent(this, LeaderboardActivity::class.java)
-                    startActivity(i)
+                    startActivity(Intent(this, LeaderboardActivity::class.java))
                     finish()
                     true
                 }
                 R.id.menu2 -> {
-                    val i = Intent(this, FriendActivity::class.java)
-                    startActivity(i)
+                    startActivity(Intent(this, FriendActivity::class.java))
                     finish()
                     true
                 }
                 R.id.menu3 -> {
                     supportActionBar?.title = getString(R.string.menu_home)
-                    val i = Intent(this, StageSatuActivity::class.java)
-                    startActivity(i)
+                    startActivity(Intent(this, StageSatuActivity::class.java))
                     finish()
                     true
                 }
                 R.id.menu4 -> {
-                    val i = Intent(this, ShopActivity::class.java)
-                    startActivity(i)
+                    startActivity(Intent(this, ShopActivity::class.java))
                     finish()
                     true
                 }
                 R.id.menu5 -> {
-                    val i = Intent(this, ProfileActivity::class.java)
-                    startActivity(i)
+                    startActivity(Intent(this, ProfileActivity::class.java))
                     finish()
                     true
                 }
                 else -> false
             }
-
         }
     }
 
-
-    // Mengambil data top 10 pengguna terbaik dari API
     private fun fetchTopUsers() {
         ApiConfig.getApiService().getTopUsers().enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 if (response.isSuccessful) {
                     val topUsers = response.body()!!
-                    // Menetapkan data untuk pengguna dengan peringkat 1, 2, dan 3
+
+                    // Set data for top 3 users
                     if (topUsers.size >= 1) {
                         val user1 = topUsers[0]
-                        setTopUser(user1, firstPlaceAvatar, firstPlaceName, firstPlacePoints)
+                        setTopUser(user1, firstPlaceAvatar, firstPlaceName, firstPlacePoints, firstPlaceArrowImage, firstPlaceRankChange)
                     }
 
                     if (topUsers.size >= 2) {
                         val user2 = topUsers[1]
-                        setTopUser(user2, secondPlaceAvatar, secondPlaceName, secondPlacePoints)
+                        setTopUser(user2, secondPlaceAvatar, secondPlaceName, secondPlacePoints, secondPlaceArrowImage, secondPlaceRankChange)
                     }
 
                     if (topUsers.size >= 3) {
                         val user3 = topUsers[2]
-                        setTopUser(user3, thirdPlaceAvatar, thirdPlaceName, thirdPlacePoints)
+                        setTopUser(user3, thirdPlaceAvatar, thirdPlaceName, thirdPlacePoints, thirdPlaceArrowImage, thirdPlaceRankChange)
                     }
 
-                    // Menetapkan data untuk pengguna lainnya di RecyclerView
-                    if (topUsers.size > 3) {
-                        val others = topUsers.subList(3, topUsers.size)
-                        othersAdapter.setUsers(others)
-                    }
+                    // Set other users in RecyclerView
+                    val otherUsers = topUsers.drop(3)
+                    othersAdapter.setUsers(otherUsers)
                 } else {
-                    Toast.makeText(this@LeaderboardActivity, "Failed to fetch data", Toast.LENGTH_SHORT).show()
+                    Log.e("LeaderboardActivity", "Error: ${response.message()}")
                 }
                 progressBar.visibility = View.GONE
-
             }
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                Toast.makeText(this@LeaderboardActivity, t.message, Toast.LENGTH_SHORT).show()
+                Log.e("LeaderboardActivity", "Failure: ${t.message}")
                 progressBar.visibility = View.GONE
             }
         })
     }
 
-    //menampilkan data infromasi user
-    private fun setTopUser(user: User, avatar: ImageView, name: TextView, points: TextView) {
-        name.text = user.nama
-        points.text = user.point.toString()
-        if (user.profileAvatar != null) {
-            Glide.with(this)
-                .load(user.profileAvatar)
-                .into(avatar)
+    private fun setTopUser(user: User, avatarView: ImageView, nameView: TextView, pointsView: TextView, arrowImageView: ImageView, rankChangeView: TextView) {
+        Glide.with(this).load(user.profileAvatar).into(avatarView)
+        nameView.text = user.nama
+        pointsView.text = user.point.toString()
+
+        when (user.rankChange) {
+            "up" -> {
+                Glide.with(this).load(R.drawable.ic_baseline_arrow_upward_24).into(arrowImageView)
+                arrowImageView.visibility = View.VISIBLE
+                rankChangeView.text = "Up"
+            }
+            "down" -> {
+                Glide.with(this).load(R.drawable.ic_baseline_arrow_downward_24).into(arrowImageView)
+                arrowImageView.visibility = View.VISIBLE
+                rankChangeView.text = "Down"
+            }
+            else -> {
+                arrowImageView.visibility = View.GONE
+                rankChangeView.visibility = View.GONE
+            }
         }
     }
 }

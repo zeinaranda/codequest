@@ -34,5 +34,10 @@ data class User(
 
     val firstLogin: Boolean? = null,
 
+    // Add fields for arrowRank and rankChange
+    @field:SerializedName("rankArrow")
+    var arrowRank: String? = null, // "up" or "down"
 
+    @field:SerializedName("rankChange")
+    var rankChange: String? = null
 )

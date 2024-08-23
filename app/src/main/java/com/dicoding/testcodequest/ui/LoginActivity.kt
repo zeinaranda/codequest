@@ -83,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
                     preferences.setUser(user)
                     preferences.setStatusLogin(true)
                     Log.d("LoginActivity", "Login successful for User ID: ${user.userId}")
-                    Log.d("LoginActivity", "User to be saved: ${user.nama}, ${user.nim}, ${user.userId}, ${user.profileAvatar}, ${user.firstLogin}")
+                    Log.d("LoginActivity", "User to be saved: ${user.nama}, ${user.nim}, ${user.userId}, ${user.profileAvatar}, ${user.firstLogin}, ${user.ownedAvatars}")
                     Toast.makeText(applicationContext, "Login Berhasil", Toast.LENGTH_SHORT).show()
                     // Navigate to QuestionActivity
                     val intent = Intent(this@LoginActivity, StageSatuActivity::class.java)

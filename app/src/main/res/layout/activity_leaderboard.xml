@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userCoin">
@@ -107,6 +107,7 @@
             android:id="@+id/secondPlaceContainer"
             android:layout_width="110dp"
             android:layout_height="110dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="70dp"
             android:background="@drawable/bg_top_tiga"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +140,7 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginTop="70dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/bg_top_tiga"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -201,6 +203,30 @@
             app:layout_constraintStart_toStartOf="@+id/firstPlaceName"
             app:layout_constraintTop_toBottomOf="@+id/firstPlaceName" />
 
+        <ImageView
+            android:id="@+id/firstPlaceArrowImage"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/ic_baseline_arrow_upward_24"
+            app:layout_constraintBottom_toBottomOf="@+id/firstPlacePoints"
+            app:layout_constraintStart_toEndOf="@+id/firstPlacePoints"
+            app:layout_constraintTop_toTopOf="@+id/firstPlacePoints" />
+
+        <!-- TextView untuk rankChange -->
+
+        <TextView
+            android:id="@+id/firstPlaceRankChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/irish_grover"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/firstPlaceArrowImage"
+            app:layout_constraintStart_toEndOf="@+id/firstPlaceArrowImage"
+            app:layout_constraintTop_toTopOf="@+id/firstPlaceArrowImage"
+            tools:text="+3" />
+
         <TextView
             android:id="@+id/secondPlaceName"
             android:layout_width="wrap_content"
@@ -237,6 +263,30 @@
             app:layout_constraintEnd_toEndOf="@+id/secondPlaceName"
             app:layout_constraintStart_toStartOf="@+id/secondPlaceName"
             app:layout_constraintTop_toBottomOf="@+id/secondPlaceName" />
+
+        <ImageView
+            android:id="@+id/secondPlaceArrowImage"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/ic_baseline_arrow_upward_24"
+            app:layout_constraintBottom_toBottomOf="@+id/secondPlacePoints"
+            app:layout_constraintStart_toEndOf="@+id/secondPlacePoints"
+            app:layout_constraintTop_toTopOf="@+id/secondPlacePoints" />
+
+        <!-- TextView untuk rankChange -->
+
+        <TextView
+            android:id="@+id/secondPlaceRankChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/irish_grover"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/secondPlaceArrowImage"
+            app:layout_constraintStart_toEndOf="@+id/secondPlaceArrowImage"
+            app:layout_constraintTop_toTopOf="@+id/secondPlaceArrowImage"
+            tools:text="+3" />
 
         <TextView
             android:id="@+id/thirdPlaceName"
@@ -275,6 +325,29 @@
             app:layout_constraintStart_toStartOf="@+id/thirdPlaceName"
             app:layout_constraintTop_toBottomOf="@+id/thirdPlaceName" />
 
+        <ImageView
+            android:id="@+id/thirdPlaceArrowImage"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/ic_baseline_arrow_upward_24"
+            app:layout_constraintBottom_toBottomOf="@+id/thirdPlacePoints"
+            app:layout_constraintStart_toEndOf="@+id/thirdPlacePoints"
+            app:layout_constraintTop_toTopOf="@+id/thirdPlacePoints" />
+
+        <!-- TextView untuk rankChange -->
+
+        <TextView
+            android:id="@+id/thirdPlaceRankChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/irish_grover"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/thirdPlaceArrowImage"
+            app:layout_constraintStart_toEndOf="@+id/thirdPlaceArrowImage"
+            app:layout_constraintTop_toTopOf="@+id/thirdPlaceArrowImage"
+            tools:text="+3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
