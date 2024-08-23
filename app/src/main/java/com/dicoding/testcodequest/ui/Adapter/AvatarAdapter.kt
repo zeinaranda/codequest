@@ -10,10 +10,11 @@ class AvatarAdapter(private val listAvatar: ArrayList<Avatar>) : RecyclerView.Ad
     private lateinit var binding: ShopRowBinding
     private val maxItems = 21
 
+    // Mengatur daftar avatar dan membatasi jumlah item yang ditampilkan
     fun setList (avatar: List<Avatar>){
-        listAvatar.clear()
-        listAvatar.addAll(avatar.take(maxItems))
-        notifyDataSetChanged()
+        listAvatar.clear()    // Menghapus semua item dari daftar
+        listAvatar.addAll(avatar.take(maxItems))         // Menambahkan item yang diambil dari daftar avatar dengan batas maksimum
+        notifyDataSetChanged()         // Memberitahu RecyclerView bahwa data telah diubah
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -40,6 +41,7 @@ class AvatarAdapter(private val listAvatar: ArrayList<Avatar>) : RecyclerView.Ad
 
     class ViewHolder(private var binding: ShopRowBinding, private val onItemClickCallback: OnItemClickCallback) :
         RecyclerView.ViewHolder(binding.root) {
+        // menampilkan data avatar ke tampilan item
         fun bind(avatar: Avatar) {
             binding.tvPrice.text = avatar.priceAvatar.toString()
             avatar.imageAvatar?.let { binding.imageAvatar.setImageUrl(it) }
@@ -55,65 +57,3 @@ class AvatarAdapter(private val listAvatar: ArrayList<Avatar>) : RecyclerView.Ad
 }
 
 
-//package com.dicoding.testcodequest.ui.Adapter
-//
-//import android.view.LayoutInflater
-//import android.view.ViewGroup
-//import androidx.recyclerview.widget.AsyncListDiffer
-//import androidx.recyclerview.widget.DiffUtil
-//import androidx.recyclerview.widget.ListAdapter
-//import androidx.recyclerview.widget.RecyclerView
-//import com.bumptech.glide.Glide
-//import com.dicoding.testcodequest.data.response.Avatar
-//import com.dicoding.testcodequest.databinding.ShopRowBinding
-//import com.dicoding.testcodequest.utils.setImageUrl
-//
-//class AvatarAdapter : RecyclerView.Adapter<AvatarAdapter.ViewHolder>() {
-//
-//    private val differCallback = object : DiffUtil.ItemCallback<Avatar>(){
-//        override fun areItemsTheSame(oldItem: Avatar, newItem: Avatar): Boolean =
-//            oldItem == newItem
-//
-//        override fun areContentsTheSame(oldItem: Avatar, newItem: Avatar): Boolean =
-//            oldItem == newItem
-//    }
-//
-//    private val listDiffer = AsyncListDiffer(this, differCallback)
-//    var setData: List<Avatar>
-//        get() = listDiffer.currentList
-//        set(value) = listDiffer.submitList(value)
-//
-//    private var listener: ((Avatar) -> Unit)? = null
-//    fun setOnItemClick(listener: ((Avatar) -> Unit)?){
-//        this.listener = listener
-//    }
-//
-//    private var listenerDetail: ((Avatar) -> Unit)? = null
-//    fun setOnDetailItemClick(listener: ((Avatar) -> Unit)?){
-//        this.listenerDetail = listener
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val binding = ShopRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        return ViewHolder(binding)
-//    }
-//
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.bind(setData[position], listener, listenerDetail)
-//    }
-//
-//    override fun getItemCount(): Int = setData.size
-//
-//    inner class ViewHolder(private val binding: ShopRowBinding) : RecyclerView.ViewHolder(binding.root){
-//        fun bind(data: Avatar, listener: ((Avatar) -> Unit)?, listenerDetail: ((Avatar) -> Unit)?){
-//            with(binding){
-//                tvPrice.text = data.priceAvatar.toString()
-//                imageAvatar.setImageUrl(data.imageAvatar.toString())
-//
-//
-//
-//            }
-//        }
-//    }
-//
-//}

@@ -33,7 +33,7 @@ interface ApiService {
         @Body progressPoint: ProgressPoint
     ): Call<Void>
 
-    @GET("/userstage/user/{userId}/stage/{stageId}/completion")
+    @GET("/bossdone/user/{userId}/stage/{stageId}/completion")
     fun checkStageCompletion(
         @Path("userId") userId: Int,
         @Path("stageId") stageId: Int

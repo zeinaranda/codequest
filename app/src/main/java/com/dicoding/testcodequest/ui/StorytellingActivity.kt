@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.dicoding.testcodequest.R
+import com.dicoding.testcodequest.data.preference.AuthPreference
 import com.dicoding.testcodequest.data.response.Storytelling
 import com.dicoding.testcodequest.data.retrofit.ApiConfig
 import com.dicoding.testcodequest.data.retrofit.ApiService
@@ -48,6 +49,7 @@ class StorytellingActivity : AppCompatActivity() {
     private var currentStoryIndex: Int = 0
     private var materiId: Int = 0
     private var codeScene: String? = null
+    private lateinit var preference: AuthPreference
     private var avatarImage: String? = null
     private var avatarName: String? = null
 
@@ -63,7 +65,7 @@ class StorytellingActivity : AppCompatActivity() {
         val correctAnswers = intent.getIntExtra("correctAnswers", 0)
         val wrongAnswers = intent.getIntExtra("wrongAnswers", 0)
 
-
+        preference = AuthPreference(this)
         val btnBack: ImageView = findViewById(R.id.btn_back)
         btnBack.setOnClickListener {
             when (codeScene) {
@@ -206,7 +208,19 @@ class StorytellingActivity : AppCompatActivity() {
             tvAvatarName.text = storytelling.namaAvatar
             tvAvatarName.visibility = View.VISIBLE
 
-            if (storytelling.imageAvatar != null && storytelling.imageAvatar.isNotEmpty()) {
+            // Check if avatarId is 2, and if so, load imageAvatar from preferences
+            if (storytelling.avatarId == 2) {
+                val avatarImageUrl = preference.getProfileAvatarUrl()  // Assume this method fetches from SharedPreferences
+                if (!avatarImageUrl.isNullOrEmpty()) {
+                    ivAvatarImage.visibility = View.VISIBLE
+                    Glide.with(this)
+                        .load(avatarImageUrl)
+                        .apply(RequestOptions().dontTransform())
+                        .into(ivAvatarImage)
+                } else {
+                    ivAvatarImage.visibility = View.GONE
+                }
+            } else if (storytelling.imageAvatar != null && storytelling.imageAvatar.isNotEmpty()) {
                 ivAvatarImage.visibility = View.VISIBLE
                 Glide.with(this)
                     .load(storytelling.imageAvatar)
@@ -220,6 +234,7 @@ class StorytellingActivity : AppCompatActivity() {
             ivAvatarImage.visibility = View.GONE
         }
     }
+
 
     private fun shouldNavigateToQuestionActivity(codeScene: String?): Boolean {
         return codeScene in listOf("b1", "b2", "b3", "b4", "b5", "b6", "b7")

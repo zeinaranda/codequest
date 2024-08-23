@@ -28,6 +28,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class BossEnamActivity : AppCompatActivity() {
+    // Deklarasi variabel-variabel UI dan data yang akan digunakan dalam activity
     private lateinit var questionText: TextView
     private lateinit var timerText: TextView
     private lateinit var questionCounter: TextView
@@ -40,13 +41,16 @@ class BossEnamActivity : AppCompatActivity() {
     private var currentPoints: Int = 0
     private var currentCoins: Int = 0
 
+    // Handler untuk mengelola operasi asynchronous
     private val handler = Handler(Looper.getMainLooper())
     private var call: Call<List<Question>>? = null
 
+    // Daftar pertanyaan dan indeks pertanyaan saat ini
     private var questions = mutableListOf<Question>()
     private var currentQuestionIndex = 0
     private var stageTimer: CountDownTimer? = null
 
+    // Variabel untuk menyimpan poin, koin, dan jumlah jawaban benar atau salah
     private var points = 0
     private var coins = 0
     private var correctAnswersCount = 0
@@ -56,16 +60,19 @@ class BossEnamActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_boss_enam)
 
+        // Mengatur tombol kembali untuk menuju ke StageActivity
         val btn_back : ImageView = findViewById(R.id.btn_back)
         btn_back.setOnClickListener {
             startActivity(Intent(this, StageEnamActivity::class.java))
             finish()
         }
 
+        // Mengambil userId dari preference
         preference = AuthPreference(this)
         userId = preference.getId()
         Log.d("BossSatuActivity", "User ID from Preference: $userId") // Cek userId dari preference
 
+        // Menginisialisasi komponen UI
         questionText = findViewById(R.id.questionText)
         timerText = findViewById(R.id.timerText)
         questionCounter = findViewById(R.id.questionCounter)
@@ -74,31 +81,33 @@ class BossEnamActivity : AppCompatActivity() {
         option3 = findViewById(R.id.option3)
         option4 = findViewById(R.id.option4)
 
+        // Mengatur listener untuk tombol-tombol jawaban
         option1.setOnClickListener { handleOptionClick(option1) }
         option2.setOnClickListener { handleOptionClick(option2) }
         option3.setOnClickListener { handleOptionClick(option3) }
         option4.setOnClickListener { handleOptionClick(option4) }
 
-        // Load GIF 1 on start
+        // Memuat GIF awal
         loadGif("url_gif_1")
 
+        // Memulai proses mengambil pertanyaan dan timer stage
         fetchQuestions()
         startStageTimer()
     }
 
     private fun handleOptionClick(selectedOption: Button) {
-        // Disable all buttons to prevent multiple clicks
+        // Menonaktifkan tombol untuk mencegah klik ganda
         disableButtons()
 
-        // Check the answer
+        // Memeriksa jawaban yang dipilih
         checkAnswer(selectedOption)
 
-        // Re-enable buttons after showing feedback and before the next question
+        // Mengaktifkan kembali tombol dan menampilkan pertanyaan berikutnya setelah umpan balik ditampilkan
         Handler(Looper.getMainLooper()).postDelayed({
             resetButtonStyles()
             enableButtons()
 
-            // Proceed to the next question if available
+            // Lanjut ke pertanyaan berikutnya jika masih tersedia
             if (currentQuestionIndex < 24) {
                 currentQuestionIndex++
                 showQuestion()
@@ -109,6 +118,7 @@ class BossEnamActivity : AppCompatActivity() {
         }, 1300) // Jeda 1,3 detik untuk umpan balik
     }
 
+    // Menonaktifkan semua tombol jawaban
     private fun disableButtons() {
         option1.isEnabled = false
         option2.isEnabled = false
@@ -116,6 +126,7 @@ class BossEnamActivity : AppCompatActivity() {
         option4.isEnabled = false
     }
 
+    // Mengaktifkan kembali semua tombol jawaban
     private fun enableButtons() {
         option1.isEnabled = true
         option2.isEnabled = true
@@ -123,6 +134,7 @@ class BossEnamActivity : AppCompatActivity() {
         option4.isEnabled = true
     }
 
+    // Mengambil daftar pertanyaan dari API
     private fun fetchQuestions() {
         ApiConfig.getApiService().getQuestions(6).enqueue(object : Callback<List<Question>> {
             override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
@@ -143,6 +155,7 @@ class BossEnamActivity : AppCompatActivity() {
     }
 
     private fun showQuestion() {
+        // Menampilkan pertanyaan berdasarkan indeks saat ini
         if (currentQuestionIndex < questions.size) {
             val question = questions[currentQuestionIndex]
             questionText.text = question.content
@@ -152,18 +165,19 @@ class BossEnamActivity : AppCompatActivity() {
             option4.text = question.choicesFour
             resetButtonStyles()
 
-            // Update the question counter
+            // Mengupdate counter pertanyaan
             questionCounter.text = "Soal ke- ${currentQuestionIndex + 1}/25"
 
-            // Load GIF 1 for new question
+            // Memuat GIF untuk setiap pertanyaan baru
             loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_rayne stand.gif")
         } else {
             Toast.makeText(this, "Quiz completed!", Toast.LENGTH_SHORT).show()
-            finishQuiz()
+            finishQuiz() // Mengakhiri kuis jika tidak ada lagi pertanyaan
         }
     }
 
     private fun checkAnswer(selectedOption: Button) {
+        // Memeriksa apakah jawaban yang dipilih benar atau salah
         val correctAnswer = questions[currentQuestionIndex].correctAnswer
         if (selectedOption.text == correctAnswer) {
             selectedOption.background = ContextCompat.getDrawable(this, R.drawable.option_button_correct)
@@ -172,7 +186,7 @@ class BossEnamActivity : AppCompatActivity() {
             coins += 100
             correctAnswersCount++
 
-            // Load GIF 2 for correct answer
+            // Memuat GIF untuk jawaban benar
             loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_rayne boom.gif")
         } else {
             selectedOption.background = ContextCompat.getDrawable(this, R.drawable.option_button_wrong)
@@ -183,6 +197,7 @@ class BossEnamActivity : AppCompatActivity() {
     }
 
     private fun resetButtonStyles() {
+        // Mengembalikan gaya tombol ke keadaan semula
         option1.background = ContextCompat.getDrawable(this, R.drawable.option_button_normal)
         option2.background = ContextCompat.getDrawable(this, R.drawable.option_button_normal)
         option3.background = ContextCompat.getDrawable(this, R.drawable.option_button_normal)
@@ -192,14 +207,16 @@ class BossEnamActivity : AppCompatActivity() {
     private fun startStageTimer() {
         stageTimer?.cancel() // Batalkan timer sebelumnya jika ada
 
-        stageTimer = object : CountDownTimer(3600000, 1000) { // 10 menit untuk stage
+        stageTimer = object : CountDownTimer(3600000, 1000) { // 60 menit untuk stage
             override fun onTick(millisUntilFinished: Long) {
+                // Mengupdate tampilan timer setiap detik
                 val minutes = millisUntilFinished / 60000
                 val seconds = (millisUntilFinished % 60000) / 1000
                 timerText.text = String.format("Time Left: %02d:%02d", minutes, seconds)
             }
 
             override fun onFinish() {
+                // Timer selesai, tampilkan pesan dan arahkan pengguna ke ResultActivity atau akhiri kuis
                 Toast.makeText(this@BossEnamActivity, "Time's up!", Toast.LENGTH_SHORT).show()
                 if (points == 0) {
                     navigateToResultActivity() // Langsung ke ResultActivity jika poin adalah 0
@@ -214,6 +231,7 @@ class BossEnamActivity : AppCompatActivity() {
 
 
     private fun finishQuiz() {
+        // Mengupdate poin dan koin pengguna, serta menyelesaikan kuis
         updateUserPointsAndCoins()
         updateBossDone()
         Toast.makeText(this, "Quiz Finished!", Toast.LENGTH_SHORT).show()
@@ -228,6 +246,7 @@ class BossEnamActivity : AppCompatActivity() {
             avatarImage = "https://mr4vffpk-3000.asse.devtunnels.ms/images/image_rayne.png"
             avatarName = "Avatar Rayne"
 
+            // Berpindah ke StorytellingActivity dengan jeda 2 detik jika poin mencukupi
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = Intent(this, StorytellingActivity::class.java).apply {
                     putExtra("points", points)
@@ -242,6 +261,7 @@ class BossEnamActivity : AppCompatActivity() {
                 finish()
             }, 2000)
         } else {
+            // Jika poin tidak mencukupi, menuju ResultActivity
             loadGif("https://mr4vffpk-3000.asse.devtunnels.ms/images/image_rayne stand.gif")
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = Intent(this, ResultActivity::class.java).apply {
@@ -254,12 +274,12 @@ class BossEnamActivity : AppCompatActivity() {
                 finish()
             }, 1500)
         }
-
     }
 
     private fun updateBossDone() {
-        val userId = userId // Ganti dengan userId yang sesuai
-        val bossId = 6 // Ganti dengan bossId yang sesuai
+        // Memperbarui status BossDone di backend
+        val userId = userId
+        val bossId = 6
         val point = points
         val koin = coins
 
@@ -290,6 +310,7 @@ class BossEnamActivity : AppCompatActivity() {
         }
     }
     private fun updateUserPointsAndCoins() {
+        // Memperbarui poin dan koin pengguna ke API
         userId?.let { id ->
             // Fetch the current user data
             ApiConfig.getApiService().getUserById(id).enqueue(object : Callback<User> {
@@ -348,6 +369,7 @@ class BossEnamActivity : AppCompatActivity() {
     }
 
     private fun updateProgress(userId: Int, stageId: Int, progressPoint: Int) {
+        //post userId, stageId, dan progress point ke userstage
         val progress = ProgressPoint(progressPoint, "Boss Fight")
         val call = ApiConfig.getApiService().updateUserStageProgress(userId, stageId, progress)
         call.enqueue(object : Callback<Void> {

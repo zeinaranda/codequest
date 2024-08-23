@@ -47,6 +47,7 @@ class LeaderboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_leaderboard)
 
+        // Inisialisasi AuthPreference untuk mengambil data pengguna dari shared preferences
         preference = AuthPreference(this)
 
         // Inisialisasi progressBar
@@ -55,15 +56,18 @@ class LeaderboardActivity : AppCompatActivity() {
         // Atur visibilitas progressBar menjadi visible sebelum memulai fetching data
         progressBar.visibility = View.VISIBLE
 
+        // Mengambil data poin dan koin dari preferences
         userPoint = preference.getPoints()
         userKoin = preference.getCoins()
 
+        // Menampilkan poin dan koin pengguna di UI
         val pointsText = findViewById<TextView>(R.id.userPoint)
         pointsText.text = userPoint.toString()
 
         val coinsText = findViewById<TextView>(R.id.userCoin)
         coinsText.text = userKoin.toString()
 
+        // Inisialisasi elemen UI untuk leaderboard
         firstPlaceAvatar = findViewById(R.id.firstPlaceAvatar)
         firstPlaceName = findViewById(R.id.firstPlaceName)
         firstPlacePoints = findViewById(R.id.firstPlacePoints)
@@ -74,11 +78,13 @@ class LeaderboardActivity : AppCompatActivity() {
         thirdPlaceName = findViewById(R.id.thirdPlaceName)
         thirdPlacePoints = findViewById(R.id.thirdPlacePoints)
 
+        // Inisialisasi RecyclerView untuk menampilkan daftar pengguna lainnya
         recyclerViewOthers = findViewById(R.id.recyclerViewOthers)
         recyclerViewOthers.layoutManager = LinearLayoutManager(this)
         othersAdapter = LeaderboardAdapter()
         recyclerViewOthers.adapter = othersAdapter
 
+        // Mengambil data pengguna top 10 user dari API
         fetchTopUsers()
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
@@ -126,13 +132,13 @@ class LeaderboardActivity : AppCompatActivity() {
     }
 
 
-
+    // Mengambil data top 10 pengguna terbaik dari API
     private fun fetchTopUsers() {
         ApiConfig.getApiService().getTopUsers().enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 if (response.isSuccessful) {
                     val topUsers = response.body()!!
-
+                    // Menetapkan data untuk pengguna dengan peringkat 1, 2, dan 3
                     if (topUsers.size >= 1) {
                         val user1 = topUsers[0]
                         setTopUser(user1, firstPlaceAvatar, firstPlaceName, firstPlacePoints)
@@ -148,6 +154,7 @@ class LeaderboardActivity : AppCompatActivity() {
                         setTopUser(user3, thirdPlaceAvatar, thirdPlaceName, thirdPlacePoints)
                     }
 
+                    // Menetapkan data untuk pengguna lainnya di RecyclerView
                     if (topUsers.size > 3) {
                         val others = topUsers.subList(3, topUsers.size)
                         othersAdapter.setUsers(others)
@@ -166,6 +173,7 @@ class LeaderboardActivity : AppCompatActivity() {
         })
     }
 
+    //menampilkan data infromasi user
     private fun setTopUser(user: User, avatar: ImageView, name: TextView, points: TextView) {
         name.text = user.nama
         points.text = user.point.toString()

@@ -31,6 +31,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class KnowledgeActivity : AppCompatActivity() {
+    // Deklarasi variabel-variabel UI dan data yang akan digunakan dalam activity
     private var userPoint: Int? = null
     private var userKoin: Int? = null
     private lateinit var questionText: TextView
@@ -46,19 +47,22 @@ class KnowledgeActivity : AppCompatActivity() {
     private var currentPoints: Int = 0
     private var currentCoins: Int = 0
 
+    // Handler untuk mengelola operasi asynchronous
     private val handler = Handler(Looper.getMainLooper())
     private var call: Call<List<Question>>? = null
 
+    // Daftar pertanyaan dan indeks pertanyaan saat ini
     private var questions = mutableListOf<Question>()
     private var currentQuestionIndex = 0
     private var stageTimer: CountDownTimer? = null
 
+    // Variabel untuk menyimpan poin, koin, dan jumlah jawaban benar atau salah
     private var points = 0
     private var coins = 0
     private var correctAnswersCount = 0
     private var wrongAnswersCount = 0
 
-    private var knowledgeId: Int? = null // Variable to store knowledgeId
+    private var knowledgeId: Int? = null // Variable untuk menyimpan knowledgeId
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,20 +83,15 @@ class KnowledgeActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        preference = AuthPreference(this)
 
+        // Mengambil data dari preference
+        preference = AuthPreference(this)
         userPoint = preference.getPoints()
         userKoin = preference.getCoins()
-
-//        val pointsText = findViewById<TextView>(R.id.userPoint)
-//        pointsText.text = userPoint.toString()
-//
-//        val coinsText = findViewById<TextView>(R.id.userCoin)
-//        coinsText.text = userKoin.toString()
-
         userId = preference.getId()
         Log.d("QuestionActivity", "User ID from Preference: $userId") // Cek userId dari preference
 
+        // Menginisialisasi komponen UI
         questionText = findViewById(R.id.questionText)
         timerText = findViewById(R.id.timerText)
         option1 = findViewById(R.id.option1)
@@ -101,6 +100,7 @@ class KnowledgeActivity : AppCompatActivity() {
         option4 = findViewById(R.id.option4)
         answerFeedback = findViewById(R.id.answerFeedback)
 
+        // Mengatur listener untuk tombol-tombol jawaban
         option1.setOnClickListener { handleOptionClick(option1) }
         option2.setOnClickListener { handleOptionClick(option2) }
         option3.setOnClickListener { handleOptionClick(option3) }
@@ -118,18 +118,18 @@ class KnowledgeActivity : AppCompatActivity() {
     }
 
     private fun handleOptionClick(selectedOption: Button) {
-        // Disable all buttons to prevent multiple clicks
+        // Menonaktifkan tombol untuk mencegah klik ganda
         disableButtons()
 
-        // Check the answer
+        // Memeriksa jawaban yang dipilih
         checkAnswer(selectedOption)
 
-        // Re-enable buttons after showing feedback and before the next question
+        // Mengaktifkan kembali tombol dan menampilkan pertanyaan berikutnya setelah umpan balik ditampilkan
         Handler(Looper.getMainLooper()).postDelayed({
             resetButtonStyles()
             enableButtons()
 
-            // Proceed to the next question if available
+            // Lanjut ke pertanyaan berikutnya jika masih tersedia
             if (currentQuestionIndex < 3) {
                 currentQuestionIndex++
                 showQuestion()
@@ -140,7 +140,7 @@ class KnowledgeActivity : AppCompatActivity() {
         }, 1300) // Jeda 1,3 detik untuk umpan balik
     }
 
-
+    // Menonaktifkan semua tombol jawaban
     private fun disableButtons() {
         option1.isEnabled = false
         option2.isEnabled = false
@@ -148,6 +148,7 @@ class KnowledgeActivity : AppCompatActivity() {
         option4.isEnabled = false
     }
 
+    // Mengaktifkan kembali semua tombol jawaban
     private fun enableButtons() {
         option1.isEnabled = true
         option2.isEnabled = true
@@ -156,6 +157,7 @@ class KnowledgeActivity : AppCompatActivity() {
     }
 
     private fun fetchQuestions() {
+        // Mengambil daftar pertanyaan dari API
         ApiConfig.getApiService().getQuestionsByKnowledge(knowledgeId ?: 0).enqueue(object :
             Callback<List<Question>> {
             override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
@@ -176,6 +178,7 @@ class KnowledgeActivity : AppCompatActivity() {
     }
 
     private fun showQuestion() {
+        // Menampilkan pertanyaan berdasarkan indeks saat ini
         if (currentQuestionIndex < questions.size) {
             val question = questions[currentQuestionIndex]
             questionText.text = question.content
@@ -190,11 +193,12 @@ class KnowledgeActivity : AppCompatActivity() {
             answerFeedback.visibility = TextView.VISIBLE
         } else {
             Toast.makeText(this, "Quiz completed!", Toast.LENGTH_SHORT).show()
-            finishQuiz()
+            finishQuiz() // Mengakhiri kuis jika tidak ada lagi pertanyaan
         }
     }
 
     private fun checkAnswer(selectedOption: Button) {
+        // Memeriksa apakah jawaban yang dipilih benar atau salah
         val correctAnswer = questions[currentQuestionIndex].correctAnswer
         if (selectedOption.text == correctAnswer) {
             selectedOption.background = ContextCompat.getDrawable(this, R.drawable.option_button_correct)
@@ -217,6 +221,7 @@ class KnowledgeActivity : AppCompatActivity() {
     }
 
     private fun resetButtonStyles() {
+        // Mengembalikan gaya tombol ke keadaan semula
         option1.background = ContextCompat.getDrawable(this, R.drawable.option_button_normal)
         option2.background = ContextCompat.getDrawable(this, R.drawable.option_button_normal)
         option3.background = ContextCompat.getDrawable(this, R.drawable.option_button_normal)
@@ -228,6 +233,7 @@ class KnowledgeActivity : AppCompatActivity() {
 
         stageTimer = object : CountDownTimer(300000, 1000) { // 10 menit untuk stage
             override fun onTick(millisUntilFinished: Long) {
+                // Mengupdate tampilan timer setiap detik
                 val minutes = millisUntilFinished / 60000
                 val seconds = (millisUntilFinished % 60000) / 1000
                 timerText.text = String.format("Time Left: %02d:%02d", minutes, seconds)
@@ -246,6 +252,7 @@ class KnowledgeActivity : AppCompatActivity() {
     }
 
     private fun finishQuiz() {
+        // Mengupdate poin dan koin pengguna, serta menyelesaikan kuis
         updateUserPointsAndCoins()
 
         updateKnowledgeDone()
@@ -259,7 +266,7 @@ class KnowledgeActivity : AppCompatActivity() {
             answerFeedback.text = "It's ok.. you can try it again"
             answerFeedback.visibility = TextView.VISIBLE        }
 
-        // Start ShopActivity after delay
+        // Berpindah ke Resulr Knowledge Activity setelah delay
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, ResultKnowledgeActivity::class.java).apply {
                 putExtra("points", points)
@@ -274,7 +281,8 @@ class KnowledgeActivity : AppCompatActivity() {
     }
 
     private fun updateKnowledgeDone() {
-        val userId = userId // Ganti dengan userId yang sesuai
+        // Memperbarui status KnowledgeDone di backend
+        val userId = userId
         val point = points
         val koin = coins
 
@@ -303,6 +311,7 @@ class KnowledgeActivity : AppCompatActivity() {
     }
 
     private fun updateUserPointsAndCoins() {
+        // Memperbarui poin dan koin pengguna ke API
         userId?.let { id ->
             // Fetch the current user data
             ApiConfig.getApiService().getUserById(id).enqueue(object : Callback<User> {
@@ -356,6 +365,7 @@ class KnowledgeActivity : AppCompatActivity() {
     }
 
     private fun updateProgress(userId: Int, knowledgeId: Int, progressPoint: Int) {
+        //post userId, knowledgeId, dan progress point ke userstage
         val stageId = when (knowledgeId) {
             1, 2 -> 1
             3, 4 -> 2
@@ -366,7 +376,7 @@ class KnowledgeActivity : AppCompatActivity() {
             13, 14 -> 7
             else -> 1 // Default ke stage 1 jika knowledgeId tidak sesuai
         }
-        // Determine course based on knowledgeId
+        // Menentukan course based on knowledgeId
         val course = if (knowledgeId % 2 == 0) "Course 2" else "Course 1"
         Log.d("KnowledgeActivity", "Course: $course") // Log the course
 
