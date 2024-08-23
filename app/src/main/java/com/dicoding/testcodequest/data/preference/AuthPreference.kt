@@ -2,6 +2,8 @@ package com.dicoding.testcodequest.data.preference
 
 import android.content.Context
 import com.dicoding.testcodequest.data.response.User
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class AuthPreference(context: Context) {
     private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -92,7 +94,18 @@ class AuthPreference(context: Context) {
         editor.clear().apply()
     }
 
+    fun setOwnedAvatars(avatars: List<Int>) {
+        val editor = preferences.edit()
+        val json = Gson().toJson(avatars)
+        editor.putString("owned_avatars", json)
+        editor.apply()
+    }
 
+    fun getOwnedAvatars(): List<Int> {
+        val json = preferences.getString("owned_avatars", "[]")
+        val type = object : TypeToken<List<Int>>() {}.type
+        return Gson().fromJson(json, type)
+    }
 
     companion object {
         private const val PREFS_NAME = "prefs_name"

@@ -3,6 +3,7 @@ package com.dicoding.testcodequest.ui
 import AvatarAdapter
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -40,6 +41,7 @@ class ShopActivity : AppCompatActivity() {
     private var obtainMethod: String? = "shop"
     private val requiredCoins = 1000
     private var userId: Int? = null
+    private lateinit var ownedAvatars: Set<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +56,8 @@ class ShopActivity : AppCompatActivity() {
         userPoint = authPreference.getPoints()
         userKoin = authPreference.getCoins()
 
+        ownedAvatars = authPreference.getOwnedAvatars().toSet()
+
         val pointsText = findViewById<TextView>(R.id.userPoint)
         pointsText.text = userPoint.toString()
 
@@ -63,8 +67,10 @@ class ShopActivity : AppCompatActivity() {
         userId = authPreference.getId() // Ambil userId dari preferences
 
         preferences = ShopPreference(this)
-        adapter = AvatarAdapter(list)
+        adapter = AvatarAdapter(list, ownedAvatars)
         adapter.notifyDataSetChanged()
+        Log.d("ShopActivity", "Owned Avatars: $ownedAvatars")
+
 
         viewModel = ViewModelProvider(this, ShopViewModelFactory()).get(ShopViewModel::class.java)
 
@@ -210,6 +216,8 @@ class ShopActivity : AppCompatActivity() {
                                 if (response.isSuccessful) {
                                     Toast.makeText(this@ShopActivity, "Avatar berhasil dibeli", Toast.LENGTH_SHORT).show()
                                     authPreference.setCoins(newKoin)
+                                    authPreference.setOwnedAvatars(updatedOwnedAvatars ?: emptyList())
+                                    adapter.notifyDataSetChanged()
                                 } else {
                                     Toast.makeText(this@ShopActivity, "Gagal memperbarui koin", Toast.LENGTH_SHORT).show()
                                 }

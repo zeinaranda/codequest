@@ -1,6 +1,8 @@
 package com.dicoding.testcodequest.ui.Adapter
 
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,8 +64,10 @@ class OwnedAdapter(
             // Jika tidak dimiliki, tampilkan versi monokrom
             Glide.with(holder.itemView.context)
                 .load(avatar.imageAvatar)
-                .apply(RequestOptions().transform(jp.wasabeef.glide.transformations.GrayscaleTransformation()))
                 .into(holder.avatarImageView)
+
+            // Apply grayscale color filter
+            holder.avatarImageView.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
 
             // Jangan set OnClickListener untuk avatar yang tidak dimiliki
             holder.itemView.setOnClickListener(null)
